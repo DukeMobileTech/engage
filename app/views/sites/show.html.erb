@@ -1,0 +1,49 @@
+
+  <div class="row">
+    <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+      <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="sidebarMenuLabel"><%= @site.name %></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <%= link_to "Details", @site, class: "nav-link d-flex align-items-center gap-2" %>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                Participants
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+                Sections
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="card">
+        <p style="color: green"><%= notice %></p>
+
+        <div class="card-header">
+          <h3><%= @site.name %></h3>
+        </div>
+
+        <div class="card-body">
+          <%= render @site %>
+        </div>
+
+        <div class="m-5 d-flex flex-row-reverse">
+          <%= link_to "Edit this site", edit_site_path(@site), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+

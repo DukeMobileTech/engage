@@ -1,0 +1,47 @@
+<%= form_with(model: site) do |form| %>
+  <% if site.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
+
+      <ul>
+        <% site.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Please enter the name of the site" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :code, class: "form-label" unless site.new_record? %>
+    <%= form.text_field :code, class: "form-control" unless site.new_record? %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :state, class: "form-label" %>
+    <%= form.select :state, [[], ['NC', 'NC'], ['SC', 'SC']], {}, { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :county, class: "form-label" %>
+    <%= form.text_field :county, class: "form-control", placeholder: "Please enter the name of the county" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :urbanicity, class: "form-label" %>
+    <%= form.select :urbanicity, [[], ['Urban', 'Urban'], ['Suburban', 'Suburban'], ['Rural', 'Rural']], {}, { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :setting, class: "form-label" %>
+    <%= form.select :setting, [[], ['In School', 'In School'], ['Community Based', 'Community Based'], ['Juvenile Justice', 'Juvenile Justice'], ['Foster Care', 'Foster Care'], ['Clinic Based', 'Clinic Based'], ['Online', 'Online']], {}, { class: "form-select" } %>
+  </div>
+
+  <div class="d-flex flex-row-reverse">
+    <%= form.submit class: 'btn btn-success' %>
+  </div>
+<% end %>
