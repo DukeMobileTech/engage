@@ -17,6 +17,15 @@
 #  index_sites_on_code  (code) UNIQUE
 #
 class Site < ApplicationRecord
+  has_many :site_participants
+  has_many :participants, through: :site_participants
+
+  validates :name, presence: true
+  validates :county, presence: true
+  validates :state, presence: true
+  validates :setting, presence: true
+  validates :urbanicity, presence: true
+
   before_create :assign_code
 
   private

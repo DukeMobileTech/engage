@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_22_145149) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_03_155909) do
+  create_table "participants", force: :cascade do |t|
+    t.string "name"
+    t.string "study_id"
+    t.string "category", default: "Youth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["study_id"], name: "index_participants_on_study_id", unique: true
+  end
+
+  create_table "site_participants", force: :cascade do |t|
+    t.integer "site_id", null: false
+    t.integer "participant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_site_participants_on_participant_id"
+    t.index ["site_id"], name: "index_site_participants_on_site_id"
+  end
+
   create_table "sites", force: :cascade do |t|
     t.string "name"
     t.string "code", null: false
@@ -22,4 +40,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_22_145149) do
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_sites_on_code", unique: true
   end
+
+  add_foreign_key "site_participants", "participants"
+  add_foreign_key "site_participants", "sites"
 end

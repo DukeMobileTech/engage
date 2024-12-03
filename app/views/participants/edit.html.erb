@@ -1,0 +1,18 @@
+<div class="row">
+  <%= render partial: "sites/sidebar", locals: { site: @site } %>
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="card">
+      <% content_for :title, "Editing participant" %>
+      <div class="card-header">
+        <h4><%= @site.name %></h4>
+      </div>
+      <div class="card-body">
+        <%= render "form", participant: @participant, site: @site %>
+      </div>
+
+      <div class="m-1">
+        <%= link_to "Show this participant", site_participant_path(@site, @participant), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,26 @@
+<div class="row">
+  <%= render partial: "sites/sidebar", locals: { site: @site } %>
+
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="card">
+      <p style="color: green"><%= notice %></p>
+
+      <div class="card-header">
+        <h4><%= @site.name %></h4>
+      </div>
+
+      <div class="card-body">
+        <%= render @participant %>
+      </div>
+
+      <div class="m-5 d-flex flex-row-reverse">
+        <%= link_to "Edit this participant", edit_site_participant_path(@site, @participant), class: 'btn btn-primary' %>
+      </div>
+
+      <h4 class="text-center">Demographics</h4>
+      <div class="text-center mb-2">
+        <button class="btn btn-primary">Update Demographic Info</button>
+      </div>
+    </div>
+  </main>
+</div>
