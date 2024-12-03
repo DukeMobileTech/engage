@@ -19,6 +19,7 @@
 class Site < ApplicationRecord
   has_many :site_participants
   has_many :participants, through: :site_participants
+  has_many :sections
 
   validates :name, presence: true
   validates :county, presence: true

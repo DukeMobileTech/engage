@@ -1,0 +1,37 @@
+<div class="row">
+  <%= render partial: "sites/sidebar", locals: { site: @site } %>
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
+    <div class="card">
+      <div class="card-header">
+        <p style="color: green"><%= notice %></p>
+        <% content_for :title, "Sections" %>
+        <h4><%= @site.name %></h4>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Curriculum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @sections.each do |section| %>
+              <tr>
+                <td><%= link_to section.name, site_section_path(@site, section) %></td>
+                <td><%= section.start_date.strftime("%F") %></td>
+                <td><%= section.end_date.strftime("%F") %></td>
+                <td><%= section.curriculum.title %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="d-flex flex-row-reverse">
+          <%= link_to "Start New Section", new_site_section_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

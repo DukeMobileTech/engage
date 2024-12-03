@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  resources :curriculums do
+    resources :lessons
+  end
   resources :sites do
     resources :participants
+    resources :sections
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

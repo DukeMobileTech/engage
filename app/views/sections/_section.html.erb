@@ -1,0 +1,27 @@
+<div id="<%= dom_id section %>">
+  <p>
+    <strong>Name:</strong>
+    <%= section.name %>
+  </p>
+
+  <p>
+    <strong>Start date:</strong>
+    <%= section.start_date.strftime("%F") %>
+  </p>
+
+  <p>
+    <strong>End date:</strong>
+    <%= section.end_date.strftime("%F") %>
+  </p>
+
+  <p>
+    <strong>Curriculum:</strong>
+    <%= section.curriculum.title %>
+  </p>
+
+  <p>
+    <strong>Site:</strong>
+    <%= section.site.name %>
+  </p>
+
+</div>
