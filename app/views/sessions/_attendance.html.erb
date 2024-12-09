@@ -1,0 +1,25 @@
+<%= form_for([@site, @section, @session]) do |form| %>
+  <% if session.errors.any? %>
+    <div style="color: red">
+      <h4><%= pluralize(session.errors.count, "error") %> prohibited this session from being saved:</h4>
+      <ul>
+        <% session.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.fields_for :attendances do |att_field| %>
+      <div class="form-check">
+        <%= att_field.check_box :present, class: "form-check-input" %>
+        <%= att_field.label att_field.object.participant.upcased_name, class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="d-flex flex-row-reverse">
+    <%= submit_tag "Save Attendance", class: 'btn btn-success' %>
+  </div>
+<% end %>

@@ -1,32 +1,30 @@
 <div class="row">
-  <%= render partial: "sites/sidebar", locals: { site: @site } %>
+  <%= render partial: "sections/sidebar", locals: { site: @site, section: @section } %>
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
+    <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
     <div class="card">
       <div class="card-header">
         <p style="color: green"><%= notice %></p>
-        <h4>Site Participants</h4>
+        <% content_for :title, "Section participants" %>
+        <h4>Participants Enrolled In <%= @section.name %></h4>
       </div>
       <div class="card-body">
         <table class="table table-striped">
           <thead>
             <tr>
               <th>Name</th>
-              <th>ID</th>
-              <th>Category</th>
             </tr>
           </thead>
           <tbody>
-            <% @participants.each do |participant| %>
+            <% @section_participants.each do |sp| %>
               <tr>
-                <td><%= link_to participant.name, site_participant_path(@site, participant) %></td>
-                <td><%= participant.id %></td>
-                <td><%= participant.category %></td>
+                <td><%= link_to sp.participant.name, site_participant_path(@site, sp.participant) %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
         <div class="d-flex flex-row-reverse">
-          <%= link_to "Enroll New Participant", new_site_participant_path, class: "btn btn-primary" %>
+          <%= link_to "Enroll Participants", new_site_section_section_participant_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>

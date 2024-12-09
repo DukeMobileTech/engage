@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: attendances
+#
+#  id             :integer          not null, primary key
+#  present        :boolean          default(FALSE)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  participant_id :integer          not null
+#  session_id     :integer          not null
+#
+# Indexes
+#
+#  index_attendances_on_participant_id                 (participant_id)
+#  index_attendances_on_session_id                     (session_id)
+#  index_attendances_on_session_id_and_participant_id  (session_id,participant_id) UNIQUE
+#
+# Foreign Keys
+#
+#  participant_id  (participant_id => participants.id)
+#  session_id      (session_id => sessions.id)
+#
+class Attendance < ApplicationRecord
+  belongs_to :participant
+  belongs_to :session
+end

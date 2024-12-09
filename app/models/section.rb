@@ -3,9 +3,10 @@
 # Table name: sections
 #
 #  id            :integer          not null, primary key
-#  end_date      :datetime
+#  completed     :boolean          default(FALSE)
+#  end_date      :date
 #  name          :string
-#  start_date    :datetime
+#  start_date    :date
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  curriculum_id :integer          not null
@@ -24,7 +25,9 @@
 class Section < ApplicationRecord
   belongs_to :curriculum
   belongs_to :site
-  has_many :participants, through: :site
+  has_many :section_participants
+  has_many :participants, through: :section_participants
+  has_many :sessions
 
   validates :name, presence: true
   validates :start_date, presence: true

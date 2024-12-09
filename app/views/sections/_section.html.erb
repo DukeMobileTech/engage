@@ -1,17 +1,17 @@
-<div id="<%= dom_id section %>">
+<div>
   <p>
     <strong>Name:</strong>
     <%= section.name %>
   </p>
 
   <p>
-    <strong>Start date:</strong>
-    <%= section.start_date.strftime("%F") %>
+    <strong>Start Date:</strong>
+    <%= section.start_date %>
   </p>
 
   <p>
-    <strong>End date:</strong>
-    <%= section.end_date.strftime("%F") %>
+    <strong>End Date:</strong>
+    <%= section.end_date %>
   </p>
 
   <p>
@@ -22,6 +22,11 @@
   <p>
     <strong>Site:</strong>
     <%= section.site.name %>
+  </p>
+
+  <p>
+    <strong>Completed:</strong>
+    <%= section.completed ? "Yes" : "No" %>
   </p>
 
 </div>

@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   end
   resources :sites do
     resources :participants
-    resources :sections
+    resources :sections do
+      resources :section_participants
+      resources :sessions do
+        resources :attendances, only: :index
+      end
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

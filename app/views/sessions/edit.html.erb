@@ -1,0 +1,30 @@
+<div class="row">
+  <%= render partial: "sections/sidebar", locals: { site: @site, section: @section } %>
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
+    <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
+    <div class="card">
+      <% if params[:attendance] %>
+        <div class="card-header">
+          <% content_for :title, "Taking Attendance" %>
+          <h4>Taking Attendance</h4>
+        </div>
+        <div class="card-body">
+          <%= render "attendance", site: @site, section: @section, session: @session %>
+        </div>
+      <% else %>
+        <div class="card-header">
+          <% content_for :title, "Editing session" %>
+          <h4>Editing session</h4>
+        </div>
+        <div class="card-body">
+          <%= render "form", site: @site, section: @section, session: @session %>
+          <div class="d-flex justify-content-start">
+            <div>
+              <%= link_to "Show this session", site_section_session_path(@site, @section, @session), class: "btn btn-info" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>

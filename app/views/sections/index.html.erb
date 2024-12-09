@@ -5,7 +5,7 @@
       <div class="card-header">
         <p style="color: green"><%= notice %></p>
         <% content_for :title, "Sections" %>
-        <h4><%= @site.name %></h4>
+        <h4>Site Sections</h4>
       </div>
       <div class="card-body">
         <table class="table table-striped">
@@ -15,15 +15,17 @@
               <th>Start Date</th>
               <th>End Date</th>
               <th>Curriculum</th>
+              <th>Completed</th>
             </tr>
           </thead>
           <tbody>
             <% @sections.each do |section| %>
               <tr>
                 <td><%= link_to section.name, site_section_path(@site, section) %></td>
-                <td><%= section.start_date.strftime("%F") %></td>
-                <td><%= section.end_date.strftime("%F") %></td>
+                <td><%= section.start_date %></td>
+                <td><%= section.end_date %></td>
                 <td><%= section.curriculum.title %></td>
+                <td><%= section.completed ? "Yes" : "No" %></td>
               </tr>
             <% end %>
           </tbody>

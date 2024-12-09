@@ -1,0 +1,28 @@
+<div class="row">
+  <%= render partial: "sections/sidebar", locals: { site: @site, section: @section } %>
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
+    <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
+    <p style="color: green"><%= notice %></p>
+    <div class="card">
+      <div class="card-header">
+        <h4>Session Details</h4>
+      </div>
+      <div class="card-body">
+        <%= render @session %>
+        <div class="d-flex justify-content-evenly">
+          <div>
+            <%= link_to "Edit this session", edit_site_section_session_path(@site, @section, @session), class: 'btn btn-primary' %>
+          </div>
+          <div>
+            <%= button_to "Delete this session", site_section_session_path(@site, @section, @session), method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
+        <hr>
+        <div>
+          <h4>Session Attendance</h4>
+          <%= link_to "Take Attendance", edit_site_section_session_path(@site, @section, @session, attendance: true), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

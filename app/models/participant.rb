@@ -16,11 +16,16 @@
 class Participant < ApplicationRecord
   has_many :site_participants
   has_many :sites, through: :site_participants
+  has_many :attendances
 
   validates :name, presence: true
   validates :category, presence: true
 
   before_create :assign_study_id
+
+  def upcased_name
+    self.name.split(" ").map(&:upcase_first).join(" ")
+  end
 
   private
 
