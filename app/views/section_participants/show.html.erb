@@ -1,10 +1,33 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @section_participant %>
-
-<div>
-  <%= link_to "Edit this section participant", edit_section_participant_path(@section_participant) %> |
-  <%= link_to "Back to section participants", section_participants_path %>
-
-  <%= button_to "Destroy this section participant", @section_participant, method: :delete %>
+<div class="row">
+  <%= render partial: "sections/sidebar", locals: { site: @site, section: @section } %>
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
+    <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
+    <p style="color: green"><%= notice %></p>
+    <div class="card">
+      <div class="card-header">
+        <h4>Attendance Log For <strong><%= @section_participant.participant.name %></strong></h4>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Lesson</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @section_participant.session_attendances.each do |attendance| %>
+            <tr>
+              <td><%= @section.name %></td>
+              <td><%= attendance.session.lesson.title %></td>
+              <td><%= attendance.session.done_on.strftime("%F %H:%M %p") %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <p>Progress: <strong> <%= @section_participant.progress %></strong></p>
+      </div>
+    </div>
+  </main>
 </div>

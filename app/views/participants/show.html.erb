@@ -2,24 +2,68 @@
   <%= render partial: "sites/sidebar", locals: { site: @site } %>
 
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="card">
+    <div class="card mb-1">
       <p style="color: green"><%= notice %></p>
 
       <div class="card-header">
-        <h4><%= @site.name %></h4>
+        <h4><%= @participant.name %></h4>
       </div>
 
       <div class="card-body">
         <%= render @participant %>
       </div>
 
-      <div class="m-5 d-flex flex-row-reverse">
+      <div class="mb-1 text-center">
         <%= link_to "Edit this participant", edit_site_participant_path(@site, @participant), class: 'btn btn-primary' %>
       </div>
-
-      <h4 class="text-center">Demographics</h4>
-      <div class="text-center mb-2">
-        <button class="btn btn-primary">Update Demographic Info</button>
+    </div>
+    <div class="card mb-1">
+      <div class="card-header">
+        <h4>Demographic Info</h4>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center mb-2">
+          <button class="btn btn-primary">Update Demographic Info</button>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-5">
+      <div class="card-header">
+        <h4>Sections Enrolled In</h4>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Completed</th>
+              <th>Attendance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @participant.sections.each do |section| %>
+            <tr>
+              <td><%= link_to section.name, site_sections_path(@site, section) %></td>
+              <td><%= section.completed ? "Yes" : "No" %></td>
+              <td><%= link_to @participant.attendance_str(section), site_section_section_participant_path(@site, section, @participant.section_participant(section)) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </main>

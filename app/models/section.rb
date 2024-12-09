@@ -28,6 +28,7 @@ class Section < ApplicationRecord
   has_many :section_participants
   has_many :participants, through: :section_participants
   has_many :sessions
+  has_many :lessons, through: :curriculum
 
   validates :name, presence: true
   validates :start_date, presence: true

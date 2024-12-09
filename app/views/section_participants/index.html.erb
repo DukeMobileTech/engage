@@ -13,12 +13,14 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Attendance</th>
             </tr>
           </thead>
           <tbody>
             <% @section_participants.each do |sp| %>
               <tr>
                 <td><%= link_to sp.participant.name, site_participant_path(@site, sp.participant) %></td>
+                <td><%= link_to sp.attendance_str, site_section_section_participant_path(@site, @section, sp) %></td>
               </tr>
             <% end %>
           </tbody>

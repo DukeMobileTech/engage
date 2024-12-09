@@ -16,7 +16,10 @@
 class Participant < ApplicationRecord
   has_many :site_participants
   has_many :sites, through: :site_participants
+  has_many :section_participants
+  has_many :sections, through: :section_participants
   has_many :attendances
+  has_many :sessions, through: :attendances
 
   validates :name, presence: true
   validates :category, presence: true
@@ -25,6 +28,18 @@ class Participant < ApplicationRecord
 
   def upcased_name
     self.name.split(" ").map(&:upcase_first).join(" ")
+  end
+
+  def session_attendances(section)
+    section_participant(section)&.session_attendances
+  end
+
+  def attendance_str(section)
+    section_participant(section)&.attendance_str
+  end
+
+  def section_participant(section)
+    section_participants.find_by(section_id: section.id)
   end
 
   private
