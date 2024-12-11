@@ -2,15 +2,29 @@
 
 <% content_for :title, "Curriculums" %>
 
-<h1>Curriculums</h1>
+<h3 class="text-center">Curriculums</h3>
 
-<div id="curriculums">
-  <% @curriculums.each do |curriculum| %>
-    <%= render curriculum %>
-    <p>
-      <%= link_to "Show this curriculum", curriculum %>
-    </p>
-  <% end %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Lessons</th>
+      <th>Sites</th>
+      <th>Sections</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @curriculums.each do |curriculum| %>
+      <tr>
+        <td><%= link_to curriculum.title, curriculum %></td>
+        <td><%= link_to curriculum.lessons.count, curriculum %></td>
+        <td><%= curriculum.sites.count %></td>
+        <td><%= curriculum.sections.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="d-flex flex-row-reverse">
+  <%= link_to "New curriculum", new_curriculum_path, class: "btn btn-primary" %>
 </div>
-
-<%= link_to "New curriculum", new_curriculum_path %>

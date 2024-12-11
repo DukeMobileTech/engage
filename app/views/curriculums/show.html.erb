@@ -2,9 +2,9 @@
 
 <%= render @curriculum %>
 
-<div>
-  <%= link_to "Edit this curriculum", edit_curriculum_path(@curriculum) %> |
-  <%= link_to "Back to curriculums", curriculums_path %>
+<div class="m-1 d-flex flex-row-reverse">
+  <%= link_to "Edit this curriculum", edit_curriculum_path(@curriculum), class: "btn btn-primary" %>
+  <%#= link_to "Back to curriculums", curriculums_path %>
 
-  <%= button_to "Destroy this curriculum", @curriculum, method: :delete %>
+  <%#= button_to "Destroy this curriculum", @curriculum, method: :delete %>
 </div>

@@ -19,7 +19,7 @@
 #  curriculum_id  (curriculum_id => curriculums.id)
 #
 class Lesson < ApplicationRecord
-  belongs_to :curriculum
+  belongs_to :curriculum # , inverse_of: :lessons
   validates :title, presence: true
   validates :content, presence: true
   validates :duration, presence: true

@@ -13,6 +13,7 @@ class CurriculumsController < ApplicationController
   # GET /curriculums/new
   def new
     @curriculum = Curriculum.new
+    @curriculum.lessons.build
   end
 
   # GET /curriculums/1/edit
@@ -65,6 +66,6 @@ class CurriculumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def curriculum_params
-      params.expect(curriculum: [ :title ])
+      params.require(:curriculum).permit(:title, lessons_attributes: [ :id, :title, :content, :duration, :_destroy ])
     end
 end

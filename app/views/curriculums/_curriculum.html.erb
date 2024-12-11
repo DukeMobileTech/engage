@@ -1,7 +1,25 @@
-<div id="<%= dom_id curriculum %>">
-  <p>
-    <strong>Title:</strong>
-    <%= curriculum.title %>
-  </p>
-
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title text-center"><%= curriculum.title %></h5>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Duration</th>
+          <th>Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% curriculum.lessons.each do |lesson| %>
+        <tr>
+          <td><%= lesson.title %></td>
+          <td><%= lesson.duration %></td>
+          <td><%= lesson.content %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<%= form_with(model: curriculum) do |form| %>
+<%= form_with(model: curriculum, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
   <% if curriculum.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(curriculum.errors.count, "error") %> prohibited this curriculum from being saved:</h2>
@@ -11,12 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <template data-nested-form-target="template">
+    <%= form.fields_for :lessons, Lesson.new, child_index: 'NEW_RECORD' do |lesson_fields| %>
+      <%= render "lesson_form", form: lesson_fields %>
+    <% end %>
+  </template>
+
+  <%= form.fields_for :lessons do |lesson_fields| %>
+    <%= render "lesson_form", form: lesson_fields %>
+  <% end %>
+
+  <!-- Inserted elements will be injected before that target. -->
+  <div data-nested-form-target="target"></div>
+
+  <button type="button" class="btn btn-primary mt-1" data-action="nested-form#add">Add lesson</button>
+
+  <div class="d-flex flex-row-reverse m-1">
+    <%= form.submit 'Save curriculum', class: 'btn btn-success' %>
   </div>
 <% end %>

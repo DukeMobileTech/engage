@@ -1,12 +1,7 @@
+<div class="mb-3">
 <% content_for :title, "Editing curriculum" %>
 
-<h1>Editing curriculum</h1>
+<h4 class="text-center">Editing curriculum</h4>
 
 <%= render "form", curriculum: @curriculum %>
-
-<br>
-
-<div>
-  <%= link_to "Show this curriculum", @curriculum %> |
-  <%= link_to "Back to curriculums", curriculums_path %>
 </div>
