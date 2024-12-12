@@ -45,6 +45,9 @@ class Participant < ApplicationRecord
   private
 
   def assign_study_id
-    self.study_id = "#{self.name[0..2]}-#{Date.current.year}-#{Random.alphanumeric(3)}".upcase
+    self.study_id = loop do
+      sid = "#{self.name[0..2]}-#{Date.current.year}-#{Random.alphanumeric(3)}".upcase
+      break sid unless Participant.exists?(study_id: sid)
+    end
   end
 end

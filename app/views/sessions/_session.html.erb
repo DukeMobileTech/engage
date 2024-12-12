@@ -20,7 +20,12 @@
   </p>
 
   <p>
+    <strong>Completed:</strong>
+    <%= session.completed ? "Yes" : "No" %>
+  </p>
+
+  <p>
     <strong>Participants present:</strong>
-    <%= link_to session.present_participants.size, site_section_session_attendances_path(@site, @section, @session) %>
+    <%= link_to session.participation, site_section_session_attendances_path(@site, @section, @session) %>
   </p>
 </div>

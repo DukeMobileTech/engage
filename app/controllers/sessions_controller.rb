@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   # GET /sessions or /sessions.json
   def index
-    @sessions = @section.sessions
+    @sessions = @section.sessions.order(done_on: :desc)
   end
 
   # GET /sessions/1 or /sessions/1.json
@@ -83,6 +83,6 @@ class SessionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def session_params
-      params.expect(session: [ :done_on, :section_id, :lesson_id, attendances_attributes: [ :id, :participant_id, :session_id, :present ] ])
+      params.expect(session: [ :done_on, :section_id, :lesson_id, :completed, attendances_attributes: [ :id, :participant_id, :session_id, :present ] ])
     end
 end

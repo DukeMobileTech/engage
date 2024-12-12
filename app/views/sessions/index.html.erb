@@ -15,6 +15,7 @@
               <th>Lesson</th>
               <th>Date</th>
               <th>Participants</th>
+              <th>Completed</th>
             </tr>
           </thead>
           <tbody>
@@ -22,7 +23,8 @@
               <tr>
                 <td><%= link_to session.lesson.title, site_section_session_path(@site, @section, session) %></td>
                 <td><%= session.done_on.strftime("%F %H:%M %p") %></td>
-                <td><%= session.present_participants.size %></td>
+                <td><%= session.participation %></td>
+                <td><%= session.completed ? "Yes" : "No" %></td>
               </tr>
             <% end %>
           </tbody>

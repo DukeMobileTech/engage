@@ -33,4 +33,8 @@ class Section < ApplicationRecord
   validates :name, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
+
+  def progress
+    "#{sessions.where(completed: true).pluck(:lesson_id).uniq.count} / #{lessons.count}"
+  end
 end

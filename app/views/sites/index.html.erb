@@ -12,6 +12,8 @@
           <th>County</th>
           <th>Urbanicity</th>
           <th>Setting</th>
+          <th>Participants</th>
+          <th>Sections</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +25,8 @@
             <td><%= site.county %></td>
             <td><%= site.urbanicity %></td>
             <td><%= site.setting %></td>
+            <td><%= site.site_participants.size %></td>
+            <td><%= site.sections.size %></td>
           </tr>
         <% end %>
       </tbody>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_05_185603) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_12_160705) do
   create_table "attendances", force: :cascade do |t|
     t.integer "participant_id", null: false
     t.integer "session_id", null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_185603) do
     t.integer "lesson_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
     t.index ["lesson_id"], name: "index_sessions_on_lesson_id"
     t.index ["section_id"], name: "index_sessions_on_section_id"
   end

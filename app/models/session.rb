@@ -3,6 +3,7 @@
 # Table name: sessions
 #
 #  id         :integer          not null, primary key
+#  completed  :boolean          default(FALSE)
 #  done_on    :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -34,6 +35,10 @@ class Session < ApplicationRecord
 
   def present_participants
     attendances.where(present: true)
+  end
+
+  def participation
+    "#{present_participants.count} out of #{section.section_participants.count}"
   end
 
   private

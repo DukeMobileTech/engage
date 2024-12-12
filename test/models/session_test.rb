@@ -3,6 +3,7 @@
 # Table name: sessions
 #
 #  id         :integer          not null, primary key
+#  completed  :boolean          default(FALSE)
 #  done_on    :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
