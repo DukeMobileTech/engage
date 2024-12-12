@@ -1,16 +1,28 @@
-<div class="card">
-  <% content_for :title, "Editing site" %>
+<div class="row">
+  <%= render partial: "sidebar", locals: { site: @site } %>
 
-  <div class="card-header">
-    <h3>Editing Site</h3>
-  </div>
-
-  <div class="card-body">
-    <%= render "form", site: @site %>
-  </div>
-
-  <div class="m-1">
-    <%= link_to "Show this site", @site, class: 'btn btn-primary' %>
-  </div>
-
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
+    <p style="color: green"><%= notice %></p>
+    <% content_for :title, "Editing site" %>
+    <div class="card">
+      <% if params[:enroll] %>
+        <div class="card-header">
+          <h4>Enroll Participants To Site</h4>
+        </div>
+        <div class="card-body">
+          <%= render "enroll", site: @site %>
+        </div>
+      <% else %>
+        <div class="card-header">
+          <h4>Editing Site</h4>
+        </div>
+        <div class="card-body">
+          <%= render "form", site: @site %>
+        </div>
+      <% end %>
+      <div class="m-1">
+        <%= link_to "Show this site", @site, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </main>
 </div>

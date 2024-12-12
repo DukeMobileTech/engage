@@ -1,0 +1,46 @@
+<div class="row">
+  <%= render partial: "sites/sidebar", locals: { site: @site } %>
+
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <p style="color: green"><%= notice %></p>
+    <% content_for :title, "Site participants" %>
+
+    <div class="card mb-5">
+      <div class="card-header">
+        <h4>Site participants</h4>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Study ID</th>
+              <th>Category</th>
+              <th>Section</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @site_participants.each do |sp| %>
+            <tr>
+              <td><%= link_to sp.participant.name, sp.participant %></td>
+              <td><%= sp.participant.study_id %></td>
+              <td><%= sp.participant.category %></td>
+              <td>
+                <% sp.participant.sections.each do |section| %>
+                  <span><%= link_to section.name, site_section_path(section.site, section) %></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+        <div class="d-flex flex-row-reverse">
+          <%= link_to "Enroll New Participants", edit_site_path(@site, enroll: true), class: "btn btn-primary" %>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>

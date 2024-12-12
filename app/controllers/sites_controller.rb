@@ -17,6 +17,7 @@ class SitesController < ApplicationController
 
   # GET /sites/1/edit
   def edit
+    @participants = Participant.all - @site.participants
   end
 
   # POST /sites or /sites.json
@@ -36,6 +37,13 @@ class SitesController < ApplicationController
 
   # PATCH/PUT /sites/1 or /sites/1.json
   def update
+    if params[:site][:participant_ids]
+      participant_ids = params[:site][:participant_ids].reject(&:empty?)
+      participant_ids.each do |pid|
+        @site.site_participants.create(participant_id: pid)
+      end
+      redirect_to site_site_participants_path(@site) and return
+    end
     respond_to do |format|
       if @site.update(site_params)
         format.html { redirect_to @site, notice: "Site was successfully updated." }
@@ -65,6 +73,6 @@ class SitesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def site_params
-      params.expect(site: [ :name, :code, :state, :county, :urbanicity, :setting ])
+      params.expect(site: [ :name, :code, :state, :county, :urbanicity, :setting, participants_ids: [] ])
     end
 end

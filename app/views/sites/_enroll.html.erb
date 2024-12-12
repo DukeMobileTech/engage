@@ -1,0 +1,27 @@
+<%= form_for([@site]) do |form| %>
+  <% if site.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
+
+      <ul>
+        <% site.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <p class="fw-bold">Check the participants you want to add to this site</p>
+    <%= form.collection_check_boxes :participant_ids, @participants, :id, :name do |b| %>
+      <div class="form-check">
+        <%= b.check_box class: "form-check-input" %>
+        <%= b.label class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="d-flex flex-row-reverse">
+    <%= form.submit 'Save Participants', class: 'btn btn-success' %>
+  </div>
+<% end %>

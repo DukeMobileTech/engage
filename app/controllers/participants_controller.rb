@@ -1,10 +1,9 @@
 class ParticipantsController < ApplicationController
-  before_action :set_site
   before_action :set_participant, only: %i[ show edit update destroy ]
 
   # GET /participants or /participants.json
   def index
-    @participants = @site.participants.all
+    @participants = Participant.all
   end
 
   # GET /participants/1 or /participants/1.json
@@ -26,8 +25,7 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       if @participant.save
-        @participant.site_participants.create!(site: @site)
-        format.html { redirect_to site_participants_path(@site), notice: "Participant was successfully created." }
+        format.html { redirect_to @participant, notice: "Participant was successfully created." }
         format.json { render :show, status: :created, location: @participant }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +38,7 @@ class ParticipantsController < ApplicationController
   def update
     respond_to do |format|
       if @participant.update(participant_params)
-        format.html { redirect_to site_participants_path(@site), notice: "Participant was successfully updated." }
+        format.html { redirect_to @participant, notice: "Participant was successfully updated." }
         format.json { render :show, status: :ok, location: @participant }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,23 +52,19 @@ class ParticipantsController < ApplicationController
     @participant.destroy!
 
     respond_to do |format|
-      format.html { redirect_to site_participants_path(@site), status: :see_other, notice: "Participant was successfully destroyed." }
+      format.html { redirect_to participants_path, status: :see_other, notice: "Participant was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_site
-      @site = Site.find(params.expect(:site_id))
-    end
-
     def set_participant
-      @participant = @site.participants.find(params.expect(:id))
+      @participant = Participant.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def participant_params
-      params.expect(participant: [ :name, :study_id, :category, :site_id ])
+      params.expect(participant: [ :name, :study_id, :category ])
     end
 end

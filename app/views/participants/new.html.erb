@@ -1,17 +1,6 @@
 <div class="row">
-  <%= render partial: "sites/sidebar", locals: { site: @site } %>
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="card">
-      <% content_for :title, "New participant" %>
+  <% content_for :title, "New participant" %>
+  <h4 class="text-center">New Participant</h4>
 
-      <div class="card-header">
-        <h4><%= @site.name %></h4>
-      </div>
-
-      <div class="card-body">
-        <%= render "form", site: @site, participant: @participant %>
-      </div>
-
-    </div>
-  </main>
+  <%= render "form", participant: @participant %>
 </div>

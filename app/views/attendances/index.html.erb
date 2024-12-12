@@ -19,7 +19,7 @@
           <tbody>
             <% @attendances.each do |attendance| %>
               <tr>
-                <td><%= link_to attendance.participant.upcased_name, site_participant_path(@site, attendance.participant) %></td>
+                <td><%= link_to attendance.participant.upcased_name, participant_path(attendance.participant) %></td>
                 <td><%= attendance.present? ? "Yes" : "No" %></td>
               </tr>
             <% end %>

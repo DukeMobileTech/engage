@@ -1,4 +1,4 @@
-<div id="<%= dom_id participant %>">
+<div>
   <p>
     <strong>Name:</strong>
     <%= participant.name %>
@@ -14,4 +14,10 @@
     <%= participant.category %>
   </p>
 
+  <p>
+    <strong>Sites:</strong>
+    <% participant.sites.each do |site| %>
+      <span><%= link_to site.name, site %> </span>
+    <% end %>
+  </p>
 </div>
