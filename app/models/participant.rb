@@ -48,7 +48,7 @@ class Participant < ApplicationRecord
   end
 
   def demographics_response
-    responses.order(created_at: :desc).find_by(questionnaire_id: demographics_questionnaire.id)
+    responses.order(created_at: :desc).find_by(questionnaire_id: demographics_questionnaire&.id)
   end
 
   def sex

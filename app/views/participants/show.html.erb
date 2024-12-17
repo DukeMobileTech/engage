@@ -30,7 +30,7 @@
         </thead>
         <tbody>
           <% response = @participant.demographics_response %>
-          <% @participant.demographics_questionnaire.questions.each do |question| %>
+          <% @participant.demographics_questionnaire&.questions&.each do |question| %>
           <tr>
             <td><%= question.text %></td>
             <td><%= question.question_answer(response) %></td>
@@ -39,7 +39,9 @@
         </tbody>
       </table>
       <div class="text-center mb-2">
-        <%= link_to "Update Demographics", new_questionnaire_response_path(@participant.demographics_questionnaire, participant_id: @participant.id), class: "btn btn-primary" %>
+        <% if @participant.demographics_questionnaire %>
+          <%= link_to "Update Demographics", new_questionnaire_response_path(@participant.demographics_questionnaire, participant_id: @participant.id), class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   </div>
