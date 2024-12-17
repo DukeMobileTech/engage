@@ -1,0 +1,10 @@
+<div class='row mb-3 pl-2'>
+  <div class='col-lg-10'>
+    <%= form.label :text, class: "form-label" %>
+    <%= form.text_field :text, placeholder: 'Answer text', class: 'form-control' %>
+  </div>
+  <div class="col-lg-2">
+    <%= form.hidden_field :_destroy %>
+    <button class="btn btn-danger" type="button" data-action="nested-form#remove">Remove answer</button>
+  </div>
+</div>

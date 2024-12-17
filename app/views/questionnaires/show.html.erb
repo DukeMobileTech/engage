@@ -1,0 +1,30 @@
+<div class="mb-3">
+  <h3 class="text-center"><%= @questionnaire.title.titleize %></h3>
+
+<% @questionnaire.questions.each do |question| %>
+  <div class="mb-3">
+    <h4><%= question.number %>) <%= question.identifier %></h4>
+    <div class="ms-2">
+      <%= question.text %>
+    </div>
+    <% case question.question_type %>
+    <% when 'single_choice' %>
+      <% question.answers.each do |answer| %>
+      <div class="ms-4">
+        <%= radio_button_tag question.id, answer.id %>
+        <span class="form-label"><%= answer.text %></span>
+      </div>
+      <% end %>
+    <% when 'multiple_choice' %>
+      <% question.answers.each do |answer| %>
+      <div class="ms-4">
+        <%= check_box_tag question.id, answer.id, class: "form-check-input" %>
+        <span class="form-label"><%= answer.text %></span>
+      </div>
+      <% end %>
+    <% when 'long_answer' %>
+      <%= text_area_tag question.id %>
+    <% end %>
+  </div>
+<% end %>
+</div>

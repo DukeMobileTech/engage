@@ -24,6 +24,7 @@ class Session < ApplicationRecord
   belongs_to :section
   belongs_to :lesson
   has_many :attendances, dependent: :destroy
+  has_many :responses
 
   accepts_nested_attributes_for :attendances
 

@@ -29,14 +29,17 @@
           </tr>
         </thead>
         <tbody>
+          <% response = @participant.demographics_response %>
+          <% @participant.demographics_questionnaire.questions.each do |question| %>
           <tr>
-            <td></td>
-            <td></td>
+            <td><%= question.text %></td>
+            <td><%= question.question_answer(response) %></td>
           </tr>
+          <% end %>
         </tbody>
       </table>
       <div class="text-center mb-2">
-        <button class="btn btn-primary">Update Demographic Info</button>
+        <%= link_to "Update Demographics", new_questionnaire_response_path(@participant.demographics_questionnaire, participant_id: @participant.id), class: "btn btn-primary" %>
       </div>
     </div>
   </div>

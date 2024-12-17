@@ -1,0 +1,43 @@
+<div class='border border-info m-1 p-1' data-controller='dynamic-select'>
+  <div class='mb-3'>
+    <%= form.check_box :required %>
+    <%= form.label :required %>
+  </div>
+
+  <div class='mb-3'>
+    <%= form.label :question_type, class: "form-label" %>
+    <%= form.select :question_type,
+        options_for_select(Question.question_type_enum, selected: form.object.question_type),
+        { include_blank: 'Select a question type' },
+        'data-dynamic-select-target': 'select',
+        'data-action': 'dynamic-select#selected', class: "form-select" %>
+  </div>
+
+  <div class='row mb-3'>
+    <div class="col-lg-10">
+      <%= form.label :text, class: "form-label" %>
+      <%= form.text_area :text, placeholder: 'Enter question text', class: 'form-control' %>
+    </div>
+    <div class="col-lg-2 d-flex align-items-center">
+      <button class="btn btn-danger" type="button" data-action="nested-form#remove">Remove question</button>
+      <%= form.hidden_field :_destroy %>
+    </div>
+  </div>
+
+  <div data-controller="nested-form" data-dynamic-select-target='choice' data-nested-form-index-value='ANSWER_RECORD'>
+    <template data-nested-form-target='template'>
+      <%= form.fields_for :answers, Answer.new, child_index: 'ANSWER_RECORD' do |answer| %>
+        <%= render 'answer_fields', form: answer %>
+      <% end %>
+    </template>
+
+    <%= form.fields_for :answers do |answer| %>
+      <%= render 'answer_fields', form: answer %>
+    <% end %>
+
+    <div data-nested-form-target="target"></div>
+    <button type="button" class="btn btn-primary mt-1" data-action="nested-form#add">Add Answer</button>
+  </div>
+
+  <div data-controller="nested-form" data-dynamic-select-target='long'></div>
+</div>

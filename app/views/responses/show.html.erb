@@ -1,0 +1,13 @@
+<h2 class="text-center"><%= @questionnaire.title.titleize %></h2>
+
+<% @questionnaire.questions.each do |question| %>
+  <h4>
+    <%= question.number %> ) <%= question.identifier %>
+  </h4>
+  <div class="ms-2">
+    <%= question.text %>
+  </div>
+  <div class="ms-4">
+    <strong><em><%= question.question_answer(@response) %></em></strong>
+  </div>
+<% end %>

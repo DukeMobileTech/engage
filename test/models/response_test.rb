@@ -1,0 +1,31 @@
+# == Schema Information
+#
+# Table name: responses
+#
+#  id               :integer          not null, primary key
+#  answers          :json
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  participant_id   :integer
+#  questionnaire_id :integer          not null
+#  session_id       :integer
+#
+# Indexes
+#
+#  index_responses_on_participant_id    (participant_id)
+#  index_responses_on_questionnaire_id  (questionnaire_id)
+#  index_responses_on_session_id        (session_id)
+#
+# Foreign Keys
+#
+#  participant_id    (participant_id => participants.id)
+#  questionnaire_id  (questionnaire_id => questionnaires.id)
+#  session_id        (session_id => sessions.id)
+#
+require "test_helper"
+
+class ResponseTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

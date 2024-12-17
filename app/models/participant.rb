@@ -20,6 +20,7 @@ class Participant < ApplicationRecord
   has_many :sections, through: :section_participants
   has_many :attendances
   has_many :sessions, through: :attendances
+  has_many :responses
 
   validates :name, presence: true
   validates :category, presence: true
@@ -40,6 +41,23 @@ class Participant < ApplicationRecord
 
   def section_participant(section)
     section_participants.find_by(section_id: section.id)
+  end
+
+  def demographics_questionnaire
+    Questionnaire.find_by(title: "demographics")
+  end
+
+  def demographics_response
+    responses.order(created_at: :desc).find_by(questionnaire_id: demographics_questionnaire.id)
+  end
+
+  def sex
+    return nil unless demographics_response
+
+    question = demographics_questionnaire.questions.find_by(identifier: "sex")
+    return nil unless question
+
+    question.answers.find { |a| a.id.to_s == demographics_response.answers[question.id.to_s] }&.text
   end
 
   private

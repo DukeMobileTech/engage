@@ -14,6 +14,7 @@
         <th>Name</th>
         <th>Study ID</th>
         <th>Category</th>
+        <th>Sex</th>
         <th>Sites</th>
       </tr>
     </thead>
@@ -23,6 +24,7 @@
           <td><%= link_to participant.name, participant %></td>
           <td><%= participant.study_id %></td>
           <td><%= participant.category %></td>
+          <td><%= participant.sex %></td>
           <td>
             <% participant.sites.each do |site| %>
               <span><%= link_to site.name, site %> </span>

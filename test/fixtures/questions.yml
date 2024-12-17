@@ -1,0 +1,40 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: questions
+#
+#  id               :integer          not null, primary key
+#  identifier       :string           not null
+#  number           :integer
+#  question_type    :integer
+#  required         :boolean          default(TRUE)
+#  text             :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  questionnaire_id :integer          not null
+#
+# Indexes
+#
+#  index_questions_on_identifier        (identifier) UNIQUE
+#  index_questions_on_questionnaire_id  (questionnaire_id)
+#
+# Foreign Keys
+#
+#  questionnaire_id  (questionnaire_id => questionnaires.id)
+#
+one:
+  questionnaire: one
+  text: MyText
+  identifier: MyString
+  question_type: 1
+  number: 1
+  required: false
+
+two:
+  questionnaire: two
+  text: MyText
+  identifier: MyString
+  question_type: 1
+  number: 1
+  required: false

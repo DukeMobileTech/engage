@@ -27,8 +27,8 @@
             <td><%= site.county %></td>
             <td><%= site.urbanicity %></td>
             <td><%= site.setting %></td>
-            <td><%= site.site_participants.size %></td>
-            <td><%= site.sections.size %></td>
+            <td><%= link_to site.site_participants.size, site_site_participants_path(site) %></td>
+            <td><%= link_to site.sections.size, site_sections_path(site) %></td>
           </tr>
         <% end %>
       </tbody>

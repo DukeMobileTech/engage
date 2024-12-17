@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :questionnaires do
+    resources :responses, only: %i[index show new create]
+  end
   resources :curriculums do
     resources :lessons
   end
