@@ -18,6 +18,7 @@
 #  question_id  (question_id => questions.id)
 #
 class Answer < ApplicationRecord
+  default_scope { order(:number) }
   belongs_to :question
 
   validates :text, presence: true

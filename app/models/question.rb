@@ -22,6 +22,7 @@
 #  questionnaire_id  (questionnaire_id => questionnaires.id)
 #
 class Question < ApplicationRecord
+  default_scope { order(:number) }
   belongs_to :questionnaire
   has_many :answers, dependent: :destroy, inverse_of: :question
   accepts_nested_attributes_for :answers, allow_destroy: true
@@ -44,7 +45,7 @@ class Question < ApplicationRecord
               selected_answers << answer.text
             end
             selected_answers.join(", ")
-    when "long_answer"
+    else
             response.answers[id.to_s]
     end
     ans.blank? ? "-" : ans

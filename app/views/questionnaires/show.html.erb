@@ -23,7 +23,13 @@
       </div>
       <% end %>
     <% when 'long_answer' %>
-      <%= text_area_tag question.id %>
+      <div class="ms-4">
+        <%= text_area_tag question.id %>
+      </div>
+    <% when 'number_answer' %>
+      <div class="ms-4">
+        <%= number_field_tag question.id %>
+      </div>
     <% end %>
   </div>
 <% end %>

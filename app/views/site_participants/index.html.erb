@@ -17,6 +17,8 @@
               <th>Name</th>
               <th>Study ID</th>
               <th>Category</th>
+              <th>Sex</th>
+              <th>Grade</th>
               <th>Sections</th>
             </tr>
           </thead>
@@ -26,6 +28,8 @@
               <td><%= link_to sp.participant.name, sp.participant %></td>
               <td><%= sp.participant.study_id %></td>
               <td><%= sp.participant.category %></td>
+              <td><%= sp.participant.sex %></td>
+              <td><%= sp.participant.grade %></td>
               <td>
                 <% sp.participant.sections.each do |section| %>
                   <span><%= link_to section.name, site_section_path(section.site, section) %></span>

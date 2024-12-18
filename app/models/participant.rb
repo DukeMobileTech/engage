@@ -60,6 +60,23 @@ class Participant < ApplicationRecord
     question.answers.find { |a| a.id.to_s == demographics_response.answers[question.id.to_s] }&.text
   end
 
+  def grade
+    return nil unless demographics_response
+
+    question = demographics_questionnaire.questions.find_by(identifier: "grade")
+    return nil unless question
+
+    question.answers.find { |a| a.id.to_s == demographics_response.answers[question.id.to_s] }&.text
+  end
+
+  def enroll_label
+    if self.grade
+      "#{self.upcased_name} (#{self.grade} grade)"
+    else
+      self.upcased_name
+    end
+  end
+
   private
 
   def assign_study_id

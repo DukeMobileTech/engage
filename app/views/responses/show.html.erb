@@ -1,13 +1,17 @@
-<h2 class="text-center"><%= @questionnaire.title.titleize %></h2>
+<div class="mb-5">
+  <h2 class="text-center"><%= @questionnaire.title.titleize %></h2>
 
-<% @questionnaire.questions.each do |question| %>
-  <h4>
-    <%= question.number %> ) <%= question.identifier %>
-  </h4>
-  <div class="ms-2">
-    <%= question.text %>
+  <% @questionnaire.questions.each do |question| %>
+  <div class="mb-3">
+    <h4>
+      <%= question.number %> ) <%= question.identifier %>
+    </h4>
+    <div class="ms-2">
+      <%= question.text %>
+    </div>
+    <div class="ms-4">
+      <strong><em><%= question.question_answer(@response) %></em></strong>
+    </div>
   </div>
-  <div class="ms-4">
-    <strong><em><%= question.question_answer(@response) %></em></strong>
-  </div>
-<% end %>
+  <% end %>
+</div>
