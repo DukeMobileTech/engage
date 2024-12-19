@@ -23,15 +23,15 @@ class SectionParticipant < ApplicationRecord
   belongs_to :participant
   has_many :attendances, through: :participant
 
-  def session_attendances
-    attendances.where(session_id: section.sessions.pluck(:id)).where(present: true)
+  def sitting_attendances
+    attendances.where(sitting_id: section.sittings.pluck(:id)).where(present: true)
   end
 
   def attendance_str
-    "#{session_attendances.size} out of #{section.lessons.size}"
+    "#{sitting_attendances.size} out of #{section.lessons.size}"
   end
 
   def progress
-    "#{((session_attendances.size.to_f / section.lessons.size.to_f) * 100).round} %"
+    "#{((sitting_attendances.size.to_f / section.lessons.size.to_f) * 100).round} %"
   end
 end

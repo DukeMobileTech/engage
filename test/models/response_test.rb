@@ -8,19 +8,19 @@
 #  updated_at       :datetime         not null
 #  participant_id   :integer
 #  questionnaire_id :integer          not null
-#  session_id       :integer
+#  sitting_id       :integer
 #
 # Indexes
 #
 #  index_responses_on_participant_id    (participant_id)
 #  index_responses_on_questionnaire_id  (questionnaire_id)
-#  index_responses_on_session_id        (session_id)
+#  index_responses_on_sitting_id        (sitting_id)
 #
 # Foreign Keys
 #
 #  participant_id    (participant_id => participants.id)
 #  questionnaire_id  (questionnaire_id => questionnaires.id)
-#  session_id        (session_id => sessions.id)
+#  sitting_id        (sitting_id => sittings.id)
 #
 require "test_helper"
 

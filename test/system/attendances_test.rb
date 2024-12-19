@@ -15,7 +15,7 @@ class AttendancesTest < ApplicationSystemTestCase
     click_on "New attendance"
 
     fill_in "Participant", with: @attendance.participant_id
-    fill_in "Session", with: @attendance.session_id
+    fill_in "Sitting", with: @attendance.sitting_id
     click_on "Create Attendance"
 
     assert_text "Attendance was successfully created"
@@ -27,7 +27,7 @@ class AttendancesTest < ApplicationSystemTestCase
     click_on "Edit this attendance", match: :first
 
     fill_in "Participant", with: @attendance.participant_id
-    fill_in "Session", with: @attendance.session_id
+    fill_in "Sitting", with: @attendance.sitting_id
     click_on "Update Attendance"
 
     assert_text "Attendance was successfully updated"

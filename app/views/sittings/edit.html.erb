@@ -9,7 +9,7 @@
           <h4>Taking Attendance</h4>
         </div>
         <div class="card-body">
-          <%= render "attendance", site: @site, section: @section, session: @session %>
+          <%= render "attendance", site: @site, section: @section, sitting: @sitting %>
         </div>
       <% else %>
         <div class="card-header">
@@ -17,10 +17,10 @@
           <h4>Editing session</h4>
         </div>
         <div class="card-body">
-          <%= render "form", site: @site, section: @section, session: @session %>
+          <%= render "form", site: @site, section: @section, sitting: @sitting %>
           <div class="d-flex justify-content-start">
             <div>
-              <%= link_to "Show this session", site_section_session_path(@site, @section, @session), class: "btn btn-info" %>
+              <%= link_to "Show this session", site_section_sitting_path(@site, @section, @sitting), class: "btn btn-info" %>
             </div>
           </div>
         </div>

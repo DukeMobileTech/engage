@@ -1,9 +1,9 @@
-<%= form_for([@site, @section, @session]) do |form| %>
-  <% if session.errors.any? %>
+<%= form_for([@site, @section, @sitting]) do |form| %>
+  <% if sitting.errors.any? %>
     <div style="color: red">
-      <h4><%= pluralize(session.errors.count, "error") %> prohibited this session from being saved:</h4>
+      <h4><%= pluralize(sitting.errors.count, "error") %> prohibited this sitting from being saved:</h4>
       <ul>
-        <% session.errors.each do |error| %>
+        <% sitting.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

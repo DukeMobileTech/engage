@@ -19,18 +19,18 @@
             </tr>
           </thead>
           <tbody>
-            <% @sessions.each do |session| %>
+            <% @sittings.each do |sitting| %>
               <tr>
-                <td><%= link_to session.lesson.title, site_section_session_path(@site, @section, session) %></td>
-                <td><%= session.done_on.strftime("%F %H:%M %p") %></td>
-                <td><%= session.participation %></td>
-                <td><%= session.completed ? "Yes" : "No" %></td>
+                <td><%= link_to sitting.lesson.title, site_section_sitting_path(@site, @section, sitting) %></td>
+                <td><%= sitting.done_on.strftime("%F %H:%M %p") %></td>
+                <td><%= sitting.participation %></td>
+                <td><%= sitting.completed ? "Yes" : "No" %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
         <div class="d-flex flex-row-reverse">
-          <%= link_to "Start Session", new_site_section_session_path(@site, @section), class: "btn btn-primary" %>
+          <%= link_to "Start Session", new_site_section_sitting_path(@site, @section), class: "btn btn-primary" %>
         </div>
       </div>
     </div>

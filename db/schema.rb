@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_16_170703) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_18_215155) do
   create_table "answers", force: :cascade do |t|
     t.integer "question_id", null: false
     t.text "text"
@@ -22,13 +22,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_16_170703) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer "participant_id", null: false
-    t.integer "session_id", null: false
+    t.integer "sitting_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "present", default: false
     t.index ["participant_id"], name: "index_attendances_on_participant_id"
-    t.index ["session_id", "participant_id"], name: "index_attendances_on_session_id_and_participant_id", unique: true
-    t.index ["session_id"], name: "index_attendances_on_session_id"
+    t.index ["sitting_id", "participant_id"], name: "index_attendances_on_sitting_id_and_participant_id", unique: true
+    t.index ["sitting_id"], name: "index_attendances_on_sitting_id"
   end
 
   create_table "curriculums", force: :cascade do |t|
@@ -78,13 +78,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_16_170703) do
   create_table "responses", force: :cascade do |t|
     t.integer "questionnaire_id", null: false
     t.integer "participant_id"
-    t.integer "session_id"
+    t.integer "sitting_id"
     t.json "answers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["participant_id"], name: "index_responses_on_participant_id"
     t.index ["questionnaire_id"], name: "index_responses_on_questionnaire_id"
-    t.index ["session_id"], name: "index_responses_on_session_id"
+    t.index ["sitting_id"], name: "index_responses_on_sitting_id"
   end
 
   create_table "section_participants", force: :cascade do |t|
@@ -109,17 +109,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_16_170703) do
     t.index ["site_id"], name: "index_sections_on_site_id"
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.datetime "done_on"
-    t.integer "section_id", null: false
-    t.integer "lesson_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "completed", default: false
-    t.index ["lesson_id"], name: "index_sessions_on_lesson_id"
-    t.index ["section_id"], name: "index_sessions_on_section_id"
-  end
-
   create_table "site_participants", force: :cascade do |t|
     t.integer "site_id", null: false
     t.integer "participant_id", null: false
@@ -141,20 +130,31 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_16_170703) do
     t.index ["code"], name: "index_sites_on_code", unique: true
   end
 
+  create_table "sittings", force: :cascade do |t|
+    t.datetime "done_on"
+    t.integer "section_id", null: false
+    t.integer "lesson_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
+    t.index ["lesson_id"], name: "index_sittings_on_lesson_id"
+    t.index ["section_id"], name: "index_sittings_on_section_id"
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "attendances", "participants"
-  add_foreign_key "attendances", "sessions"
+  add_foreign_key "attendances", "sittings"
   add_foreign_key "lessons", "curriculums"
   add_foreign_key "questions", "questionnaires"
   add_foreign_key "responses", "participants"
   add_foreign_key "responses", "questionnaires"
-  add_foreign_key "responses", "sessions"
+  add_foreign_key "responses", "sittings"
   add_foreign_key "section_participants", "participants"
   add_foreign_key "section_participants", "sections"
   add_foreign_key "sections", "curriculums"
   add_foreign_key "sections", "sites"
-  add_foreign_key "sessions", "lessons"
-  add_foreign_key "sessions", "sections"
   add_foreign_key "site_participants", "participants"
   add_foreign_key "site_participants", "sites"
+  add_foreign_key "sittings", "lessons"
+  add_foreign_key "sittings", "sections"
 end

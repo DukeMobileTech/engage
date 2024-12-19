@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: sessions
+# Table name: sittings
 #
 #  id         :integer          not null, primary key
 #  completed  :boolean          default(FALSE)
@@ -12,8 +12,8 @@
 #
 # Indexes
 #
-#  index_sessions_on_lesson_id   (lesson_id)
-#  index_sessions_on_section_id  (section_id)
+#  index_sittings_on_lesson_id   (lesson_id)
+#  index_sittings_on_section_id  (section_id)
 #
 # Foreign Keys
 #
@@ -22,7 +22,7 @@
 #
 require "test_helper"
 
-class SessionTest < ActiveSupport::TestCase
+class SittingTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

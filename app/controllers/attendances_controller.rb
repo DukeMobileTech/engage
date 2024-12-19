@@ -3,7 +3,7 @@ class AttendancesController < ApplicationController
   def index
     @site = Site.find(params.expect(:site_id))
     @section = @site.sections.find(params.expect(:section_id))
-    @session = @section.sessions.find(params.expect(:session_id))
-    @attendances = @session.attendances
+    @sitting = @section.sittings.find(params.expect(:sitting_id))
+    @attendances = @sitting.attendances
   end
 end

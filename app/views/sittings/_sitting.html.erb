@@ -1,0 +1,31 @@
+<div>
+  <p>
+    <strong>Done on:</strong>
+    <%= sitting.done_on.strftime("%F %H:%M %p") %>
+  </p>
+
+  <p>
+    <strong>Section:</strong>
+    <%= sitting.section.name %>
+  </p>
+
+  <p>
+    <strong>Lesson:</strong>
+    <%= sitting.lesson.title %>
+  </p>
+
+  <p>
+    <strong>Duration:</strong>
+    <%= sitting.lesson.duration %>
+  </p>
+
+  <p>
+    <strong>Completed:</strong>
+    <%= sitting.completed ? "Yes" : "No" %>
+  </p>
+
+  <p>
+    <strong>Participants present:</strong>
+    <%= link_to sitting.participation, site_section_sitting_attendances_path(@site, @section, @sitting) %>
+  </p>
+</div>

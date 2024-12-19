@@ -19,7 +19,7 @@ class Participant < ApplicationRecord
   has_many :section_participants
   has_many :sections, through: :section_participants
   has_many :attendances
-  has_many :sessions, through: :attendances
+  has_many :sittings, through: :attendances
   has_many :responses
 
   validates :name, presence: true
@@ -31,8 +31,8 @@ class Participant < ApplicationRecord
     self.name.split(" ").map(&:upcase_first).join(" ")
   end
 
-  def session_attendances(section)
-    section_participant(section)&.session_attendances
+  def sitting_attendances(section)
+    section_participant(section)&.sitting_attendances
   end
 
   def attendance_str(section)

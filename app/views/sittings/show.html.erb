@@ -8,19 +8,19 @@
         <h4>Session Details</h4>
       </div>
       <div class="card-body">
-        <%= render @session %>
+        <%= render @sitting %>
         <div class="d-flex justify-content-evenly">
           <div>
-            <%= link_to "Edit this session", edit_site_section_session_path(@site, @section, @session), class: 'btn btn-primary' %>
+            <%= link_to "Edit this session", edit_site_section_sitting_path(@site, @section, @sitting), class: 'btn btn-primary' %>
           </div>
           <div>
-            <%= button_to "Delete this session", site_section_session_path(@site, @section, @session), method: :delete, class: 'btn btn-danger' %>
+            <%= button_to "Delete this session", site_section_sitting_path(@site, @section, @sitting), method: :delete, class: 'btn btn-danger' %>
           </div>
         </div>
         <hr>
         <div>
-          <h4>Session Attendance</h4>
-          <%= link_to "Take Attendance", edit_site_section_session_path(@site, @section, @session, attendance: true), class: 'btn btn-primary' %>
+          <h4>sitting Attendance</h4>
+          <%= link_to "Take Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
         </div>
       </div>
     </div>

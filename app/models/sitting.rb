@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: sessions
+# Table name: sittings
 #
 #  id         :integer          not null, primary key
 #  completed  :boolean          default(FALSE)
@@ -12,15 +12,15 @@
 #
 # Indexes
 #
-#  index_sessions_on_lesson_id   (lesson_id)
-#  index_sessions_on_section_id  (section_id)
+#  index_sittings_on_lesson_id   (lesson_id)
+#  index_sittings_on_section_id  (section_id)
 #
 # Foreign Keys
 #
 #  lesson_id   (lesson_id => lessons.id)
 #  section_id  (section_id => sections.id)
 #
-class Session < ApplicationRecord
+class Sitting < ApplicationRecord
   belongs_to :section
   belongs_to :lesson
   has_many :attendances, dependent: :destroy

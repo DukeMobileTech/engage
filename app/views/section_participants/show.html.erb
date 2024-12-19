@@ -17,11 +17,11 @@
             </tr>
           </thead>
           <tbody>
-            <% @section_participant.session_attendances.each do |attendance| %>
+            <% @section_participant.sitting_attendances.each do |attendance| %>
             <tr>
               <td><%= @section.name %></td>
-              <td><%= attendance.session.lesson.title %></td>
-              <td><%= attendance.session.done_on.strftime("%F %H:%M %p") %></td>
+              <td><%= attendance.sitting.lesson.title %></td>
+              <td><%= attendance.sitting.done_on.strftime("%F %H:%M %p") %></td>
             </tr>
             <% end %>
           </tbody>

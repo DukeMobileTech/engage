@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :site_participants, only: :index
     resources :sections do
       resources :section_participants
-      resources :sessions do
+      resources :sittings do
         resources :attendances, only: :index
       end
     end

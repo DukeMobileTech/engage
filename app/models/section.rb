@@ -27,7 +27,7 @@ class Section < ApplicationRecord
   belongs_to :site
   has_many :section_participants
   has_many :participants, through: :section_participants
-  has_many :sessions
+  has_many :sittings
   has_many :lessons, through: :curriculum
 
   validates :name, presence: true
@@ -35,6 +35,6 @@ class Section < ApplicationRecord
   validates :end_date, presence: true
 
   def progress
-    "#{sessions.where(completed: true).pluck(:lesson_id).uniq.count} / #{lessons.count}"
+    "#{sittings.where(completed: true).pluck(:lesson_id).uniq.count} / #{lessons.count}"
   end
 end
