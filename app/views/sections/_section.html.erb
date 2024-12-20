@@ -1,37 +1,37 @@
 <div>
   <p>
     <strong>Name:</strong>
-    <%= section.name %>
+    <%= @section.name %>
   </p>
 
   <p>
     <strong>Start Date:</strong>
-    <%= section.start_date %>
+    <%= @section.start_date %>
   </p>
 
   <p>
     <strong>End Date:</strong>
-    <%= section.end_date %>
+    <%= @section.end_date %>
   </p>
 
   <p>
     <strong>Curriculum:</strong>
-    <%= section.curriculum.title %>
+    <%= @section.curriculum.title %>
   </p>
 
   <p>
     <strong>Site:</strong>
-    <%= section.site.name %>
+    <%= @section.site.name %>
   </p>
 
   <p>
     <strong>Progress:</strong>
-    <%= section.progress %>
+    <%= @section.progress %>
   </p>
 
   <p>
     <strong>Completed:</strong>
-    <%= section.completed ? "Yes" : "No" %>
+    <%= @section.completed ? "Yes" : "No" %>
   </p>
 
 </div>

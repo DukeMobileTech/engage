@@ -8,7 +8,7 @@
         <h4>Session Details</h4>
       </div>
       <div class="card-body">
-        <%= render @sitting %>
+        <%= render "sitting", locals: { sitting: @sitting } %>
         <div class="d-flex justify-content-evenly">
           <div>
             <%= link_to "Edit this session", edit_site_section_sitting_path(@site, @section, @sitting), class: 'btn btn-primary' %>

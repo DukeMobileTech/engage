@@ -1,22 +1,22 @@
 <div>
   <p>
     <strong>Name:</strong>
-    <%= participant.name %>
+    <%= @participant.name %>
   </p>
 
   <p>
     <strong>Study:</strong>
-    <%= participant.study_id %>
+    <%= @participant.study_id %>
   </p>
 
   <p>
     <strong>Type:</strong>
-    <%= participant.category %>
+    <%= @participant.category %>
   </p>
 
   <p>
     <strong>Sites:</strong>
-    <% participant.sites.each do |site| %>
+    <% @participant.sites.each do |site| %>
       <span><%= link_to site.name, site %> </span>
     <% end %>
   </p>

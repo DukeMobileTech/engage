@@ -8,7 +8,7 @@
     </div>
 
     <div class="card-body">
-      <%= render @participant %>
+      <%= render "participant", locals: { participant: @participant } %>
     </div>
 
     <div class="mb-1 text-center">
