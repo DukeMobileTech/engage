@@ -1,5 +1,9 @@
 <div class="mb-3">
-  <h3 class="text-center">New response</h3>
-  <h4 class="text-center"><%= @questionnaire.title.titleize %></h4>
+  <h3 class="text-center">
+    New <%= @questionnaire.title.titleize %>
+    <% if @participant %>
+    for <%= @participant&.name%>
+    <% end %>
+  </h3>
   <%= render "form", response: @response %>
 </div>

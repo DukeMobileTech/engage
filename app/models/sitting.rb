@@ -23,6 +23,7 @@
 class Sitting < ApplicationRecord
   belongs_to :section
   belongs_to :lesson
+  delegate :site, to: :section, allow_nil: true
   has_many :attendances, dependent: :destroy
   has_many :responses
 
@@ -40,6 +41,18 @@ class Sitting < ApplicationRecord
 
   def participation
     "#{present_participants.count} out of #{section.section_participants.count}"
+  end
+
+  def demographics_questionnaire
+    Questionnaire.find_by(title: "demographics")
+  end
+
+  def demographic_responses
+    responses.where(questionnaire_id: demographics_questionnaire&.id)
+  end
+
+  def title
+    "#{lesson.title} sitting on #{done_on.strftime("%F %H:%M %p")}"
   end
 
   private

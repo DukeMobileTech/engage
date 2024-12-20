@@ -4,6 +4,10 @@ class ResponsesController < ApplicationController
   # GET /responses or /responses.json
   def index
     @responses = @questionnaire.responses.all
+    if params[:sitting_id]
+      @sitting = Sitting.find(params[:sitting_id])
+      @responses = @responses.where(sitting_id: @sitting.id)
+    end
   end
 
   # GET /responses/1 or /responses/1.json
@@ -15,6 +19,7 @@ class ResponsesController < ApplicationController
   # GET /responses/new
   def new
     @response = @questionnaire.responses.new
+    @participant = Participant.find(params[:participant_id]) if params[:participant_id]
   end
 
   # POST /responses or /responses.json
@@ -23,8 +28,14 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to [ @questionnaire, @response ], notice: "Response was successfully created." }
-        format.json { render :show, status: :created, location: @response }
+        if @response.sitting
+          format.html { redirect_to questionnaire_responses_path(@questionnaire, sitting_id: @response.sitting.id), notice: "Response was successfully created." }
+        elsif @response.participant
+          format.html { redirect_to @response.participant, notice: "Response was successfully created." }
+        else
+          format.html { redirect_to [ @questionnaire, @response ], notice: "Response was successfully created." }
+          format.json { render :show, status: :created, location: @response }
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @response.errors, status: :unprocessable_entity }

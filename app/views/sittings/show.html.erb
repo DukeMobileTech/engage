@@ -19,9 +19,13 @@
         </div>
         <hr>
         <div>
-          <h4>sitting Attendance</h4>
+          <h4>Session Attendance</h4>
           <%= link_to "Take Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
         </div>
+        <hr>
+        <div>
+          <h4>Session Demographics</h4>
+          <%= link_to "View Demographics", questionnaire_responses_path(@sitting.demographics_questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
       </div>
     </div>
   </main>

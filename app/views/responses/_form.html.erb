@@ -12,6 +12,7 @@
   <% end %>
 
   <%= form.hidden_field :participant_id, value: params[:participant_id] %>
+  <%= form.hidden_field :sitting_id, value: params[:sitting_id] %>
 
   <%= form.fields_for :answers do |response| %>
     <% @questionnaire.questions.each do |question| %>
