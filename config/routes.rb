@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :session, only: %i[new create destroy]
+  resources :passwords, param: :token
   resources :questionnaires do
     resources :responses, only: %i[index show new create]
   end

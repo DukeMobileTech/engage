@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_18_215155) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_19_161741) do
   create_table "answers", force: :cascade do |t|
     t.integer "question_id", null: false
     t.text "text"
@@ -109,6 +109,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_18_215155) do
     t.index ["site_id"], name: "index_sections_on_site_id"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "site_participants", force: :cascade do |t|
     t.integer "site_id", null: false
     t.integer "participant_id", null: false
@@ -141,6 +150,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_18_215155) do
     t.index ["section_id"], name: "index_sittings_on_section_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email_address", null: false
+    t.string "password_digest", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "attendances", "participants"
   add_foreign_key "attendances", "sittings"
@@ -153,6 +171,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_18_215155) do
   add_foreign_key "section_participants", "sections"
   add_foreign_key "sections", "curriculums"
   add_foreign_key "sections", "sites"
+  add_foreign_key "sessions", "users"
   add_foreign_key "site_participants", "participants"
   add_foreign_key "site_participants", "sites"
   add_foreign_key "sittings", "lessons"

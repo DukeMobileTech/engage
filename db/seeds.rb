@@ -8,6 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# Find/Create default user used for testing
+u = User.find_or_create_by(email_address: "user@example.com")
+u.update!(name: "Test User", password: "Password1!")
+
 # Find/Create demographics questionnaire
 questionnaire = Questionnaire.find_by(title: "demographics")
 questionnaire ||= Questionnaire.create!(title: "demographics")
