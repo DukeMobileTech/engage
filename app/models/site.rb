@@ -17,9 +17,9 @@
 #  index_sites_on_code  (code) UNIQUE
 #
 class Site < ApplicationRecord
-  has_many :site_participants
+  has_many :site_participants, dependent: :destroy
   has_many :participants, through: :site_participants
-  has_many :sections
+  has_many :sections, dependent: :destroy
 
   validates :name, presence: true
   validates :county, presence: true

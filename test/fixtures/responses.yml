@@ -26,8 +26,16 @@
 #
 one:
   questionnaire: one
-  answers: 
+  answers:
+    - question: one
+      text: Choice A
+    - question: two
+      text: Choice B
 
 two:
   questionnaire: two
-  answers: 
+  answers:
+    - question: one
+      text: Choice B
+    - question: two
+      text: Choice A

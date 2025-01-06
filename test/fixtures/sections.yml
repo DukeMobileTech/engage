@@ -25,15 +25,15 @@
 #  site_id        (site_id => sites.id)
 #
 one:
-  name: MyString
+  name: FLASH
   start_date: 2024-12-03 14:50:34
-  end_date: 2024-12-03 14:50:34
+  end_date: 2024-12-31 14:50:34
   curriculum: one
   site: one
 
 two:
-  name: MyString
+  name: LOVE
   start_date: 2024-12-03 14:50:34
-  end_date: 2024-12-03 14:50:34
+  end_date: 2024-12-31 14:50:34
   curriculum: two
   site: two

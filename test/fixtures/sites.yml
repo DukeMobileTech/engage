@@ -19,17 +19,17 @@
 #  index_sites_on_code  (code) UNIQUE
 #
 one:
-  name: MyString
-  code: MyString
-  state: MyString
-  county: MyString
-  urbanicity: MyString
-  setting: MyString
+  name: Site One
+  code: ABCD
+  state: NC
+  county: Pace
+  urbanicity: Urban
+  setting: In School
 
 two:
-  name: MyString
-  code: MyString
-  state: MyString
-  county: MyString
-  urbanicity: MyString
-  setting: MyString
+  name: Site Two
+  code: WXYZ
+  state: NC
+  county: Craven
+  urbanicity: Rural
+  setting: Community Based

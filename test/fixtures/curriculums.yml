@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 one:
-  title: MyString
+  title: FLASH
 
 two:
-  title: MyString
+  title: LOVE

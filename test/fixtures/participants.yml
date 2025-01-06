@@ -16,11 +16,11 @@
 #  index_participants_on_study_id  (study_id) UNIQUE
 #
 one:
-  name: MyString
-  study_id: MyString
-  type: 
+  name: John Doe
+  study_id: DUR-2024-XVA
+  category: Youth
 
 two:
-  name: MyString
-  study_id: MyString
-  type: 
+  name: Jane Doe
+  study_id: ORA-2024-YTK
+  category: Youth

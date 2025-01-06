@@ -1,0 +1,11 @@
+one:
+  curriculum: one
+  title: Lesson One
+  content: This is the first lesson.
+  duration: 30
+
+two:
+  curriculum: two
+  title: Lesson Two
+  content: This is the second lesson.
+  duration: 45

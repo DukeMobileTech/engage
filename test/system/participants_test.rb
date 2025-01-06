@@ -16,7 +16,7 @@ class ParticipantsTest < ApplicationSystemTestCase
 
     fill_in "Name", with: @participant.name
     fill_in "Study", with: @participant.study_id
-    fill_in "Type", with: @participant.type
+    fill_in "Category", with: @participant.category
     click_on "Create Participant"
 
     assert_text "Participant was successfully created"
@@ -29,7 +29,7 @@ class ParticipantsTest < ApplicationSystemTestCase
 
     fill_in "Name", with: @participant.name
     fill_in "Study", with: @participant.study_id
-    fill_in "Type", with: @participant.type
+    fill_in "Category", with: @participant.category
     click_on "Update Participant"
 
     assert_text "Participant was successfully updated"

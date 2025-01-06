@@ -21,10 +21,10 @@
 #
 one:
   question: one
-  text: MyText
+  text: Choice A
   number: 1
 
 two:
-  question: two
-  text: MyText
-  number: 1
+  question: one
+  text: Choice B
+  number: 2

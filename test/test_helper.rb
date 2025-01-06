@@ -2,6 +2,15 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+module ActionDispatch
+  class IntegrationTest
+    def sign_in
+      user = users(:one)
+      post session_url(email_address: user.email_address, password: "Password1!")
+    end
+  end
+end
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
