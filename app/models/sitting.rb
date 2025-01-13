@@ -55,6 +55,14 @@ class Sitting < ApplicationRecord
     "#{lesson.title} sitting on #{done_on.strftime("%F %H:%M %p")}"
   end
 
+  def fidelity_monitoring_questionnaire
+    Questionnaire.find_by(title: "fidelity monitoring")
+  end
+
+  def fidelity?(questionnaire)
+    questionnaire == fidelity_monitoring_questionnaire
+  end
+
   private
 
     def take_attendance

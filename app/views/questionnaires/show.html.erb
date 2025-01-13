@@ -5,14 +5,15 @@
   <div class="mb-3">
     <h4><%= question.number %>) <%= question.identifier %></h4>
     <div class="ms-2">
-      <%= question.text %>
+      <%= raw question.text %>
     </div>
     <% case question.question_type %>
     <% when 'single_choice' %>
       <% question.answers.each do |answer| %>
       <div class="ms-4">
         <%= radio_button_tag question.id, answer.id %>
-        <span class="form-label"><%= answer.text %></span>
+        <span class="form-label ps-2"><%= answer.text %></span>
+        <b><span class="ps-2"><%= answer.label %></span></b>
       </div>
       <% end %>
     <% when 'multiple_choice' %>
@@ -31,6 +32,7 @@
         <%= number_field_tag question.id %>
       </div>
     <% end %>
+    <div class="ps-4"><%= raw question.answer_instructions %></div>
   </div>
 <% end %>
 </div>

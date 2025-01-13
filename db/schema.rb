@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_19_161741) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_07_194720) do
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.integer "lesson_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_activities_on_lesson_id"
+  end
+
   create_table "answers", force: :cascade do |t|
     t.integer "question_id", null: false
     t.text "text"
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "label"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
@@ -71,6 +80,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_161741) do
     t.boolean "required", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "answer_instructions"
     t.index ["identifier"], name: "index_questions_on_identifier", unique: true
     t.index ["questionnaire_id"], name: "index_questions_on_questionnaire_id"
   end
@@ -82,8 +92,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_161741) do
     t.json "answers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "section_id"
     t.index ["participant_id"], name: "index_responses_on_participant_id"
     t.index ["questionnaire_id"], name: "index_responses_on_questionnaire_id"
+    t.index ["section_id"], name: "index_responses_on_section_id"
     t.index ["sitting_id"], name: "index_responses_on_sitting_id"
   end
 
@@ -159,6 +171,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_161741) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "activities", "lessons"
   add_foreign_key "answers", "questions"
   add_foreign_key "attendances", "participants"
   add_foreign_key "attendances", "sittings"
@@ -166,6 +179,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_161741) do
   add_foreign_key "questions", "questionnaires"
   add_foreign_key "responses", "participants"
   add_foreign_key "responses", "questionnaires"
+  add_foreign_key "responses", "sections"
   add_foreign_key "responses", "sittings"
   add_foreign_key "section_participants", "participants"
   add_foreign_key "section_participants", "sections"

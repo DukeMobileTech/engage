@@ -5,6 +5,7 @@
 # Table name: answers
 #
 #  id          :integer          not null, primary key
+#  label       :string
 #  number      :integer
 #  text        :text
 #  created_at  :datetime         not null

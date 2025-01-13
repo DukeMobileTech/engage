@@ -64,7 +64,7 @@
           <% @participant.sections.each do |section| %>
           <tr>
             <td><%= link_to section.site.name, site_path(section.site) %></td>
-            <td><%= link_to section.name, site_sections_path(section.site, section) %></td>
+            <td><%= link_to section.name, site_section_path(section.site, section) %></td>
             <td><%= section.completed ? "Yes" : "No" %></td>
             <td><%= link_to @participant.attendance_str(section), site_section_section_participant_path(section.site, section, @participant.section_participant(section)) %></td>
           </tr>

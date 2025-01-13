@@ -3,7 +3,13 @@
     New <%= @questionnaire.title.titleize %>
     <% if @participant %>
     for <%= @participant&.name%>
+    <% elsif @sitting %>
+    for <%= @sitting.title %>
     <% end %>
   </h3>
-  <%= render "form", response: @response %>
+  <% if @sitting.fidelity?(@questionnaire) %>
+    <%= render "fidelity", response: @response %>
+  <% else %>
+    <%= render "form", response: @response %>
+  <% end %>
 </div>

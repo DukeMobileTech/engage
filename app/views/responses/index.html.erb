@@ -22,7 +22,7 @@
   </table>
   <div class="d-flex flex-row-reverse">
     <% if @sitting %>
-      <%= link_to "Take Demographics", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+      <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
     <% else %>
       <%= link_to "New response", new_questionnaire_response_path(@questionnaire), class: "btn btn-primary" %>
     <% end %>

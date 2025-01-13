@@ -20,6 +20,7 @@ class ResponsesController < ApplicationController
   def new
     @response = @questionnaire.responses.new
     @participant = Participant.find(params[:participant_id]) if params[:participant_id]
+    @sitting = Sitting.find(params[:sitting_id]) if params[:sitting_id]
   end
 
   # POST /responses or /responses.json
@@ -31,6 +32,7 @@ class ResponsesController < ApplicationController
         if @response.sitting
           format.html { redirect_to questionnaire_responses_path(@questionnaire, sitting_id: @response.sitting.id), notice: "Response was successfully created." }
         elsif @response.participant
+          @response.associate_section
           format.html { redirect_to @response.participant, notice: "Response was successfully created." }
         else
           format.html { redirect_to [ @questionnaire, @response ], notice: "Response was successfully created." }

@@ -2,15 +2,16 @@
 #
 # Table name: questions
 #
-#  id               :integer          not null, primary key
-#  identifier       :string           not null
-#  number           :integer
-#  question_type    :integer
-#  required         :boolean          default(TRUE)
-#  text             :text
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  questionnaire_id :integer          not null
+#  id                  :integer          not null, primary key
+#  answer_instructions :text
+#  identifier          :string           not null
+#  number              :integer
+#  question_type       :integer
+#  required            :boolean          default(TRUE)
+#  text                :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  questionnaire_id    :integer          not null
 #
 # Indexes
 #

@@ -2,15 +2,16 @@
 #
 # Table name: questions
 #
-#  id               :integer          not null, primary key
-#  identifier       :string           not null
-#  number           :integer
-#  question_type    :integer
-#  required         :boolean          default(TRUE)
-#  text             :text
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  questionnaire_id :integer          not null
+#  id                  :integer          not null, primary key
+#  answer_instructions :text
+#  identifier          :string           not null
+#  number              :integer
+#  question_type       :integer
+#  required            :boolean          default(TRUE)
+#  text                :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  questionnaire_id    :integer          not null
 #
 # Indexes
 #
@@ -27,7 +28,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy, inverse_of: :question
   accepts_nested_attributes_for :answers, allow_destroy: true
 
-  enum :question_type, { long_answer: 0, single_choice: 1, multiple_choice: 2, number_answer: 3 }
+  enum :question_type, { long_answer: 0, single_choice: 1, multiple_choice: 2, number_answer: 3, text: 4 }
 
   def self.question_type_enum
     question_types.keys.map { |k| [ k.titleize, k ] }
