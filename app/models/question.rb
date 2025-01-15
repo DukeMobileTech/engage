@@ -35,7 +35,7 @@ class Question < ApplicationRecord
   end
 
   def question_answer(response)
-    return nil if response.nil?
+    return nil if response.nil? || question_type == "text"
 
     ans = case question_type
     when "single_choice"

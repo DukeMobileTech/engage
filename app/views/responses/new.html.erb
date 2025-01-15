@@ -7,8 +7,10 @@
     for <%= @sitting.title %>
     <% end %>
   </h3>
-  <% if @sitting.fidelity?(@questionnaire) %>
+  <% if @sitting&.fidelity?(@questionnaire) %>
     <%= render "fidelity", response: @response %>
+  <% elsif @questionnaire.observation? %>
+    <%= render "observation", response: @response %>
   <% else %>
     <%= render "form", response: @response %>
   <% end %>

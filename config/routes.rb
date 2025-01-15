@@ -17,6 +17,12 @@ Rails.application.routes.draw do
     end
   end
   resources :participants
+
+  namespace :turbo, defaults: { format: :turbo_stream } do
+    resources :sections, only: :index
+    resources :sittings, only: :index
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

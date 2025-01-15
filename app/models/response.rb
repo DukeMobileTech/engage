@@ -44,4 +44,18 @@ class Response < ApplicationRecord
     section = participant.sections.last
     update(section: section) if section.present?
   end
+
+  alias_method :original_section, :section
+  def section
+    self.original_section || Section.find_by(id: answers["section_id"]&.to_i)
+  end
+
+  alias_method :original_sitting, :sitting
+  def sitting
+    self.original_sitting || Sitting.find_by(id: answers["sitting_id"]&.to_i)
+  end
+
+  def site
+    Site.find_by(id: answers["site_id"]&.to_i) || sitting&.site || section&.site
+  end
 end

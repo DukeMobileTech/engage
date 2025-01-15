@@ -1,0 +1,3 @@
+<%= turbo_stream.update params[:select] do %>
+  <%= options_for_select @sittings.map { |g| [g.title, g.id] }, selected: params[:selected] %>
+<% end %>

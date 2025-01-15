@@ -25,4 +25,20 @@ class Questionnaire < ApplicationRecord
     end
     looped + (questions - [ question ])
   end
+
+  def self.observation
+    find_by(title: "program observation")
+  end
+
+  def observation?
+    title == "program observation"
+  end
+
+  def evaluation?
+    title == "fidelity monitoring"
+  end
+
+  def demographics?
+    title == "demographics"
+  end
 end

@@ -34,12 +34,12 @@
           <li><%= link_to "Sites", sites_path, class: "nav-link px-2" %></li>
           <li><%= link_to "Curriculums", curriculums_path, class: "nav-link px-2" %></li>
           <li><%= link_to "Participants", participants_path, class: "nav-link px-2" %></li>
-          <li><%= link_to "Questionnaires", questionnaires_path, class: "nav-link px-2" %></li>
+          <li><%= link_to "Forms", questionnaires_path, class: "nav-link px-2" %></li>
         </ul>
         <div class="col-md-3 text-end">
           <% if authenticated? %>
             <span class="me-2">Welcome, <strong><%= Current.user.name %></strong></span>
-            <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-outline-danger" %>
+            <%= link_to "Sign Out", session_path, "data-turbo-method": :delete, class: "btn btn-outline-danger" %>
           <% else %>
             <%= link_to "Sign In", new_session_path, class: "btn btn-outline-primary me-2" unless current_page?(new_session_path) %>
           <% end %>
