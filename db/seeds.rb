@@ -78,7 +78,7 @@ q6.answers.find_or_create_by(text: "Not Reported").update(number: 7, text: "Not 
 # sexual orientation
 q7 = questionnaire.questions.find_or_create_by(identifier: "orientation")
 q7.update(number: 7, question_type: :single_choice, required: false, text: "Which best describes your sexual orientation?")
-q7.answers.find_or_create_by(text: "Heterosexual").update(number: 1, text: "Straight or heterosexual")
+q7.answers.find_or_create_by(text: "Straight or heterosexual").update(number: 1, text: "Straight or heterosexual")
 q7.answers.find_or_create_by(text: "Bisexual").update(number: 2, text: "Bisexual")
 q7.answers.find_or_create_by(text: "Lesbian, gay, or homosexual").update(number: 3, text: "Lesbian, gay, or homosexual")
 q7.answers.find_or_create_by(text: "Something Else").update(number: 4, text: "Something Else")
@@ -141,10 +141,7 @@ q4.answers.find_or_create_by(text: "2").update(number: 2, text: "2")
 q4.answers.find_or_create_by(text: "3").update(number: 3, text: "3", label: "Somewhat")
 q4.answers.find_or_create_by(text: "4").update(number: 4, text: "4")
 q4.answers.find_or_create_by(text: "5").update(number: 5, text: "5", label: "A lot")
-q4.update(answer_instructions: "1 - Facilitator does not have time to complete the material (particularly at the end of the
-session); regularly allows discussions to drag on (e.g., participants seem bored or begin
-discussing non-related issues in small groups).<br>3 - Misses a few points; sometimes allows discussions to drag on.<br>5 - Completes all content of the session; completes activities and discussions in a timely
-manner (using the suggested time limitations in the program manual, if available).")
+q4.update(answer_instructions: "1 - Facilitator does not have time to complete the material (particularly at the end of the session); regularly allows discussions to drag on (e.g., participants seem bored or begin discussing non-related issues in small groups).<br>3 - Misses a few points; sometimes allows discussions to drag on.<br>5 - Completes all content of the session; completes activities and discussions in a timely manner (using the suggested time limitations in the program manual, if available).")
 q5 = observation.questions.find_or_create_by(identifier: "speed")
 q5.update(number: 5, question_type: :single_choice, required: true, text: "<b>To what extent did the presentation of materials seem rushed or hurried?</b>")
 q5.answers.find_or_create_by(text: "1").update(number: 1, text: "1", label: "Very rushed")

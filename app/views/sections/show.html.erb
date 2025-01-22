@@ -3,9 +3,8 @@
 
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
+    <p style="color: green"><%= notice %></p>
     <div class="card">
-      <p style="color: green"><%= notice %></p>
-
       <div class="card-header">
         <h4>Section Details</h4>
       </div>
@@ -16,6 +15,33 @@
 
       <div class="m-1 d-flex flex-row-reverse">
         <%= link_to "Edit this section", edit_site_section_path(@site, @section), class: 'btn btn-primary' %>
+      </div>
+    </div>
+
+    <div class="card mt-5 mb-5">
+      <div class="card-header">
+        <h4>Data Tracker Reports</h4>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Download</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @section.reports.each do |report| %>
+              <tr>
+                <td><%= report.filename %></td>
+                <td><%= link_to "Download", rails_blob_path(report, disposition: "attachment"), class: 'btn btn-primary' %></td>
+                <td><%= link_to "Delete", active_storage_attachment_path(report), "data-turbo-method": :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </main>

@@ -31,6 +31,14 @@ class Participant < ApplicationRecord
     self.name.split(" ").map(&:upcase_first).join(" ")
   end
 
+  def average_attendance(section)
+    att = sitting_attendances(section).size
+    sit = section.sittings.size
+    return 0 if att == 0 || sit == 0
+
+    (att.to_f / sit.to_f).round * 100
+  end
+
   def sitting_attendances(section)
     section_participant(section)&.sitting_attendances
   end
@@ -51,22 +59,59 @@ class Participant < ApplicationRecord
     responses.order(created_at: :desc).find_by(questionnaire_id: demographics_questionnaire&.id)
   end
 
-  def sex
+  def single_choice_answer(identifier)
     return nil unless demographics_response
 
-    question = demographics_questionnaire.questions.find_by(identifier: "sex")
+    question = demographics_questionnaire.questions.find_by(identifier: identifier)
     return nil unless question
 
     question.answers.find { |a| a.id.to_s == demographics_response.answers[question.id.to_s] }&.text
   end
 
-  def grade
+  def multiple_choice_answer(identifier)
     return nil unless demographics_response
 
-    question = demographics_questionnaire.questions.find_by(identifier: "grade")
+    question = demographics_questionnaire.questions.find_by(identifier: identifier)
     return nil unless question
 
-    question.answers.find { |a| a.id.to_s == demographics_response.answers[question.id.to_s] }&.text
+    answers = demographics_response.multiple_choice_answers(question.id)
+    return nil if answers.empty?
+
+    answers.map { |a| question.answers.find { |ans| ans.id.to_s == a.to_s }&.text }.compact.join(", ")
+  end
+
+  def sex
+    single_choice_answer("sex")
+  end
+
+  def grade
+    single_choice_answer("grade")
+  end
+
+  def gender
+    single_choice_answer("gender")
+  end
+
+  def orientation
+    single_choice_answer("orientation")
+  end
+
+  def age
+    single_choice_answer("age")
+  end
+
+  def race
+    multiple_choice_answer("race")
+  end
+
+  def ethnicity
+    single_choice_answer("ethnicity")
+  end
+
+  def race_ethnicity
+    rac = race || "Not Reported"
+    eth = ethnicity || "Not Reported"
+    "#{rac} / #{eth}"
   end
 
   def enroll_label

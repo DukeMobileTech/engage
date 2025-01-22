@@ -12,6 +12,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
+              <th>Name</th>
               <th>Lesson</th>
               <th>Date</th>
               <th>Participants</th>
@@ -21,6 +22,7 @@
           <tbody>
             <% @sittings.each do |sitting| %>
               <tr>
+                <td><%= sitting.name %></td>
                 <td><%= link_to sitting.lesson.title, site_section_sitting_path(@site, @section, sitting) %></td>
                 <td><%= sitting.done_on.strftime("%F %H:%M %p") %></td>
                 <td><%= sitting.participation %></td>
