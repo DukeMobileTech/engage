@@ -11,6 +11,7 @@
   <% end %>
 
   <div class="mb-3">
+    <p class="fw-bold">Please check the participants who are present</p>
     <%= form.fields_for :attendances do |att_field| %>
       <div class="form-check">
         <%= att_field.check_box :present, class: "form-check-input" %>
