@@ -1,0 +1,49 @@
+<% content_for :title, "Users" %>
+
+<div class="mb-5">
+  <p style="color: green"><%= notice %></p>
+
+  <h3 class="text-center">Users</h3>
+
+<!--
+  <div class="d-flex flex-row-reverse">
+    <%#= link_to "New Participant", new_participant_path, class: "btn btn-primary" %>
+  </div>
+-->
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Sites</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, user %></td>
+          <td><%= user.email_address %></td>
+          <td>
+            <% user.roles.each do |role| %>
+              <span><%= role.name %> </span>
+            <% end %>
+          </td>
+          <td>
+            <% user.sites.each do |site| %>
+              <span><%= link_to site.name, site %> </span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<!--
+  <div class="d-flex flex-row-reverse">
+    <%#= link_to "New Participant", new_participant_path, class: "btn btn-primary" %>
+  </div>
+-->
+
+</div>

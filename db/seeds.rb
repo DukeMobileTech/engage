@@ -8,9 +8,25 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# Find/Create roles
+admin = Role.find_or_create_by(name: "admin")
+facilitator = Role.find_or_create_by(name: "facilitator")
+observer = Role.find_or_create_by(name: "observer")
+user = Role.find_or_create_by(name: "user")
+
 # Find/Create default user used for testing
-u = User.find_or_create_by(email_address: "user@example.com")
+a = User.find_or_create_by(email_address: "user@example.com")
+a.update!(name: "Test Admin", password: "Password1!")
+UserRole.find_or_create_by(user_id: a.id, role_id: admin.id)
+f = User.find_or_create_by(email_address: "user1@example.com")
+f.update!(name: "Test Facilitator", password: "Password1!")
+UserRole.find_or_create_by(user_id: f.id, role_id: facilitator.id)
+o = User.find_or_create_by(email_address: "user2@example.com")
+o.update!(name: "Test Observer", password: "Password1!")
+UserRole.find_or_create_by(user_id: o.id, role_id: observer.id)
+u = User.find_or_create_by(email_address: "user3@example.com")
 u.update!(name: "Test User", password: "Password1!")
+UserRole.find_or_create_by(user_id: u.id, role_id: user.id)
 
 # Find/Create demographics questionnaire
 questionnaire = Questionnaire.find_by(title: "demographics")

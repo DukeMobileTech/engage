@@ -14,9 +14,13 @@ Rails.application.routes.draw do
       resources :sittings do
         resources :attendances, only: :index
       end
+      member do
+        post "data_tracker" => "sections#data_tracker"
+      end
     end
   end
   resources :participants
+  resources :users, only: %i[index show edit update]
 
   namespace :turbo, defaults: { format: :turbo_stream } do
     resources :sections, only: :index

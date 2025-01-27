@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_16_164622) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_23_192406) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -121,10 +121,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_164622) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "section_id"
+    t.integer "user_id"
     t.index ["participant_id"], name: "index_responses_on_participant_id"
     t.index ["questionnaire_id"], name: "index_responses_on_questionnaire_id"
     t.index ["section_id"], name: "index_responses_on_section_id"
     t.index ["sitting_id"], name: "index_responses_on_sitting_id"
+    t.index ["user_id"], name: "index_responses_on_user_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "section_participants", force: :cascade do |t|
@@ -191,6 +199,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_164622) do
     t.index ["section_id"], name: "index_sittings_on_section_id"
   end
 
+  create_table "user_roles", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
+  create_table "user_sites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "site_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_user_sites_on_site_id"
+    t.index ["user_id"], name: "index_user_sites_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
@@ -221,4 +247,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_164622) do
   add_foreign_key "site_participants", "sites"
   add_foreign_key "sittings", "lessons"
   add_foreign_key "sittings", "sections"
+  add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "users"
+  add_foreign_key "user_sites", "sites"
+  add_foreign_key "user_sites", "users"
 end

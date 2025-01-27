@@ -13,6 +13,9 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Category</th>
+              <th>Sex</th>
+              <th>Age</th>
               <th>Attendance</th>
             </tr>
           </thead>
@@ -20,6 +23,9 @@
             <% @section_participants.each do |sp| %>
               <tr>
                 <td><%= link_to sp.participant.name, participant_path(sp.participant) %></td>
+                <td><%= sp.participant.category %></td>
+                <td><%= sp.participant.sex %></td>
+                <td><%= sp.participant.age %></td>
                 <td><%= link_to sp.attendance_str, site_section_section_participant_path(@site, @section, sp) %></td>
               </tr>
             <% end %>

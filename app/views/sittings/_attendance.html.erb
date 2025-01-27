@@ -14,7 +14,7 @@
     <%= form.fields_for :attendances do |att_field| %>
       <div class="form-check">
         <%= att_field.check_box :present, class: "form-check-input" %>
-        <%= att_field.label att_field.object.participant.upcased_name, class: "form-check-label" %>
+        <%= att_field.label "#{att_field.object.participant.upcased_name} - #{att_field.object.participant.demo_label}", class: "form-check-label" %>
       </div>
     <% end %>
   </div>

@@ -12,6 +12,7 @@
 #  questionnaire_id :integer          not null
 #  section_id       :integer
 #  sitting_id       :integer
+#  user_id          :integer
 #
 # Indexes
 #
@@ -19,6 +20,7 @@
 #  index_responses_on_questionnaire_id  (questionnaire_id)
 #  index_responses_on_section_id        (section_id)
 #  index_responses_on_sitting_id        (sitting_id)
+#  index_responses_on_user_id           (user_id)
 #
 # Foreign Keys
 #

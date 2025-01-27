@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_site
-  before_action :set_section, only: %i[ show edit update destroy ]
+  before_action :set_section, only: %i[ show edit update destroy data_tracker ]
   before_action :set_curriculums, only: %i[ new edit ]
 
   # GET /sections or /sections.json
@@ -57,6 +57,12 @@ class SectionsController < ApplicationController
       format.html { redirect_to site_sections_path, status: :see_other, notice: "Section was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  # POST /sections/1/data_tracker
+  def data_tracker
+    @section.generate_data_tracker
+    redirect_to site_section_path(@site, @section)
   end
 
   private

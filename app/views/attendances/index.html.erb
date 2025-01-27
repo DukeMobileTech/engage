@@ -12,7 +12,10 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Participant</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Sex</th>
+              <th>Age</th>
               <th>Present</th>
             </tr>
           </thead>
@@ -20,6 +23,9 @@
             <% @attendances.each do |attendance| %>
               <tr>
                 <td><%= link_to attendance.participant.upcased_name, participant_path(attendance.participant) %></td>
+                <td><%= attendance.participant.category %></td>
+                <td><%= attendance.participant.sex %></td>
+                <td><%= attendance.participant.age %></td>
                 <td><%= attendance.present? ? "Yes" : "No" %></td>
               </tr>
             <% end %>

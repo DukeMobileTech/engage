@@ -91,11 +91,11 @@ class Section < ApplicationRecord
     sheet.add_row demo + auto + sessions.pluck(:name)
     participants.each do |participant|
       att_list = attendance(sessions, participant)
+      reach = att_list.include?("1") ? "1" : "0"
       progress = ((att_list.count("1") / att_list.count.to_f) * 100).round
       sheet.add_row [ participant.study_id, participant.category, participant.race_ethnicity,
                       participant.sex, participant.gender, participant.orientation,
-                      participant.age, participant.grade ] +
-                      [ "", "#{progress}%" ] + att_list
+                      participant.age, participant.grade ] + [ reach, "#{progress}%" ] + att_list
     end
   end
 

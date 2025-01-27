@@ -31,6 +31,10 @@ class Participant < ApplicationRecord
     self.name.split(" ").map(&:upcase_first).join(" ")
   end
 
+  def demo_label
+    "#{category} #{sex} #{age}".strip
+  end
+
   def average_attendance(section)
     att = sitting_attendances(section).size
     sit = section.sittings.size

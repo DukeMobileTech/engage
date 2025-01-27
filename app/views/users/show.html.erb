@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="card">
+  <div class="card-header">
+    <h4><%= @user.name %></h4>
+  </div>
+
+  <div class="card-body">
+    <%= render "user", locals: { users: @user } %>
+  </div>
+
+  <div class="m-1 d-flex flex-row-reverse">
+    <%= link_to "Edit user", edit_user_path(@user), class: 'btn btn-primary' %>
+  </div>
+</div>

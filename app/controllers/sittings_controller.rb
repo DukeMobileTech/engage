@@ -20,6 +20,11 @@ class SittingsController < ApplicationController
 
   # GET /sittings/1/edit
   def edit
+    if @sitting.attendances.size != @section.participants.size
+      @section.participants.each do |participant|
+        @sitting.attendances.find_or_create_by(participant_id: participant.id)
+      end
+    end
   end
 
   # POST /sittings or /sittings.json
@@ -39,8 +44,10 @@ class SittingsController < ApplicationController
 
   # PATCH/PUT /sittings/1 or /sittings/1.json
   def update
-    params[:sitting][:attendances_attributes]&.each do |index, attendance|
-      @sitting.attendances.find(attendance["id"]).update(present: attendance["present"])
+    if params[:sitting]
+      params[:sitting][:attendances_attributes]&.each do |index, attendance|
+        @sitting.attendances.find(attendance["id"]).update(present: attendance["present"])
+      end
     end
     respond_to do |format|
       if @sitting.update(sitting_params)

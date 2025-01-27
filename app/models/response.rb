@@ -10,6 +10,7 @@
 #  questionnaire_id :integer          not null
 #  section_id       :integer
 #  sitting_id       :integer
+#  user_id          :integer
 #
 # Indexes
 #
@@ -17,6 +18,7 @@
 #  index_responses_on_questionnaire_id  (questionnaire_id)
 #  index_responses_on_section_id        (section_id)
 #  index_responses_on_sitting_id        (sitting_id)
+#  index_responses_on_user_id           (user_id)
 #
 # Foreign Keys
 #
@@ -30,6 +32,7 @@ class Response < ApplicationRecord
   belongs_to :participant, optional: true
   belongs_to :sitting, optional: true
   belongs_to :section, optional: true
+  belongs_to :user, optional: true
 
   validates :answers, presence: true
 
