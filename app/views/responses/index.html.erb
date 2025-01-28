@@ -1,7 +1,7 @@
 <% if @questionnaire.demographics? %>
   <%= render 'demo_index' %>
 <% elsif @questionnaire.evaluation? %>
-  <%= render 'eval_index' %>
+  <%= render 'fid_index' %>
 <% elsif @questionnaire.observation? %>
   <%= render 'obs_index' %>
 <% end %>

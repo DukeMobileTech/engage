@@ -17,36 +17,36 @@
 
   <%= form.fields_for :answers do |response| %>
     <% @questionnaire.questions.each do |question| %>
-    <div class="mb-3">
-      <h5>
-        <%= question.number %> ) <%= question.identifier %>
-        <%= content_tag :abbr, '*', title: 'Required' if question.required %>
-      <h5>
+      <div class="mb-3">
+        <h5>
+          <%= question.number %> ) <%= question.identifier %>
+          <%= content_tag :abbr, '*', title: 'Required' if question.required %>
+        <h5>
 
-      <p class="ms-1"><%= question.text %></p>
+        <p class="ms-1"><%= question.text %></p>
 
-      <% case question.question_type %>
-      <% when 'single_choice' %>
-        <% question.answers.each do |answer| %>
-          <p class="ms-2 form-check">
-            <%= response.radio_button question.id, answer.id, { required: question.required, class: "form-check-input" } %>
-            <span class="form-check-label"><%= answer.text %></span>
-          </p>
+        <% case question.question_type %>
+        <% when 'single_choice' %>
+          <% question.answers.each do |answer| %>
+            <p class="ms-2 form-check">
+              <%= response.radio_button question.id, answer.id, { required: question.required, class: "form-check-input" } %>
+              <span class="form-check-label"><%= answer.text %></span>
+            </p>
+          <% end %>
+        <% when 'multiple_choice' %>
+          <% question.answers.each do |answer| %>
+            <p class="ms-2 form-check">
+              <%= response.check_box question.id, { multiple: true, class: "form-check-input" }, answer.id %>
+              <span class="form-check-label"><%= answer.text %></span>
+            </p>
+          <% end %>
+        <% when 'long_answer' %>
+          <%= response.text_area question.id, required: question.required %>
+        <% when 'number_answer' %>
+          <%= response.number_field question.id, required: question.required %>
         <% end %>
-      <% when 'multiple_choice' %>
-        <% question.answers.each do |answer| %>
-          <p class="ms-2 form-check">
-            <%= response.check_box question.id, { multiple: true, class: "form-check-input" }, answer.id %>
-            <span class="form-check-label"><%= answer.text %></span>
-          </p>
-        <% end %>
-      <% when 'long_answer' %>
-        <%= response.text_area question.id, required: question.required %>
-      <% when 'number_answer' %>
-        <%= response.number_field question.id, required: question.required %>
-      <% end %>
-    </div>
-    <hr>
+      </div>
+      <hr>
     <% end %>
   <% end %>
 

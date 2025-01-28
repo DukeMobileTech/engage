@@ -27,6 +27,7 @@ class Sitting < ApplicationRecord
   delegate :site, to: :section, allow_nil: true
   has_many :attendances, dependent: :destroy
   has_many :responses
+  has_many :activities, through: :lesson
 
   accepts_nested_attributes_for :attendances
 

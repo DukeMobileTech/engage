@@ -4,6 +4,7 @@ class ResponsesController < ApplicationController
   # GET /responses or /responses.json
   def index
     @responses = @questionnaire.responses.all
+    @sitting = Sitting.find(params[:sitting_id]) if params[:sitting_id]
   end
 
   # GET /responses/1 or /responses/1.json
@@ -17,6 +18,11 @@ class ResponsesController < ApplicationController
     @response = @questionnaire.responses.new
     @participant = Participant.find(params[:participant_id]) if params[:participant_id]
     @sitting = Sitting.find(params[:sitting_id]) if params[:sitting_id]
+    @activities = @sitting.activities if @sitting
+    @activity_question = @questionnaire.activity_question
+    @delivery_modified_question = @questionnaire.delivery_modified_question
+    @content_modified_question = @questionnaire.content_modified_question
+    @not_delivered_question = @questionnaire.not_delivered_question
     @sites = Site.all
   end
 
