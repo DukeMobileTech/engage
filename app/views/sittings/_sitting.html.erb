@@ -33,4 +33,9 @@
     <strong>Participants present:</strong>
     <%= link_to @sitting.participation, site_section_sitting_attendances_path(@site, @section, @sitting) %>
   </p>
+
+  <p>
+    <strong>Facilitators:</strong>
+    <%= @sitting.users.map(&:name).join(", ") %>
+  </p>
 </div>

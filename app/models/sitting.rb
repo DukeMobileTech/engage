@@ -28,6 +28,8 @@ class Sitting < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :responses
   has_many :activities, through: :lesson
+  has_many :user_sittings, dependent: :destroy
+  has_many :users, through: :user_sittings
 
   accepts_nested_attributes_for :attendances
 

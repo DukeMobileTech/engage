@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_23_192406) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_28_170909) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -217,6 +217,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_192406) do
     t.index ["user_id"], name: "index_user_sites_on_user_id"
   end
 
+  create_table "user_sittings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "sitting_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sitting_id"], name: "index_user_sittings_on_sitting_id"
+    t.index ["user_id"], name: "index_user_sittings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
@@ -251,4 +260,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_192406) do
   add_foreign_key "user_roles", "users"
   add_foreign_key "user_sites", "sites"
   add_foreign_key "user_sites", "users"
+  add_foreign_key "user_sittings", "sittings"
+  add_foreign_key "user_sittings", "users"
 end

@@ -16,6 +16,7 @@ class SittingsController < ApplicationController
   # GET /sittings/new
   def new
     @sitting = @section.sittings.new
+    @facilitators = @site.facilitators
   end
 
   # GET /sittings/1/edit
@@ -25,6 +26,7 @@ class SittingsController < ApplicationController
         @sitting.attendances.find_or_create_by(participant_id: participant.id)
       end
     end
+    @facilitators = @site.facilitators
   end
 
   # POST /sittings or /sittings.json
@@ -90,6 +92,6 @@ class SittingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sitting_params
-      params.expect(sitting: [ :name, :done_on, :section_id, :lesson_id, :completed, attendances_attributes: [ :id, :participant_id, :sitting_id, :present ] ])
+      params.expect(sitting: [ :name, :done_on, :section_id, :lesson_id, :completed, attendances_attributes: [ :id, :participant_id, :sitting_id, :present ], user_ids: [] ])
     end
 end
