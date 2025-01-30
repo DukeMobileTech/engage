@@ -1,60 +1,32 @@
 <%= form_with(model: [@questionnaire, response]) do |form| %>
-  <div data-controller='observation'
-       data-observation-url-value="<%= turbo_sections_path %>"
-       data-observation-selected-value="<%= response.section_id %>"
-       data-observation-url2-value="<%= turbo_sittings_path %>"
-       data-observation-selected2-value="<%= response.sitting_id %>">
-    <% if response.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(response.errors.count, "error") %> prohibited this response from being saved:</h2>
+  <% if response.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(response.errors.count, "error") %> prohibited this response from being saved:</h2>
 
-        <ul>
-          <% response.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+      <ul>
+        <% response.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <%= form.hidden_field :participant_id, value: params[:participant_id] %>
-    <%= form.hidden_field :sitting_id, value: params[:sitting_id] %>
-    <%= form.hidden_field :user_id, value: Current.user.id %>
+  <%= form.hidden_field :sitting_id, value: params[:sitting_id] %>
+  <%= form.hidden_field :user_id, value: Current.user.id %>
 
-    <%= form.fields_for :answers do |response| %>
+  <div class="m-5">
+    <p><b class="form-label">Site: </b><em><%= @sitting.section.site.name %></em></p>
+    <p><b class="form-label">Section: </b><em><%= @sitting.section.name %></em></p>
+    <p><b class="form-label">Sitting: </b><em><%= @sitting.name %></em></p>
+  </div>
+
+  <%= form.fields_for :answers do |response| %>
     <div class="mb-3">
-      <p class="ms-1 form-label"><b>Site Name</b></p>
-        <%= response.select :site_id,
-          @sites.map { |site| [ site.name, site.id ]},
-          { include_blank: true, required: true },
-          {
-            class: "form-control",
-            "data-action": "change->observation#change",
-            "data-observation-target": "mainSelect",
-          } %>
-      </div>
-      <div class="mb-3">
-        <p class="ms-1 form-label"><b>Section Name</b></p>
-        <%= response.select :section_id,
-          [],
-          { include_blank: true, required: true },
-          {
-            class: "form-control",
-            "data-action": "change->observation#change2",
-            "data-observation-target": "secondarySelect",
-          } %>
-      </div>
-      <div class="mb-3">
-        <b class="ms-1"><%= response.label :sitting_id, class: "form-label" %></b>
-        <%= response.select :sitting_id,
-          [],
-          { include_blank: true },
-          {
-            class: "form-control",
-            "data-observation-target": "tertiarySelect",
-           } %>
-      </div>
+      <b><%= response.label "Observer Name", class: "form-label" %></b>
+      <%= response.select :observer_id, options_from_collection_for_select(@observers, :id, :name), { include_blank: true }, { class: "form-select" } %>
+    </div>
 
-      <% @questionnaire.questions.each do |question| %>
+    <% @questionnaire.questions.each do |question| %>
       <div class="mb-3">
         <h5>
           <%= question.number %> ) <%= question.identifier %>
@@ -80,17 +52,15 @@
             </p>
           <% end %>
         <% when 'long_answer' %>
-          <%= response.text_area question.id, required: question.required %>
+          <%= response.text_area question.id, required: question.required, class: "form-control" %>
         <% when 'number_answer' %>
-          <%= response.number_field question.id, required: question.required %>
+          <%= response.number_field question.id, required: question.required, class: "form-control" %>
         <% end %>
       </div>
-      <hr>
-      <% end %>
     <% end %>
+  <% end %>
 
-    <div class="d-flex flex-row-reverse">
-      <%= form.submit class: "btn btn-success" %>
-    </div>
+  <div class="d-flex flex-row-reverse">
+    <%= form.submit class: "btn btn-success" %>
   </div>
 <% end %>

@@ -22,11 +22,6 @@ Rails.application.routes.draw do
   resources :participants
   resources :users, only: %i[index show edit update]
 
-  namespace :turbo, defaults: { format: :turbo_stream } do
-    resources :sections, only: :index
-    resources :sittings, only: :index
-  end
-
   scope :active_storage, module: :active_storage, as: :active_storage do
     resources :attachments, only: [ :destroy ]
   end

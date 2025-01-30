@@ -245,15 +245,19 @@ and the performance of the facilitator.<br>
 Excellent sessions look like:<br><ul><li>Participants are doing rather than talking about activities</li><li>Non-judgmental responses to questions</li><li>Answering questions of fact with information, questions of value with validation</li><li>Good time management and well organized</li><li>Adequate pacing—not too fast and did not drag</li><li>Using effective checks for understanding</li></ul>
 Poor sessions look like:<ul><li>Lecture-style of presenting the content</li><li>Reading the content from the notebook</li><li>Stumbling along with the content and failing to make connections to what
 has been discussed previously or what participants are contributing</li><li>Uninvolved participants</li><li>Getting into power struggles with participants about the content</li><li>Judgmental responses</li><li>Flat affect and boring style</li><li>Unorganized and random</li><li>Loses track of time</li></ul>")
-q15 = observation.questions.find_or_create_by(identifier: "optional-questions")
-q15.update(number: 15, question_type: :text, required: false, text: "<b>Note</b>The following questions (8, 9, and 10) are for grantee’s internal use only for program improvement
+q15 = observation.questions.find_or_create_by(identifier: "activities-planned")
+q15.update(number: 15, question_type: :number_answer, required: true, text: "<b>Number of activities planned for this session (as indicated in the lesson plans):</b>")
+q16 = observation.questions.find_or_create_by(identifier: "activities-completed")
+q16.update(number: 16, question_type: :number_answer, required: true, text: "<b>Number of activities completed during this session:</b>")
+q17 = observation.questions.find_or_create_by(identifier: "optional-questions")
+q17.update(number: 17, question_type: :text, required: false, text: "<b>Note:</b> The following questions (18, 19, and 20) are for grantee’s internal use only for program improvement
 purposes. These questions are optional and will not be reported to the Office of Population Affairs (OPA)
 for performance measurement purposes.")
-q16 = observation.questions.find_or_create_by(identifier: "implementation-problems")
-q16.update(number: 16, question_type: :long_answer, required: false, text: "<b>Briefly describe any implementation problems you noticed, including any major changes to the
+q18 = observation.questions.find_or_create_by(identifier: "implementation-problems")
+q18.update(number: 18, question_type: :long_answer, required: false, text: "<b>Briefly describe any implementation problems you noticed, including any major changes to the
 content or delivery of the material; time wasted in getting the session started or finished, etc:</b>")
-q17 = observation.questions.find_or_create_by(identifier: "major-strengths")
-q17.update(number: 17, question_type: :long_answer, required: false, text: "<b>Please note at least one major strength of the session and/or facilitator’s delivery of the material:</b>")
-q18 = observation.questions.find_or_create_by(identifier: "other-comments")
-q18.update(number: 18, question_type: :long_answer, required: false, text: "<b>Other Comments: Use the space below for additional comments regarding strengths or
+q19 = observation.questions.find_or_create_by(identifier: "major-strengths")
+q19.update(number: 19, question_type: :long_answer, required: false, text: "<b>Please note at least one major strength of the session and/or facilitator’s delivery of the material:</b>")
+q20 = observation.questions.find_or_create_by(identifier: "other-comments")
+q20.update(number: 20, question_type: :long_answer, required: false, text: "<b>Other Comments: Use the space below for additional comments regarding strengths or
 weaknesses of the session, particularly if there is anything that affected your ratings above.</b>")

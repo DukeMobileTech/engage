@@ -35,7 +35,7 @@ class SittingsController < ApplicationController
 
     respond_to do |format|
       if @sitting.save
-        format.html { redirect_to site_section_sitting_path(@site, @section, @sitting), notice: "Sitting was successfully created." }
+        format.html { redirect_to site_section_sitting_path(@site, @section, @sitting), notice: "Session was successfully created." }
         format.json { render :show, status: :created, location: @sitting }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class SittingsController < ApplicationController
     end
     respond_to do |format|
       if @sitting.update(sitting_params)
-        format.html { redirect_to site_section_sitting_path(@site, @section, @sitting), notice: "Sitting was successfully updated." }
+        format.html { redirect_to site_section_sitting_path(@site, @section, @sitting), notice: "Session was successfully updated." }
         format.json { render :show, status: :ok, location: @sitting }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +67,7 @@ class SittingsController < ApplicationController
     @sitting.destroy!
 
     respond_to do |format|
-      format.html { redirect_to site_section_sittings_path(@site, @section), status: :see_other, notice: "Sitting was successfully destroyed." }
+      format.html { redirect_to site_section_sittings_path(@site, @section), status: :see_other, notice: "Session was successfully destroyed." }
       format.json { head :no_content }
     end
   end

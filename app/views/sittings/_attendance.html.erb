@@ -1,7 +1,7 @@
 <%= form_for([@site, @section, @sitting]) do |form| %>
   <% if sitting.errors.any? %>
     <div style="color: red">
-      <h4><%= pluralize(sitting.errors.count, "error") %> prohibited this sitting from being saved:</h4>
+      <h4><%= pluralize(sitting.errors.count, "error") %> prohibited this session from being saved:</h4>
       <ul>
         <% sitting.errors.each do |error| %>
           <li><%= error.full_message %></li>

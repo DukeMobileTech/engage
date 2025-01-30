@@ -100,32 +100,32 @@ class Section < ApplicationRecord
   end
 
   def observation_form
-    Questionnaire.find_by(title: "program observation")
+    Questionnaire.observation
   end
 
   def observations
-    obs = Response.where(questionnaire_id: observation_form&.id)
-    obs&.select { |ob| ob.answers["section_id"] == id.to_s }
+    Response.where(questionnaire_id: observation_form&.id, sitting_id: sittings.pluck(:id))
   end
 
   def quality_question
     observation_form.questions.find_by(identifier: "quality")
   end
 
-  def activity_question
-    observation_form.questions.find_by(identifier: "time-management")
+  def activities_planned_question
+    observation_form.questions.find_by(identifier: "activities-planned")
+  end
+
+  def activities_completed_question
+    observation_form.questions.find_by(identifier: "activities-completed")
   end
 
   def sitting_quality_adherence(obs)
-    sitting = Sitting.find_by(id: obs.answers["sitting_id"]&.to_i)
-    activities = sitting&.lesson&.activities
-    activity_count = 0
-    activity_count = activities.size if activities
-    complete_count = activity_question&.question_answer(obs)&.to_i
-    adh = 0 if activity_count.zero?
-    adh = (complete_count / activity_count.to_f) * 100 if activity_count.positive?
+    activities_planned = activities_planned_question&.question_answer(obs)&.to_i
+    activities_completed = activities_completed_question&.question_answer(obs)&.to_i
+    adh = 0 if activities_planned.zero?
+    adh = (activities_completed / activities_planned.to_f) * 100 if activities_planned.positive?
     qual = quality_question&.question_answer(obs)
-    [ sitting, qual, activity_count, complete_count, adh ]
+    [ obs.sitting, qual, activities_planned, activities_completed, adh ]
   end
 
   def add_observations_sheet(sheet)
@@ -146,18 +146,19 @@ class Section < ApplicationRecord
 
   def add_reporting_data_reach_sheet(sheet)
     # total
+    youth = participants.where(category: "Youth")
     sheet.add_row [ "Total Participant Reach", participants.size ]
-    sheet.add_row [ "Youth", participants.where(category: "Youth").size ]
+    sheet.add_row [ "Youth", youth.size ]
     sheet.add_row [ "Caregiver", participants.where(category: "Caregiver").size ]
     sheet.add_row [ "Youth Serving Professional", participants.where(category: "Youth Serving Professional").size ]
     sheet.add_row []
     # sex
-    sexes = participants.map { |p| p.sex }
+    sexes = youth.map { |p| p.sex }
     sheet.add_row [ "Reach by Sex", "Participants" ]
     sheet.add_row [ "Male", sexes.count("Male") ]
     sheet.add_row [ "Female", sexes.count("Female") ]
     sheet.add_row [ "Not Reported", sexes.count("Not Reported") + sexes.count(nil) ]
-    sheet.add_row [ "Total", participants.size ]
+    sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
     # Youth race/ethnicity
     reach_by_race_ethnicity(sheet, "Youth")
@@ -167,7 +168,7 @@ class Section < ApplicationRecord
     reach_by_race_ethnicity(sheet, "Youth Serving Professional")
     # gender identity
     sheet.add_row [ "Reach by Gender Identity", "Participants" ]
-    groups = participants.group_by { |p| p.gender }
+    groups = youth.group_by { |p| p.gender }
     sheet.add_row [ "Male", groups["Cisgender Man"]&.size || 0 ]
     sheet.add_row [ "Female", groups["Cisgender Woman"]&.size  || 0 ]
     sheet.add_row [ "Transgender Male", groups["Transgender Man"]&.size || 0 ]
@@ -175,22 +176,22 @@ class Section < ApplicationRecord
     sheet.add_row [ "Non-binary Person", groups["Non-binary Person"]&.size || 0 ]
     sheet.add_row [ "Something Else", groups["Other"]&.size || 0 ]
     sheet.add_row [ "Not Reported", (groups["Not Reported"]&.size || 0) + (groups[nil]&.size || 0) ]
-    sheet.add_row [ "Total", participants.size ]
+    sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
     # sexual orientation
     sheet.add_row [ "Reach by Sexual Orientation", "Participants" ]
-    orientations = participants.group_by { |p| p.orientation }
+    orientations = youth.group_by { |p| p.orientation }
     sheet.add_row [ "Straight or heterosexual", orientations["Straight or heterosexual"]&.size || 0 ]
     sheet.add_row [ "Bisexual", orientations["Bisexual"]&.size || 0 ]
     sheet.add_row [ "Lesbian, gay, or homosexual", orientations["Lesbian, gay, or homosexual"]&.size || 0 ]
     sheet.add_row [ "Something Else", orientations["Something Else"]&.size || 0 ]
     sheet.add_row [ "Have not Decided", orientations["Have not Decided"]&.size || 0 ]
     sheet.add_row [ "Not Reported", (orientations["Not Reported"]&.size || 0) + (orientations[nil]&.size || 0) ]
-    sheet.add_row [ "Total", participants.size ]
+    sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
     # age
     sheet.add_row [ "Reach by Age", "Participants" ]
-    ages = participants.group_by { |p| p.age }
+    ages = youth.group_by { |p| p.age }
     sheet.add_row [ "10 or younger", ages["10 yrs old or younger"]&.size || 0 ]
     sheet.add_row [ "11", ages["11 yrs"]&.size || 0 ]
     sheet.add_row [ "12", ages["12 yrs"]&.size || 0 ]
@@ -202,11 +203,11 @@ class Section < ApplicationRecord
     sheet.add_row [ "18", ages["18 yrs"]&.size || 0 ]
     sheet.add_row [ "19 or older", ages["19 yrs or older"]&.size || 0 ]
     sheet.add_row [ "Not reported", (ages["Not Reported"]&.size || 0) + (ages[nil]&.size || 0) ]
-    sheet.add_row [ "Total", participants.size ]
+    sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
     # grade
     sheet.add_row [ "Reach by Grade", "Participants" ]
-    grades = participants.group_by { |p| p.grade }
+    grades = youth.group_by { |p| p.grade }
     sheet.add_row [ "6th grade or less", grades["6th or less"]&.size || 0 ]
     sheet.add_row [ "7th grade", grades["7th"]&.size || 0 ]
     sheet.add_row [ "8th grade", grades["8th"]&.size || 0 ]
@@ -219,7 +220,7 @@ class Section < ApplicationRecord
     sheet.add_row [ "Ungraded", grades["Ungraded"]&.size || 0 ]
     sheet.add_row [ "Not in School", grades["Not in School"]&.size || 0 ]
     sheet.add_row [ "Not reported", (grades["Not Reported"]&.size || 0) + (grades[nil]&.size || 0) ]
-    sheet.add_row [ "Total", participants.size ]
+    sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
   end
 

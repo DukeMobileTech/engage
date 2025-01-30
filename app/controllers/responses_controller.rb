@@ -5,6 +5,7 @@ class ResponsesController < ApplicationController
   def index
     @responses = @questionnaire.responses.all
     @sitting = Sitting.find(params[:sitting_id]) if params[:sitting_id]
+    @responses = @responses.where(sitting_id: @sitting.id) if @sitting
   end
 
   # GET /responses/1 or /responses/1.json
@@ -23,7 +24,7 @@ class ResponsesController < ApplicationController
     @delivery_modified_question = @questionnaire.delivery_modified_question
     @content_modified_question = @questionnaire.content_modified_question
     @not_delivered_question = @questionnaire.not_delivered_question
-    @sites = Site.all
+    @observers = @sitting.section.site.observers if @sitting
   end
 
   # POST /responses or /responses.json

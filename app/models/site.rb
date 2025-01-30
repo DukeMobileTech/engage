@@ -36,6 +36,10 @@ class Site < ApplicationRecord
     UserRole.where(role: froles, user: users).map(&:user)
   end
 
+  def observers
+    Role.where(name: [ "admin", "observer" ]).map(&:users).flatten
+  end
+
   private
 
   def assign_code

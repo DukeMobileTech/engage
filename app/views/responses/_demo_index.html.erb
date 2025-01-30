@@ -6,23 +6,23 @@
         <th>Participant</th>
         <th>Session</th>
         <th>Done On</th>
+        <th>Done By</th>
       </tr>
     </thead>
     <tbody>
       <% @responses.each do |response| %>
         <tr scope="row">
           <td><%= response.participant ? (link_to response.participant&.name, response.participant) : '' %></td>
-          <td><%= response.sitting ? (link_to response.sitting&.title, site_section_sitting_path(response.sitting.site, response.sitting.section, response.sitting)) : '' %></td>
+          <td><%= response.sitting ? (link_to response.sitting.label, site_section_sitting_path(response.sitting.site, response.sitting.section, response.sitting)) : '' %></td>
           <td><%= link_to response.created_at.strftime("%F"), questionnaire_response_path(response.questionnaire, response) %></td>
+          <td><%= response.user.name if response.user %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
   <div class="d-flex flex-row-reverse">
     <% if @sitting %>
-      <%= link_to "New demographics response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-    <% else %>
-      <%= link_to "New demographics response", new_questionnaire_response_path(@questionnaire), class: "btn btn-primary" %>
+      <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>

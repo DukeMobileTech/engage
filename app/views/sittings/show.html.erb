@@ -9,29 +9,28 @@
       </div>
       <div class="card-body">
         <%= render "sitting", locals: { sitting: @sitting } %>
-        <div class="d-flex justify-content-evenly">
-          <div>
-            <%= link_to "Edit this session", edit_site_section_sitting_path(@site, @section, @sitting), class: 'btn btn-primary' %>
-          </div>
-          <div>
-            <%= button_to "Delete this session", site_section_sitting_path(@site, @section, @sitting), method: :delete, class: 'btn btn-danger' %>
-          </div>
+        <div class="d-flex justify-content-end">
+          <%= link_to "Edit this session", edit_site_section_sitting_path(@site, @section, @sitting), class: 'btn btn-primary' %>
         </div>
-        <hr>
-        <div>
-          <h4>Attendance</h4>
-          <%= link_to "Take Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
-        </div>
-        <hr>
-        <div>
-          <h4>Demographics</h4>
-          <%= link_to "View Demographics", questionnaire_responses_path(@sitting.demographics_questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-        </div>
-        <hr>
-        <div>
-          <h4>Fidelity Monitoring</h4>
-          <%= link_to "View Logs", questionnaire_responses_path(@sitting.fidelity_monitoring_questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-        </div>
+      </div>
+    </div>
+    <div class="card mt-3">
+      <div class="card-header">
+        <h4>Session Forms</h4>
+      </div>
+      <div class="card-body d-flex justify-content-evenly">
+        <span>
+          <%= link_to "Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
+        </span>
+        <span>
+          <%= link_to "Demographics", questionnaire_responses_path(Questionnaire.demographics, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+        </span>
+        <span>
+          <%= link_to "Fidelity Logs", questionnaire_responses_path(Questionnaire.fidelity, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+        </span>
+        <span>
+          <%= link_to "Program Observations", questionnaire_responses_path(Questionnaire.observation, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+        </span>
       </div>
     </div>
   </main>

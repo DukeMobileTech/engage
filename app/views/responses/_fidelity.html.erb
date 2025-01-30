@@ -11,7 +11,6 @@
     </div>
   <% end %>
 
-  <%= form.hidden_field :participant_id, value: params[:participant_id] %>
   <%= form.hidden_field :sitting_id, value: params[:sitting_id] %>
   <%= form.hidden_field :user_id, value: Current.user.id %>
 
@@ -40,21 +39,21 @@
             <%= @delivery_modified_question.text %>
           </p>
           <p class="ms-2 form-input">
-            <%= response.text_area "#{activity.id}_#{@delivery_modified_question.id}", required: @delivery_modified_question.required %>
+            <%= response.text_area "#{activity.id}_#{@delivery_modified_question.id}", required: @delivery_modified_question.required, class: "form-control" %>
           </p>
         </div>
 
         <div class="mb-3" data-visibility-target="contentModified" style="display: none;">
           <p class="ms-1"><%= @content_modified_question.text %></p>
           <p class="ms-2 form-input">
-            <%= response.text_area "#{activity.id}_#{@content_modified_question.id}", required: @content_modified_question.required %>
+            <%= response.text_area "#{activity.id}_#{@content_modified_question.id}", required: @content_modified_question.required, class: "form-control" %>
           </p>
         </div>
 
         <div class="mb-3" data-visibility-target="notDelivered" style="display: none;">
           <p class="ms-1"><%= @not_delivered_question.text %></p>
           <p class="ms-2 form-input">
-            <%= response.text_area "#{activity.id}_#{@not_delivered_question.id}", required: @not_delivered_question.required %>
+            <%= response.text_area "#{activity.id}_#{@not_delivered_question.id}", required: @not_delivered_question.required, class: "form-control" %>
           </p>
         </div>
       </div>
@@ -85,9 +84,9 @@
             </p>
           <% end %>
         <% when 'long_answer' %>
-          <%= response.text_area question.id, required: question.required %>
+          <%= response.text_area question.id, required: question.required, class: "form-control" %>
         <% when 'number_answer' %>
-          <%= response.number_field question.id, required: question.required %>
+          <%= response.number_field question.id, required: question.required, class: "form-control" %>
         <% end %>
       </div>
     <% end %>

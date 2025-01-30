@@ -47,24 +47,16 @@ class Sitting < ApplicationRecord
     "#{present_participants.count} out of #{section.section_participants.count}"
   end
 
-  def demographics_questionnaire
-    Questionnaire.find_by(title: "demographics")
-  end
-
   def demographic_responses
-    responses.where(questionnaire_id: demographics_questionnaire&.id)
+    responses.where(questionnaire_id: Questionnaire.demographics&.id)
   end
 
   def title
     "#{lesson.title} sitting on #{done_on.strftime("%F %H:%M %p")}"
   end
 
-  def fidelity_monitoring_questionnaire
-    Questionnaire.find_by(title: "fidelity monitoring")
-  end
-
-  def fidelity?(questionnaire)
-    questionnaire == fidelity_monitoring_questionnaire
+  def label
+    name || title
   end
 
   private

@@ -32,11 +32,19 @@ class Questionnaire < ApplicationRecord
     find_by(title: "program observation")
   end
 
+  def self.fidelity
+    find_by(title: "fidelity monitoring")
+  end
+
+  def self.demographics
+    find_by(title: "demographics")
+  end
+
   def observation?
     title == "program observation"
   end
 
-  def evaluation?
+  def fidelity?
     title == "fidelity monitoring"
   end
 
