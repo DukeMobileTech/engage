@@ -1,42 +1,40 @@
-<div class="row">
-  <%= render partial: "sections/sidebar", locals: { site: @site, section: @section } %>
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
-    <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
-    <div class="card">
-      <div class="card-header">
-        <p style="color: green"><%= notice %></p>
-        <% content_for :title, "Sessions" %>
-        <h4>Sessions Administered For <%= @section.name %></h4>
-      </div>
-      <div class="card-body">
-        <table class="table table-striped">
-          <thead>
+<%= render partial: "sections/header", locals: {site: @site, section: @section } %>
+
+<main class="mb-5">
+  <p style="color: green"><%= notice %></p>
+  <div class="card">
+    <div class="card-header">
+      <% content_for :title, "Sessions" %>
+      <h4>Sessions Administered For <%= @section.name %></h4>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Lessons</th>
+            <th>Date</th>
+            <th>Participants</th>
+            <th>Completed</th>
+            <th>Facilitators</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sittings.each do |sitting| %>
             <tr>
-              <th>Name</th>
-              <th>Lessons</th>
-              <th>Date</th>
-              <th>Participants</th>
-              <th>Completed</th>
-              <th>Facilitators</th>
+              <td><%= link_to sitting.name, site_section_sitting_path(@site, @section, sitting) %></td>
+              <td><%= sitting.lessons.map(&:title).join(", ")  %></td>
+              <td><%= sitting.done_on.strftime("%F %H:%M %p") %></td>
+              <td><%= sitting.participation %></td>
+              <td><%= sitting.completed ? "Yes" : "No" %></td>
+              <td><%= sitting.users.map(&:name).join(", ") %></td>
             </tr>
-          </thead>
-          <tbody>
-            <% @sittings.each do |sitting| %>
-              <tr>
-                <td><%= link_to sitting.name, site_section_sitting_path(@site, @section, sitting) %></td>
-                <td><%= sitting.lessons.map(&:title).join(", ")  %></td>
-                <td><%= sitting.done_on.strftime("%F %H:%M %p") %></td>
-                <td><%= sitting.participation %></td>
-                <td><%= sitting.completed ? "Yes" : "No" %></td>
-                <td><%= sitting.users.map(&:name).join(", ") %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class="d-flex flex-row-reverse">
-          <%= link_to "Start Session", new_site_section_sitting_path(@site, @section), class: "btn btn-primary" %>
-        </div>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="d-flex flex-row-reverse">
+        <%= link_to "Start Session", new_site_section_sitting_path(@site, @section), class: "btn btn-primary" %>
       </div>
     </div>
-  </main>
-</div>
+  </div>
+</main>

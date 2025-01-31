@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :sites do
     resources :site_participants, only: :index
     resources :sections do
-      resources :section_participants
+      resources :section_participants, only: %i[index show]
       resources :sittings do
         resources :attendances, only: :index
       end

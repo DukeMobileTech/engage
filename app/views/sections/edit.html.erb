@@ -1,6 +1,17 @@
-<div class="row">
-  <%= render partial: "sites/sidebar", locals: { site: @site } %>
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<%= render partial: "header", locals: {site: @site, section: @section } %>
+<main class="mb-5">
+  <p style="color: green"><%= notice %></p>
+  <% if params[:enrollment] %>
+    <div class="card">
+      <% content_for :title, "Participant enrollment" %>
+      <div class="card-header">
+        <h4>Enrolling participants to section</h4>
+      </div>
+      <div class="card-body">
+        <%= render "enrollment", site: @site, section: @section %>
+      </div>
+    </div>
+  <% else %>
     <div class="card">
       <% content_for :title, "Editing section" %>
       <div class="card-header">
@@ -14,5 +25,5 @@
         <%= link_to "Show this section", site_section_path(@site, @section), class: "btn btn-primary" %>
       </div>
     </div>
-  </main>
-</div>
+  <% end %>
+</main>

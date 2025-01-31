@@ -19,6 +19,7 @@ class SectionsController < ApplicationController
 
   # GET /sections/1/edit
   def edit
+    @participants = @site.participants if params[:enrollment]
   end
 
   # POST /sections or /sections.json
@@ -81,6 +82,6 @@ class SectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def section_params
-      params.expect(section: [ :name, :start_date, :end_date, :curriculum_id, :site_id, :completed ])
+      params.expect(section: [ :name, :start_date, :end_date, :curriculum_id, :site_id, :completed, participant_ids: [] ])
     end
 end

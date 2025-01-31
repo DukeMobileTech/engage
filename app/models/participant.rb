@@ -35,6 +35,14 @@ class Participant < ApplicationRecord
     "#{category} #{sex} #{age}".strip
   end
 
+  def enroll_label
+    if demographics_response
+      "#{self.upcased_name} (#{self.demo_label})"
+    else
+      "#{self.upcased_name} (#{self.category})"
+    end
+  end
+
   def average_attendance(section)
     att = sitting_attendances(section).size
     sit = section.sittings.size
@@ -116,14 +124,6 @@ class Participant < ApplicationRecord
     rac = race || "Not Reported"
     eth = ethnicity || "Not Reported"
     "#{rac} / #{eth}"
-  end
-
-  def enroll_label
-    if self.grade
-      "#{self.upcased_name} (#{self.grade} grade)"
-    else
-      self.upcased_name
-    end
   end
 
   private

@@ -29,4 +29,13 @@
     <%= @site.setting %>
   </p>
 
+  <p>
+    <strong>Participants:</strong>
+    <%= link_to @site.participants.size, site_site_participants_path(@site) %>
+  </p>
+
+  <p>
+    <strong>Sections:</strong>
+    <%= link_to @site.sections.size, site_sections_path(@site) %>
+  </p>
 </div>

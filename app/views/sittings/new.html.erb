@@ -1,17 +1,15 @@
-<div class="row">
-  <%= render partial: "sections/sidebar", locals: { site: @site, section: @section } %>
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
-    <div class="card">
-      <% content_for :title, "New session" %>
+<%= render partial: "sections/header", locals: {site: @site, section: @section } %>
 
-      <div class="card-header">
-        <h4>Start New Session</h4>
-      </div>
+<main class="mb-5">
+  <div class="card">
+    <% content_for :title, "New session" %>
 
-      <div class="card-body">
-        <%= render "form", site: @site, section: @section, sitting: @sitting %>
-      </div>
+    <div class="card-header">
+      <h4>Start New Session</h4>
     </div>
-  </main>
-</div>
+
+    <div class="card-body">
+      <%= render "form", site: @site, section: @section, sitting: @sitting %>
+    </div>
+  </div>
+</main>

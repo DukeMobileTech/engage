@@ -1,37 +1,33 @@
-<div class="row">
-  <%= render partial: "sections/sidebar", locals: { site: @site, section: @section } %>
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
-    <h2 class="text-center"><%= link_to @site.name, site_sections_path(@site) %></h2>
-    <p style="color: green"><%= notice %></p>
-    <div class="card">
-      <div class="card-header">
-        <h4>Session Details</h4>
-      </div>
-      <div class="card-body">
-        <%= render "sitting", locals: { sitting: @sitting } %>
-        <div class="d-flex justify-content-end">
-          <%= link_to "Edit this session", edit_site_section_sitting_path(@site, @section, @sitting), class: 'btn btn-primary' %>
-        </div>
-      </div>
+<%= render partial: "sections/header", locals: {site: @site, section: @section } %>
+
+<main class="mb-5">
+  <p style="color: green"><%= notice %></p>
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <h4>Session Details</h4>
+      <span><%= link_to "Edit this session", edit_site_section_sitting_path(@site, @section, @sitting), class: 'btn btn-primary' %></span>
     </div>
-    <div class="card mt-3">
-      <div class="card-header">
-        <h4>Session Forms</h4>
-      </div>
-      <div class="card-body d-flex justify-content-evenly">
-        <span>
-          <%= link_to "Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
-        </span>
-        <span>
-          <%= link_to "Demographics", questionnaire_responses_path(Questionnaire.demographics, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-        </span>
-        <span>
-          <%= link_to "Fidelity Logs", questionnaire_responses_path(Questionnaire.fidelity, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-        </span>
-        <span>
-          <%= link_to "Program Observations", questionnaire_responses_path(Questionnaire.observation, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-        </span>
-      </div>
+    <div class="card-body">
+      <%= render "sitting", locals: { sitting: @sitting } %>
     </div>
-  </main>
-</div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">
+      <h4>Session Forms</h4>
+    </div>
+    <div class="card-body d-flex justify-content-evenly">
+      <span>
+        <%= link_to "Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
+      </span>
+      <span>
+        <%= link_to "Demographics", questionnaire_responses_path(Questionnaire.demographics, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+      </span>
+      <span>
+        <%= link_to "Fidelity Logs", questionnaire_responses_path(Questionnaire.fidelity, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+      </span>
+      <span>
+        <%= link_to "Program Observations", questionnaire_responses_path(Questionnaire.observation, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+      </span>
+    </div>
+  </div>
+</main>
