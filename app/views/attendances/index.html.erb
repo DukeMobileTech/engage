@@ -6,7 +6,7 @@
     <div class="card">
       <div class="card-header">
         <% content_for :title, "Attendances" %>
-        <h4>Participant Attendance For <%= @sitting.lesson.title %> on <%= @sitting.done_on.strftime("%F %H:%M %p") %></h4>
+        <h4>Participant Attendance For <%= @sitting.name %> on <%= @sitting.done_on.strftime("%F %H:%M %p") %></h4>
       </div>
       <div class="card-body">
         <table class="table table-striped">

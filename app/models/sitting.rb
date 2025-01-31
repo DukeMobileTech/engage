@@ -8,36 +8,33 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  lesson_id  :integer          not null
 #  section_id :integer          not null
 #
 # Indexes
 #
-#  index_sittings_on_lesson_id   (lesson_id)
 #  index_sittings_on_section_id  (section_id)
 #
 # Foreign Keys
 #
-#  lesson_id   (lesson_id => lessons.id)
 #  section_id  (section_id => sections.id)
 #
 class Sitting < ApplicationRecord
   belongs_to :section
-  belongs_to :lesson
   delegate :site, to: :section, allow_nil: true
   has_many :attendances, dependent: :destroy
-  has_many :responses
-  has_many :activities, through: :lesson
+  has_many :responses, dependent: :nullify
   has_many :user_sittings, dependent: :destroy
   has_many :users, through: :user_sittings
+  has_many :sitting_lessons, dependent: :destroy
+  has_many :lessons, through: :sitting_lessons
+  has_many :activities, through: :lessons
 
-  accepts_nested_attributes_for :attendances
+  accepts_nested_attributes_for :attendances, reject_if: :all_blank, allow_destroy: true
 
   after_create :take_attendance
 
   validates :done_on, presence: true
   validates :section_id, presence: true
-  validates :lesson_id, presence: true
 
   def present_participants
     attendances.where(present: true)
@@ -52,7 +49,7 @@ class Sitting < ApplicationRecord
   end
 
   def title
-    "#{lesson.title} sitting on #{done_on.strftime("%F %H:%M %p")}"
+    "#{lessons.map(&:title).join(", ")} sitting on #{done_on.strftime("%F %H:%M %p")}"
   end
 
   def label

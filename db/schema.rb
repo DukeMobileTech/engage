@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_170909) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_155306) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -187,15 +187,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_170909) do
     t.index ["code"], name: "index_sites_on_code", unique: true
   end
 
+  create_table "sitting_lessons", force: :cascade do |t|
+    t.integer "lesson_id", null: false
+    t.integer "sitting_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_sitting_lessons_on_lesson_id"
+    t.index ["sitting_id"], name: "index_sitting_lessons_on_sitting_id"
+  end
+
   create_table "sittings", force: :cascade do |t|
     t.datetime "done_on"
     t.integer "section_id", null: false
-    t.integer "lesson_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed", default: false
     t.string "name"
-    t.index ["lesson_id"], name: "index_sittings_on_lesson_id"
     t.index ["section_id"], name: "index_sittings_on_section_id"
   end
 
@@ -254,7 +261,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_170909) do
   add_foreign_key "sessions", "users"
   add_foreign_key "site_participants", "participants"
   add_foreign_key "site_participants", "sites"
-  add_foreign_key "sittings", "lessons"
+  add_foreign_key "sitting_lessons", "lessons"
+  add_foreign_key "sitting_lessons", "sittings"
   add_foreign_key "sittings", "sections"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"

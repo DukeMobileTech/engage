@@ -15,13 +15,13 @@
   </p>
 
   <p>
-    <strong>Lesson:</strong>
-    <%= @sitting.lesson.title %>
+    <strong>Lessons:</strong>
+    <%= @sitting.lessons.map(&:title).join(", ") %>
   </p>
 
   <p>
     <strong>Duration:</strong>
-    <%= @sitting.lesson.duration %>
+    <%= @sitting.lessons.map(&:duration).join(", ") %>
   </p>
 
   <p>

@@ -92,6 +92,6 @@ class SittingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sitting_params
-      params.expect(sitting: [ :name, :done_on, :section_id, :lesson_id, :completed, attendances_attributes: [ :id, :participant_id, :sitting_id, :present ], user_ids: [] ])
+      params.expect(sitting: [ :name, :done_on, :section_id, :completed, attendances_attributes: [ :id, :participant_id, :sitting_id, :present ], user_ids: [], lesson_ids: [] ])
     end
 end

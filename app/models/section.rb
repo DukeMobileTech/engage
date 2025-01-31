@@ -36,7 +36,7 @@ class Section < ApplicationRecord
   validates :end_date, presence: true
 
   def progress
-    "#{sittings.where(completed: true).pluck(:lesson_id).uniq.count} / #{lessons.count}"
+    "#{sittings.where(completed: true).map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count}"
   end
 
   def generate_data_tracker
