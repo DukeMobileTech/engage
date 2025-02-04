@@ -29,14 +29,21 @@ class ResponsesController < ApplicationController
 
   # POST /responses or /responses.json
   def create
-    @response = @questionnaire.responses.new(response_params)
+    @response = @questionnaire.responses.new(response_params.except(:section_participant_id, :section_participant_response_id))
 
     respond_to do |format|
       if @response.save
         if @response.sitting
           format.html { redirect_to questionnaire_responses_path(@questionnaire, sitting_id: @response.sitting.id), notice: "Response was successfully created." }
+        elsif params[:response][:section_participant_response_id].present?
+          spr = SectionParticipantResponse.find(params[:response][:section_participant_response_id])
+          spr.update(response: @response)
+          format.html { redirect_to site_section_section_participants_path(spr.section_participant.section.site, spr.section_participant.section), notice: "Response was successfully created." }
+        elsif params[:response][:section_participant_id].present?
+          sp = SectionParticipant.find(params[:response][:section_participant_id])
+          SectionParticipantResponse.create(response: @response, section_participant: sp)
+          format.html { redirect_to site_section_section_participants_path(sp.section.site, sp.section), notice: "Response was successfully created." }
         elsif @response.participant
-          @response.associate_section
           format.html { redirect_to @response.participant, notice: "Response was successfully created." }
         else
           format.html { redirect_to [ @questionnaire, @response ], notice: "Response was successfully created." }
@@ -56,6 +63,6 @@ class ResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def response_params
-      params.require(:response).permit(:questionnaire_id, :participant_id, :sitting_id, :user_id, answers: {})
+      params.require(:response).permit(:questionnaire_id, :participant_id, :sitting_id, :user_id, :section_participant_id, :section_participant_response_id, answers: {})
     end
 end

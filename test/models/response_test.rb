@@ -8,7 +8,6 @@
 #  updated_at       :datetime         not null
 #  participant_id   :integer
 #  questionnaire_id :integer          not null
-#  section_id       :integer
 #  sitting_id       :integer
 #  user_id          :integer
 #
@@ -16,7 +15,6 @@
 #
 #  index_responses_on_participant_id    (participant_id)
 #  index_responses_on_questionnaire_id  (questionnaire_id)
-#  index_responses_on_section_id        (section_id)
 #  index_responses_on_sitting_id        (sitting_id)
 #  index_responses_on_user_id           (user_id)
 #
@@ -24,7 +22,6 @@
 #
 #  participant_id    (participant_id => participants.id)
 #  questionnaire_id  (questionnaire_id => questionnaires.id)
-#  section_id        (section_id => sections.id)
 #  sitting_id        (sitting_id => sittings.id)
 #
 require "test_helper"

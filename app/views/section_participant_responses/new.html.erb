@@ -1,0 +1,11 @@
+<%= render partial: "sections/header", locals: {site: @site, section: @section } %>
+
+<main class="mb-5">
+  <p style="color: green"><%= notice %></p>
+
+  <% content_for :title, "New section participant response" %>
+
+  <h3 class="text-center">Demographics response for participant (<%= @section_participant.participant.name %>)</h3>
+
+  <%= render "form", section_participant_response: @section_participant_response %>
+</main>

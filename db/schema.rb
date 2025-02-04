@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_31_155306) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_213406) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -120,11 +120,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_155306) do
     t.json "answers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "section_id"
     t.integer "user_id"
     t.index ["participant_id"], name: "index_responses_on_participant_id"
     t.index ["questionnaire_id"], name: "index_responses_on_questionnaire_id"
-    t.index ["section_id"], name: "index_responses_on_section_id"
     t.index ["sitting_id"], name: "index_responses_on_sitting_id"
     t.index ["user_id"], name: "index_responses_on_user_id"
   end
@@ -133,6 +131,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_155306) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "section_participant_responses", force: :cascade do |t|
+    t.integer "section_participant_id", null: false
+    t.integer "response_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["response_id"], name: "index_section_participant_responses_on_response_id"
+    t.index ["section_participant_id"], name: "index_section_participant_responses_on_section_participant_id"
   end
 
   create_table "section_participants", force: :cascade do |t|
@@ -252,8 +259,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_155306) do
   add_foreign_key "questions", "questionnaires"
   add_foreign_key "responses", "participants"
   add_foreign_key "responses", "questionnaires"
-  add_foreign_key "responses", "sections"
   add_foreign_key "responses", "sittings"
+  add_foreign_key "section_participant_responses", "responses"
+  add_foreign_key "section_participant_responses", "section_participants"
   add_foreign_key "section_participants", "participants"
   add_foreign_key "section_participants", "sections"
   add_foreign_key "sections", "curriculums"

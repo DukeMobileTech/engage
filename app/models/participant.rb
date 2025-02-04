@@ -67,6 +67,10 @@ class Participant < ApplicationRecord
     Questionnaire.find_by(title: "demographics")
   end
 
+  def demographics_responses
+    responses.where(questionnaire_id: demographics_questionnaire&.id)
+  end
+
   def demographics_response
     responses.order(created_at: :desc).find_by(questionnaire_id: demographics_questionnaire&.id)
   end

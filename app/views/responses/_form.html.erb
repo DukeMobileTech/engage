@@ -14,6 +14,8 @@
   <%= form.hidden_field :participant_id, value: params[:participant_id] %>
   <%= form.hidden_field :sitting_id, value: params[:sitting_id] %>
   <%= form.hidden_field :user_id, value: Current.user.id %>
+  <%= form.hidden_field :section_participant_id, value: params[:section_participant_id] %>
+  <%= form.hidden_field :section_participant_response_id, value: params[:section_participant_response_id] %>
 
   <%= form.fields_for :answers do |response| %>
     <% @questionnaire.questions.each do |question| %>

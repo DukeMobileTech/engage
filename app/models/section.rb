@@ -89,13 +89,12 @@ class Section < ApplicationRecord
     auto = [ "Reach", "Attendance" ]
     sessions = sittings.order(:done_on)
     sheet.add_row demo + auto + sessions.pluck(:name)
-    participants.each do |participant|
-      att_list = attendance(sessions, participant)
+    section_participants.each do |sp|
+      att_list = attendance(sessions, sp.participant)
       reach = att_list.include?("1") ? "1" : "0"
       progress = ((att_list.count("1") / att_list.count.to_f) * 100).round
-      sheet.add_row [ participant.study_id, participant.category, participant.race_ethnicity,
-                      participant.sex, participant.gender, participant.orientation,
-                      participant.age, participant.grade ] + [ reach, "#{progress}%" ] + att_list
+      sheet.add_row [ sp.participant.study_id, sp.participant.category, sp.race_ethnicity,
+                      sp.sex, sp.gender, sp.orientation, sp.age, sp.grade ] + [ reach, "#{progress}%" ] + att_list
     end
   end
 
@@ -146,13 +145,14 @@ class Section < ApplicationRecord
 
   def add_reporting_data_reach_sheet(sheet)
     # total
-    youth = participants.where(category: "Youth")
+    youth_p = participants.where(category: "Youth")
     sheet.add_row [ "Total Participant Reach", participants.size ]
-    sheet.add_row [ "Youth", youth.size ]
+    sheet.add_row [ "Youth", youth_p.size ]
     sheet.add_row [ "Caregiver", participants.where(category: "Caregiver").size ]
     sheet.add_row [ "Youth Serving Professional", participants.where(category: "Youth Serving Professional").size ]
     sheet.add_row []
     # sex
+    youth = section_participants.where(participant_id: youth_p.pluck(:id))
     sexes = youth.map { |p| p.sex }
     sheet.add_row [ "Reach by Sex", "Participants" ]
     sheet.add_row [ "Male", sexes.count("Male") ]
@@ -225,7 +225,8 @@ class Section < ApplicationRecord
   end
 
   def reach_by_race_ethnicity(sheet, category)
-    participant_list = participants.where(category: category)
+    c_participants = participants.where(category: category)
+    participant_list = section_participants.where(participant_id: c_participants.pluck(:id))
     sheet.add_row [ "", "", "#{category} Reach by Race/Ethnicity", "" ]
     sheet.add_row [ category, "Hispanic/Latino", "Non-Hispanic/Latino", "Uknown Ethnicity" ]
     white, white_hispanic, white_non_hispanic = race_ethnicity_counts(participant_list, "White")

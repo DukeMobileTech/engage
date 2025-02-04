@@ -22,6 +22,8 @@ class SectionParticipant < ApplicationRecord
   belongs_to :section
   belongs_to :participant
   has_many :attendances, through: :participant
+  has_many :responses, through: :participant
+  has_one :section_participant_response, dependent: :destroy
 
   def sitting_attendances
     attendances.where(sitting_id: section.sittings.pluck(:id)).where(present: true)
@@ -33,5 +35,76 @@ class SectionParticipant < ApplicationRecord
 
   def progress
     "#{((sitting_attendances.size.to_f / section.lessons.size.to_f) * 100).round} %"
+  end
+
+  def demographics_response
+    section_participant_response&.response
+  end
+
+  def demographics_responses
+    participant.demographics_responses
+  end
+
+  def demographics_label
+    demographics_response&.demographics_label
+  end
+
+  def demographics_questionnaire
+    Questionnaire.find_by(title: "demographics")
+  end
+
+  def single_choice_answer(identifier)
+    return nil unless demographics_response
+
+    question = demographics_questionnaire.questions.find_by(identifier: identifier)
+    return nil unless question
+
+    question.answers.find { |a| a.id.to_s == demographics_response.answers[question.id.to_s] }&.text
+  end
+
+  def multiple_choice_answer(identifier)
+    return nil unless demographics_response
+
+    question = demographics_questionnaire.questions.find_by(identifier: identifier)
+    return nil unless question
+
+    answers = demographics_response.multiple_choice_answers(question.id)
+    return nil if answers.empty?
+
+    answers.map { |a| question.answers.find { |ans| ans.id.to_s == a.to_s }&.text }.compact.join(", ")
+  end
+
+  def sex
+    single_choice_answer("sex")
+  end
+
+  def grade
+    single_choice_answer("grade")
+  end
+
+  def gender
+    single_choice_answer("gender")
+  end
+
+  def orientation
+    single_choice_answer("orientation")
+  end
+
+  def age
+    single_choice_answer("age")
+  end
+
+  def race
+    multiple_choice_answer("race")
+  end
+
+  def ethnicity
+    single_choice_answer("ethnicity")
+  end
+
+  def race_ethnicity
+    rac = race || "Not Reported"
+    eth = ethnicity || "Not Reported"
+    "#{rac} / #{eth}"
   end
 end

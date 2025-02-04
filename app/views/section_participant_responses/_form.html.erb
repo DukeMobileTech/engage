@@ -1,0 +1,44 @@
+<% if @responses.present? %>
+  <b>Please select the demographics response to use from the list below:</b>
+
+  <%= form_for([@site, @section, @section_participant, @section_participant_response]) do |form| %>
+    <% if section_participant_response.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(section_participant_response.errors.count, "error") %> prohibited this section_participant_response from being saved:</h2>
+
+        <ul>
+          <% section_participant_response.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form.hidden_field :section_participant_id, value: @section_participant.id %>
+
+    <div class="m-3">
+      <% @responses.each do |response| %>
+        <div class="form-check">
+          <%= form.radio_button :response_id, response.id, { required: true, class: "form-check-input" } %>
+          <span class="form-check-label"><%= raw response.demographics_label %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="m-3">
+      <%= form.submit 'Save', class: "btn btn-success" %>
+    </div>
+  <% end %>
+
+  <b>OR</b>
+<% end %>
+
+<div class="m-3">
+  <% if @section_participant.participant.demographics_questionnaire %>
+    <% if @section_participant_response.id %>
+      <%= link_to "Update Demographics Response", new_questionnaire_response_path(@section_participant.participant.demographics_questionnaire, participant_id: @section_participant.participant.id, section_participant_response_id: @section_participant_response.id), class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to "Create New Demographics Response", new_questionnaire_response_path(@section_participant.participant.demographics_questionnaire, participant_id: @section_participant.participant.id, section_participant_id: @section_participant.id), class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+</div>
