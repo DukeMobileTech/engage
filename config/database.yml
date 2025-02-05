@@ -22,30 +22,19 @@ test:
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
-# PostgreSQL. Versions 9.3 and up are supported.
-# Configure Using Gemfile
-# gem 'pg'
 production:
   primary:
     <<: *default
-    adapter: postgresql
-    encoding: unicode
-    url: <%= ENV["DATABASE_URL"] %>
+    database: storage/production.sqlite3
   cache:
     <<: *default
-    adapter: postgresql
-    encoding: unicode
-    url: <%= ENV["DATABASE_URL"] %>
+    database: storage/production_cache.sqlite3
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    adapter: postgresql
-    encoding: unicode
-    url: <%= ENV["DATABASE_URL"] %>
+    database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    adapter: postgresql
-    encoding: unicode
-    url: <%= ENV["DATABASE_URL"] %>
+    database: storage/production_cable.sqlite3
     migrations_paths: db/cable_migrate
