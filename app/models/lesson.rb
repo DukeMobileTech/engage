@@ -23,6 +23,4 @@ class Lesson < ApplicationRecord
   has_many :activities, dependent: :destroy, inverse_of: :lesson, autosave: true
   accepts_nested_attributes_for :activities, reject_if: :all_blank, allow_destroy: true
   validates :title, presence: true
-  validates :content, presence: true
-  validates :duration, presence: true
 end

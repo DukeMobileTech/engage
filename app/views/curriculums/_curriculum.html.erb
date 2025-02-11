@@ -1,25 +1,27 @@
+<h5 class="text-center"><%= @curriculum.title %></h5>
 <div class="card">
-  <div class="card-header">
-    <h5 class="card-title text-center"><%= @curriculum.title %></h5>
-  </div>
-  <div class="card-body">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Duration</th>
-          <th>Content</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @curriculum.lessons.each do |lesson| %>
-        <tr>
-          <td><%= lesson.title %></td>
-          <td><%= lesson.duration %></td>
-          <td><%= lesson.content %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-striped">
+    <thead class="card-header">
+      <tr>
+        <th>Title</th>
+        <th>Activities</th>
+        <th>Duration</th>
+        <th>Content</th>
+      </tr>
+    </thead>
+    <tbody class="card-body">
+      <% @curriculum.lessons.each do |lesson| %>
+      <tr>
+        <td><%= lesson.title %></td>
+        <td>
+          <% lesson.activities.each do |activity| %>
+            <div><%= activity.name %></div>
+          <% end %>
+        </td>
+        <td><%= lesson.duration %></td>
+        <td><%= lesson.content %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

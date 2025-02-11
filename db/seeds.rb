@@ -14,19 +14,21 @@ facilitator = Role.find_or_create_by(name: "facilitator")
 observer = Role.find_or_create_by(name: "observer")
 user = Role.find_or_create_by(name: "user")
 
-# Find/Create default user used for testing
-a = User.find_or_create_by(email_address: "user@example.com")
-a.update!(name: "Test Admin", password: "Password1!")
-UserRole.find_or_create_by(user_id: a.id, role_id: admin.id)
-f = User.find_or_create_by(email_address: "user1@example.com")
-f.update!(name: "Test Facilitator", password: "Password1!")
-UserRole.find_or_create_by(user_id: f.id, role_id: facilitator.id)
-o = User.find_or_create_by(email_address: "user2@example.com")
-o.update!(name: "Test Observer", password: "Password1!")
-UserRole.find_or_create_by(user_id: o.id, role_id: observer.id)
-u = User.find_or_create_by(email_address: "user3@example.com")
-u.update!(name: "Test User", password: "Password1!")
-UserRole.find_or_create_by(user_id: u.id, role_id: user.id)
+if Rails.env.development?
+  # Find/Create default user used for testing
+  a = User.find_or_create_by(email_address: "user@example.com")
+  a.update!(name: "Test Admin", password: "Password1!")
+  UserRole.find_or_create_by(user_id: a.id, role_id: admin.id)
+  f = User.find_or_create_by(email_address: "user1@example.com")
+  f.update!(name: "Test Facilitator", password: "Password1!")
+  UserRole.find_or_create_by(user_id: f.id, role_id: facilitator.id)
+  o = User.find_or_create_by(email_address: "user2@example.com")
+  o.update!(name: "Test Observer", password: "Password1!")
+  UserRole.find_or_create_by(user_id: o.id, role_id: observer.id)
+  u = User.find_or_create_by(email_address: "user3@example.com")
+  u.update!(name: "Test User", password: "Password1!")
+  UserRole.find_or_create_by(user_id: u.id, role_id: user.id)
+end
 
 # Find/Create demographics questionnaire
 questionnaire = Questionnaire.find_by(title: "demographics")
@@ -261,3 +263,251 @@ q19.update(number: 19, question_type: :long_answer, required: false, text: "<b>P
 q20 = observation.questions.find_or_create_by(identifier: "other-comments")
 q20.update(number: 20, question_type: :long_answer, required: false, text: "<b>Other Comments: Use the space below for additional comments regarding strengths or
 weaknesses of the session, particularly if there is anything that affected your ratings above.</b>")
+
+# Curiculla / Lessons / Activities
+# 1. FLASH High School
+flash = Curriculum.find_or_create_by!(title: "FLASH High School")
+lesson1 = flash.lessons.find_or_create_by!(title: "Lesson 1")
+[ "1.1	Warm up 1", "1.2	Introduce the FLASH unit", "1.3	Set Classroom expectations", "1.4	4 Corners",
+ "1.5	Anonymous questions", "1.6	Introduce FLASH homework expectations", "1.7	Exit Ticket 1" ].each do |name|
+  lesson1.activities.find_or_create_by!(name: name)
+end
+lesson2 = flash.lessons.find_or_create_by!(title: "Lesson 2")
+[ "2.1	Warm up 2", "2.2 Review the external reproductive organs", "2.3 Review the internal Reproductive organs",
+  "2.4 Define sexual response system terms", "2.5 Conclude and assign homework 2", "2.6 Exit ticket 2" ].each do |name|
+  lesson2.activities.find_or_create_by!(name: name)
+end
+lesson3 = flash.lessons.find_or_create_by!(title: "Lesson 3")
+[ "3.1 Warm up 3", "3.2 Process of conception", "3.3 Early signs of pregnancy and testing", "3.4 Trimesters",
+"3.5 Pregnancy review game", "3.5 Assign homework 3", "3.6 Exit ticket 3" ].each do |name|
+  lesson3.activities.find_or_create_by!(name: name)
+end
+lesson4 = flash.lessons.find_or_create_by!(title: "Lesson 4")
+[ "4.1 Warm up", "4.2 Definitions activity", "4.3 Video and Discussion", "4.4 Advice Column",
+"4.5 Assign Homework 4", "4.6 Exit ticket" ].each do |name|
+  lesson4.activities.find_or_create_by!(name: name)
+end
+lesson5 = flash.lessons.find_or_create_by!(title: "Lesson 5")
+[ "5.1 Warm up 5", "5.2 Administer sexual Attitudes survey", "5.3 Introduction to lesson",
+"5.4 Define Stereotype", "5.5 Facilitate Gender Box brainstorm", "5.6 Analyze Gender Pressure",
+"5.7 Facilitate scenario activity", "5.8 Assign homework 5", "5.9 Exit ticket 5" ].each do |name|
+  lesson5.activities.find_or_create_by!(name: name)
+end
+lesson6 = flash.lessons.find_or_create_by!(title: "Lesson 6")
+[ "6.1 Warm up 6", "6.2 Lead group activity", "6.3 Analyze Scenarios", "6.4 Communication skills demonstration",
+"6.5 Conclude lesson & Assign homework 6", "6.6 Exit ticket" ].each do |name|
+  lesson6.activities.find_or_create_by!(name: name)
+end
+lesson7 = flash.lessons.find_or_create_by!(title: "Lesson 7")
+[ "7.1 Warm up 7", "7.2 Share survey results", "7.3 Watch video and define terms", "7.4 Review Laws",
+"7.5 Discuss power and age differences", "7.6 Facilitate scenarios activity", "7.7 Summarize & Assign homework 7", "7.8 Exit ticket 7" ].each do |name|
+  lesson7.activities.find_or_create_by!(name: name)
+end
+lesson8 = flash.lessons.find_or_create_by!(title: "Lesson 8")
+[ "8.1 Warm up 8", "8.2 Lead technology brainstorm", "8.3 Evaluate brainstorm", "8.4 Discuss sexual violence",
+"8.5 Lead scenarios activity", "8.6 Assign homework", "8.7 Exit ticket 8" ].each do |name|
+  lesson8.activities.find_or_create_by!(name: name)
+end
+lesson9 = flash.lessons.find_or_create_by!(title: "Lesson 9")
+[ "9.1 Warm up 9", "9.2 Define abstinence", "9.3 Introduce refusal skills steps", "9.4 Lead refusal skill demo",
+"9.5 Practice", "9.6 Debrief and assign homework", "9.7 Exit ticket 9" ].each do |name|
+  lesson9.activities.find_or_create_by!(name: name)
+end
+lesson10 = flash.lessons.find_or_create_by!(title: "Lesson 10")
+[ "10.1 Warm up 10", "10.2 Lead birth control effectiveness exercise", "10.3 Study methods and create commercials",
+"10.4 Perform commercials", "10.5 Assign homework", "10.6 Exit ticket 10" ].each do |name|
+  lesson10.activities.find_or_create_by!(name: name)
+end
+lesson11 = flash.lessons.find_or_create_by!(title: "Lesson 11")
+[ "11.1 Warm up 11", "11.2 Lead graffiti Sheet activity", "11.3 Journaling activity",
+"11.4 Condom Demonstration", "11.5 Assign Homework", "11.6 Exit Ticket 11" ].each do |name|
+  lesson11.activities.find_or_create_by!(name: name)
+end
+lesson12 = flash.lessons.find_or_create_by!(title: "Lesson 12")
+[ "12.1 Warm up 12", "12.2 HIV/STD Overview", "12.3 Brainstorm condom barriers, solutions and benefits",
+"12.4 Discuss effectiveness of condoms", "12.5 Demonstration and practice of condoms",
+"12.6 Summarize and Assign Homework", "12.7 Exit ticket 12" ].each do |name|
+  lesson12.activities.find_or_create_by!(name: name)
+end
+lesson13 = flash.lessons.find_or_create_by!(title: "Lesson 13")
+[ "13.1 Warm up 13", "13.2 HIV Review quiz", "13.3 Research local testing resources", "13.4 Write Advice about STD testing",
+"13.5 Assign Homework", "13.6 Exit Ticket 13" ].each do |name|
+  lesson13.activities.find_or_create_by!(name: name)
+end
+lesson14 = flash.lessons.find_or_create_by!(title: "Lesson 14")
+[ "14.1 Warm up 14", "14.2 Explain bottom-line Decision making", "14.3 Endorse FLASH Bottom Lines",
+"14.4 Large group scenario activity", "14.5 Summarize and Assign Homework", "14.6 Exit ticket 14" ].each do |name|
+  lesson14.activities.find_or_create_by!(name: name)
+end
+lesson15 = flash.lessons.find_or_create_by!(title: "Lesson 15")
+[ "15.1 Warm up 15", "15.2 Explain social norms campaign", "15.3 Introduce social norms statements",
+"15.4 Students make posters", "15.5 Conclude", "15.6 Exit ticket 15" ].each do |name|
+  lesson15.activities.find_or_create_by!(name: name)
+end
+# 2. LOVE Notes 4.1
+love_notes = Curriculum.find_or_create_by!(title: "LOVE Notes 4.1")
+lnl1 = love_notes.lessons.find_or_create_by!(title: "Lesson 1")
+[ "1.1a Drawing and discussion", "1.1b relationships today", "1.2a Vision Building",
+"1.3a Red or Green Demonstration", "1.3b Parents relationships and children",
+"1.4a What is a trusted adult and how do I identify one?" ].each do |name|
+  lnl1.activities.find_or_create_by!(name: name)
+end
+lnl2 = love_notes.lessons.find_or_create_by!(title: "Lesson 2")
+[ "2.1 Good Relationships start with you", "2.2a Primary colors personality tool",
+"2.2b Strengthening Positive and Taming Extreme Tendencies",
+"2.3a Sorting baggage", "2.3b Examining Family Patterns",
+"2.3c Abuse and Childhood Hurts discussion", "2.4 Trusted adult connection 2" ].each do |name|
+  lnl2.activities.find_or_create_by!(name: name)
+end
+lnl3 = love_notes.lessons.find_or_create_by!(title: "Lesson 3")
+[ "3.1 What’s important?", "3.2a Reasonable or Unreasonable", "3.2b My expectations",
+"3.2c Practice Communicating Expectations", "3.2d Maturity and Character assessments",
+"3.3 Trusted adult Connection 3" ].each do |name|
+  lnl3.activities.find_or_create_by!(name: name)
+end
+lnl4 = love_notes.lessons.find_or_create_by!(title: "Lesson 4")
+[ "4.1a Group brainstorm", "4.1b Build a relationship", "4.1c Inverted Pyramid Presentation",
+"4.2a Glitter demonstration", "4.2b Video clip ASAPSCIENCE", "4.3 Trusted adult connection 4" ].each do |name|
+  lnl4.activities.find_or_create_by!(name: name)
+end
+lnl5 = love_notes.lessons.find_or_create_by!(title: "Lesson 5")
+[ "5.1a Thumbs Up or Down", "5.2a Identify that Principle", "5.3 Seven Questions to Ask",
+"5.4a Love Advisor", "5.4b Compatibility Checklist", "5.5 Trusted Adult Connection 5" ].each do |name|
+  lnl5.activities.find_or_create_by!(name: name)
+end
+lnl6 = love_notes.lessons.find_or_create_by!(title: "Lesson 6")
+[ "6.1a Relationship Sculptures", "6.1b Assessing Relationships", "6.2a Fun brainstorm Competition",
+"6.3a Is it Time?", "6.3b Better and Worse Ways", "6.3c Surviving a Breakup", "6.4 Trusted adult connection 6" ].each do |name|
+  lnl6.activities.find_or_create_by!(name: name)
+end
+lnl7 = love_notes.lessons.find_or_create_by!(title: "Lesson 7")
+[ "7.1a Red Flags", "7.1b Video Clip; Dating Violence", "7.1c Forms and Prevalence",
+"7.2a Types of physical partner violence", "7.2b Warning signs", "7.3a Tea and Consent video",
+"7.3b Discussion of consent", "7.4 Sex Trafficking- Prevention", "7.5a Draw the Line of Respect",
+"7.6 Trusted Adult Connection 7" ].each do |name|
+  lnl7.activities.find_or_create_by!(name: name)
+end
+lnl8 = love_notes.lessons.find_or_create_by!(title: "Lesson 8")
+[ "8.1a High Cost Slides", "8.2a Taking a low risk deciding approach",
+"8.2b Video DUI; Decisions under the influence", "8.3a Brief review",
+"8.3b Journal; Making Decisions", "8.4 Pathways and sequences Towards success",
+"8.5 Trusted adult connection 8" ].each do |name|
+  lnl8.activities.find_or_create_by!(name: name)
+end
+lnl9 = love_notes.lessons.find_or_create_by!(title: "Lesson 9")
+[ "9.1a Communication patterns", "9.2a Communication Danger signs", "9.3a The time out skills",
+"9.3b What's behind anger", "9.3c Anger and Stress video", "9.3d A Way to Help Calm Yourself",
+"9.4a Speaker Listener Practice", "9.4b Speaker Listener Log", "9.5 Trusted adult connection 9",
+"9.6 Face Time Video" ].each do |name|
+  lnl9.activities.find_or_create_by!(name: name)
+end
+lnl10 = love_notes.lessons.find_or_create_by!(title: "Lesson 10")
+[ "10.1a Practice; Identify the W,W and A", "10.1b Good or Bad Complaint",
+"10.1c Avoid Negative Starts; Be Gentle", "10.1d Journal & Video Clip",
+"10.2a My Hidden Issues Journal", "10.3a Problem- Solving in action",
+"10.4a Communication skill Match Game", "10.5a What Would My life Be Like",
+"10.5b Communication", "10.5c Emotional and Social Intelligence", "10.5d Mental Health",
+"10.6 Trusted Adult Connection 10" ].each do |name|
+  lnl10.activities.find_or_create_by!(name: name)
+end
+lnl11 = love_notes.lessons.find_or_create_by!(title: "Lesson 11")
+[ "11.1a Brainstorm, Poll and Discussion", "11.2a Dimensions of Intimacy", "11.2b Analyze a Relationship",
+"11.2c How Connected", "11.3a All Falls Down or Tooth paste video", "11.3b Discussion",
+"11.4a Potential Emotional Risk", "11.4b Benefits of Deciding", "11.5a Think Whats Next Video",
+"11.6a Body Basics Hormones and Sexual Arousal Patterns", "11.6b Safe Sex Reimagined",
+"11.6c Conversations for Getting on the Same Page", "11.7a Drawing My Line", "11.8 Trusted Adult Connection 11"
+].each do |name|
+  lnl11.activities.find_or_create_by!(name: name)
+end
+lnl12 = love_notes.lessons.find_or_create_by!(title: "Lesson 12")
+[ "12.1a Test your Sex Smarts", "12.1b Birth Control Methods", "12.1c How Do You Get Pregnant Video",
+"12.1d How do Contraceptives Work", "12.2a Film, Reflection and Discussion", "12.2b Peer Teaching activity On STIs/HIV",
+"12.3a  My Personal Plan", "12.4 Trusted Adult Connection", "12.5a Interview with Billie Eilish & Discussion",
+"12.5b Video; The Science of Pornography", "12.6a Tips for assertiveness and Refusal", "12.6b Role-Play Practice" ].each do |name|
+  lnl12.activities.find_or_create_by!(name: name)
+end
+lnl13 = love_notes.lessons.find_or_create_by!(title: "Lesson 13")
+[ "13.1a Group Brainstorm", "13.1b A Childs wish list", "13.1c Discussion; What helps parents provide this",
+"13.2a Being a Good Father Means?", "13.2b Music video & Discussion", "13.2c Father Absence",
+"13.2d Health Relationships and Positive Fathering", "13.3a Child Speak: Bright Future",
+"13.4 Decisions About Living Together", "13.5a Review and Plan for success" ].each do |name|
+  lnl13.activities.find_or_create_by!(name: name)
+end
+# Positive Potential 6th Grade
+pp6 = Curriculum.find_or_create_by!(title: "Positive Potential 6th Grade")
+pp6l1 = pp6.lessons.find_or_create_by!(title: "Lesson 1")
+[ "1.1 Intro", "1.2	Stand up, sit down & Group agreements", "1.3	Five parts of the whole person",
+"1.4	True Value", "1.5	Legacy", "1.6	Positive and Negative influences", "1.7	Transition and Charge 1"
+].each do |name|
+  pp6l1.activities.find_or_create_by!(name: name)
+end
+pp6l2 = pp6.lessons.find_or_create_by!(title: "Lesson 2")
+[ "2.1	Review", "2.2	Tug of war", "2.3	N.I.C.E", "2.4	Exit strategy!", "2.5	No Regrets Book (optional)",
+"2.6	Transition and Charge 2" ].each do |name|
+  pp6l2.activities.find_or_create_by!(name: name)
+end
+pp6l3 = pp6.lessons.find_or_create_by!(title: "Lesson 3")
+[ "3.1	Review", "3.2	Positive and Negative Future", "3.3	Priority Check", "3.4	Ashleys Story",
+"3.5	A.C.T Skills", "3.6	Transition and Charge 3" ].each do |name|
+  pp6l3.activities.find_or_create_by!(name: name)
+end
+pp6l4 = pp6.lessons.find_or_create_by!(title: "Lesson 4")
+[ "4.1	Review", "4.2	Influence and Outcomes", "4.3	Unhealthy Relationships",
+"4.4	Strong Foundations", "4.5	Transition and Charge 4" ].each do |name|
+  pp6l4.activities.find_or_create_by!(name: name)
+end
+pp6l5 = pp6.lessons.find_or_create_by!(title: "Lesson 5")
+[ "5.1 Review", "5.2 No Regrets Review (Optional)", "5.3 True That/ That’s Wack",
+"5.4 Its Not Too Late", "5.5 Measure Your Life", "5.6 For What Its Worth", "5.7 Transition and Charge 5" ].each do |name|
+  pp6l5.activities.find_or_create_by!(name: name)
+end
+# Positive Potential 7th Grade
+pp7 = Curriculum.find_or_create_by!(title: "Positive Potential 7th Grade")
+pp7l1 = pp7.lessons.find_or_create_by!(title: "Lesson 1")
+[ "1.8	Intro", "1.9	Would you rather & Group agreements", "1.10	Five parts of the whole person",
+"1.11	Building self confidence", "1.12	Now or Later", "1.13	Cyber Bullying",
+"1.14	The Whole Truth", "1.15	Transition and Charge 1" ].each do |name|
+  pp7l1.activities.find_or_create_by!(name: name)
+end
+pp7l2 = pp7.lessons.find_or_create_by!(title: "Lesson 2")
+[ "2.7	Review", "2.8	Jammal’s Story Part 1", "2.9	Entrapment", "2.10	Sexting",
+"2.11	Transition and Charge 2" ].each do |name|
+  pp7l2.activities.find_or_create_by!(name: name)
+end
+pp7l3 = pp7.lessons.find_or_create_by!(title: "Lesson 3")
+[ "3.7	Review", "3.8	Split Decisions", "3.9	Enlightenment", "3.10	Transition and Charge 3" ].each do |name|
+  pp7l3.activities.find_or_create_by!(name: name)
+end
+pp7l4 = pp7.lessons.find_or_create_by!(title: "Lesson 4")
+[ "4.6	Review", "4.7	Journey", "4.8	Stages/Timeline", "4.9	Transition and Charge 4" ].each do |name|
+  pp7l4.activities.find_or_create_by!(name: name)
+end
+pp7l5 = pp7.lessons.find_or_create_by!(title: "Lesson 5")
+[ "5.1 Review", "5.2 Jammal’s Story Part 2", "5.3 Building My Legacy", "5.4 Q&A",
+"5.5 Now or Later 2", "5.6 Final Transition and Charge 5" ].each do |name|
+  pp7l5.activities.find_or_create_by!(name: name)
+end
+# Positive Potential 8th Grade
+pp8 = Curriculum.find_or_create_by!(title: "Positive Potential 8th Grade")
+pp8l1 = pp8.lessons.find_or_create_by!(title: "Lesson 1")
+[ "1.1	Intro", "1.2	Would you rather & Group Agreements", "1.3	Five Part of the Whole Person",
+"1.4	What Goes Around Comes Around", "1.5	Road to Romance", "1.6	Transition and Charge 1" ].each do |name|
+  pp8l1.activities.find_or_create_by!(name: name)
+end
+pp8l2 = pp8.lessons.find_or_create_by!(title: "Lesson 2")
+[ "2.1 Review", "2.2A Stuck together (option 1)", "2.2B Choice Points (option 2)",
+"2.3 Streamline", "2.4 Transition and Charge 2" ].each do |name|
+  pp8l2.activities.find_or_create_by!(name: name)
+end
+pp8l3 = pp8.lessons.find_or_create_by!(title: "Lesson 3")
+[ "3.1 Review", "3.2 Multiple Choices", "3.3 Multiple Choices game", "3.4 Jay’s Story", "3.5 Transition and Charge 3" ].each do |name|
+  pp8l3.activities.find_or_create_by!(name: name)
+end
+pp8l4 = pp8.lessons.find_or_create_by!(title: "Lesson 4")
+[ "4.1 Review", "4.2 Are You in Control", "4.3 Refusal Skills", "4.4 Transition and Charge 4" ].each do |name|
+  pp8l4.activities.find_or_create_by!(name: name)
+end
+pp8l5 = pp8.lessons.find_or_create_by!(title: "Lesson 5")
+[ "5.1 Review", "5.2  Possible Future", "5.3 Transition and Charge 5" ].each do |name|
+  pp8l5.activities.find_or_create_by!(name: name)
+end
