@@ -23,18 +23,23 @@ test:
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
-  primary:
+  primary: &primary_production
     <<: *default
-    database: storage/production.sqlite3
+    adapter: postgresql
+    encoding: unicode
+    database: engage_production
+    username: engage
+    host: engage-postgres
+    password: <%= Rails.application.credentials.dig(:postgres, :password) %>
   cache:
-    <<: *default
-    database: storage/production_cache.sqlite3
+    <<: *primary_production
+    database: engage_production_cache
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
-    database: storage/production_queue.sqlite3
+    <<: *primary_production
+    database: engage_production_queue
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
-    database: storage/production_cable.sqlite3
+    <<: *primary_production
+    database: engage_production_cable
     migrations_paths: db/cable_migrate

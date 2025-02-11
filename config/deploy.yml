@@ -89,7 +89,19 @@ builder:
 ssh:
   user: rapiduser
 # Use accessory services (secrets come from .kamal/secrets).
-# accessories:
+accessories:
+  postgres:
+    image: postgres:17
+    port: 127.0.0.1:5432:5432
+    host: rapid-2148.vm.duke.edu
+    env:
+      clear:
+        POSTGRES_USER: engage
+        POSTGRES_DB: engage_production
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
