@@ -1,0 +1,36 @@
+<p style="color: green"><%= notice %></p>
+<h2 class="text-center"><%= @data_upload.name %></h2>
+
+<div class="card mt-2 mb-5">
+  <div class="card-header">
+    <h4>Section Data Upload Reports</h4>
+  </div>
+
+  <div class="card-body">
+    <div class="d-flex flex-row-reverse mt-1">
+      <%= link_to 'Generate Data Upload', generate_report_data_upload_path(@data_upload), "data-turbo-method": :post, class: 'btn btn-success' %>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Filename</th>
+          <th>Download</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @data_upload.reports.order(created_at: :desc).each do |report| %>
+          <tr>
+            <td><%= report.filename %></td>
+            <td><%= link_to "Download", rails_blob_path(report, disposition: "attachment"), class: 'btn btn-primary' %></td>
+            <td><%= link_to "Delete", active_storage_attachment_path(report), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex flex-row-reverse">
+  <%= link_to "Edit this data upload", edit_data_upload_path(@data_upload), class: "btn btn-primary" %>
+</div>

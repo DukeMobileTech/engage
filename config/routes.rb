@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :data_uploads do
+    member do
+      post "generate_report" => "data_uploads#generate_report"
+    end
+  end
   resource :session, only: %i[new create destroy]
   resources :passwords, param: :token
   resources :questionnaires do

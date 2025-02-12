@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_31_213406) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_12_162403) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,6 +74,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_213406) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "data_uploads", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "lessons", force: :cascade do |t|
     t.string "title"
     t.string "duration"
@@ -131,6 +137,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_213406) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "section_data_uploads", force: :cascade do |t|
+    t.integer "section_id", null: false
+    t.integer "data_upload_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data_upload_id"], name: "index_section_data_uploads_on_data_upload_id"
+    t.index ["section_id"], name: "index_section_data_uploads_on_section_id"
   end
 
   create_table "section_participant_responses", force: :cascade do |t|
@@ -260,6 +275,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_213406) do
   add_foreign_key "responses", "participants"
   add_foreign_key "responses", "questionnaires"
   add_foreign_key "responses", "sittings"
+  add_foreign_key "section_data_uploads", "data_uploads"
+  add_foreign_key "section_data_uploads", "sections"
   add_foreign_key "section_participant_responses", "responses"
   add_foreign_key "section_participant_responses", "section_participants"
   add_foreign_key "section_participants", "participants"

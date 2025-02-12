@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :roles, through: :user_roles
   has_many :user_sites, dependent: :destroy
   has_many :sites, through: :user_sites
+  has_many :sections, through: :sites
   has_many :user_sittings, dependent: :destroy
   has_many :sittings, through: :user_sittings
   after_create :add_default_role
