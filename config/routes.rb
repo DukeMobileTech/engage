@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     end
   end
   resources :participants
-  resources :users, only: %i[index show edit update]
+  resources :users, only: %i[index show new create edit update]
 
   scope :active_storage, module: :active_storage, as: :active_storage do
     resources :attachments, only: [ :destroy ]
