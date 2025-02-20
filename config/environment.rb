@@ -11,8 +11,5 @@ ActionMailer::Base.smtp_settings = {
   address: Rails.application.credentials.config[:SMTP_ADDRESS],
   port: Rails.application.credentials.config[:SMTP_PORT],
   authentication: :plain,
-  enable_starttls_auto: true,
-  openssl_verify_mode: "none",
-  open_timeout: 30,
-  read_timeout: 30
+  enable_starttls_auto: true
 }

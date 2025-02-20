@@ -1,0 +1,4 @@
+CREATE DATABASE engage_production;
+CREATE DATABASE engage_production_cache;
+CREATE DATABASE engage_production_queue;
+CREATE DATABASE engage_production_cable;
