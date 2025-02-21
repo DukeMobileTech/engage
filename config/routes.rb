@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :data_uploads do
     member do
       post "generate_report" => "data_uploads#generate_report"
