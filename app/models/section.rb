@@ -269,6 +269,10 @@ class Section < ApplicationRecord
       adh_list << adh
       qual_list << quality&.to_i
     end
+    avg_adh = (adh_list.sum / adh_list.size).round if adh_list.size.positive?
+    avg_adh = 0 if adh_list.size.zero?
+    avg_qual = (qual_list.sum / qual_list.size).round if qual_list.size.positive?
+    avg_qual = 0 if qual_list.size.zero?
 
     sheet.add_row [ "Fidelity" ]
     sheet.add_row []
@@ -278,10 +282,10 @@ class Section < ApplicationRecord
     sheet.add_row []
     sheet.add_row [ "Observed Fidelity" ]
     sheet.add_row [ "How many classes were observed?", observations&.size || 0 ]
-    sheet.add_row [ "Average Observed Session Adherence", (adh_list.sum / adh_list.size).round ]
+    sheet.add_row [ "Average Observed Session Adherence", avg_adh ]
     sheet.add_row []
     sheet.add_row []
     sheet.add_row [ "Average Quality Rating" ]
-    sheet.add_row [ "Overall Quality", (qual_list.sum / qual_list.size).round ]
+    sheet.add_row [ "Overall Quality", avg_qual ]
   end
 end

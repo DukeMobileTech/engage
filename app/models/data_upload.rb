@@ -1,5 +1,3 @@
-require "csv"
-
 # == Schema Information
 #
 # Table name: data_uploads
