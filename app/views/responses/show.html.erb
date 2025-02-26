@@ -6,16 +6,6 @@
       <h4>Participant: <%= @response.participant.name %></h4>
     </div>
   <% end %>
-  <% if @response.site %>
-    <div class="mb-3">
-      <h4>Site: <%= @response.site.name %></h4>
-    </div>
-  <% end %>
-  <% if @response.section %>
-    <div class="mb-3">
-      <h4>Section: <%= @response.section.name %></h4>
-    </div>
-  <% end %>
   <% if @response.sitting %>
     <div class="mb-3">
       <h4>Session: <%= @response.sitting.title %></h4>
@@ -28,7 +18,7 @@
       <%= question.number %> ) <%= question.identifier %>
     </h4>
     <div class="ms-2">
-      <%= raw question.text %>
+      <%= sanitize question.text %>
     </div>
     <div class="ms-4">
       <strong><em><%= question.question_answer(@response) %></em></strong>

@@ -33,7 +33,7 @@
           <%= content_tag :abbr, '*', title: 'Required' if question.required %>
         <h5>
 
-        <p class="ms-1"><%= raw question.text %></p>
+        <p class="ms-1"><%= sanitize question.text %></p>
 
         <% case question.question_type %>
         <% when 'single_choice' %>

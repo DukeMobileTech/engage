@@ -5,7 +5,7 @@
   <div class="mb-3">
     <h4><%= question.number %>) <%= question.identifier %></h4>
     <div class="ms-2">
-      <%= raw question.text %>
+      <%= sanitize question.text %>
     </div>
     <% case question.question_type %>
     <% when 'single_choice' %>
@@ -32,7 +32,7 @@
         <%= number_field_tag question.id %>
       </div>
     <% end %>
-    <div class="ps-4"><%= raw question.answer_instructions %></div>
+    <div class="ps-4"><%= sanitize question.answer_instructions %></div>
   </div>
 <% end %>
 </div>

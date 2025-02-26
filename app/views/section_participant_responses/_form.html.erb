@@ -20,7 +20,7 @@
       <% @responses.each do |response| %>
         <div class="form-check">
           <%= form.radio_button :response_id, response.id, { required: true, class: "form-check-input" } %>
-          <span class="form-check-label"><%= raw response.demographics_label %></span>
+          <span class="form-check-label"><%= sanitize response.demographics_label %></span>
         </div>
       <% end %>
     </div>
