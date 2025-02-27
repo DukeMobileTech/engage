@@ -28,6 +28,8 @@ gem "solid_cable"
 
 gem "mission_control-jobs"
 gem "csv"
+gem "bootstrap", "~> 5.3.3"
+gem "dartsass-rails"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
