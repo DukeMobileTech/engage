@@ -21,7 +21,7 @@
 
   <p>
     <strong>Duration:</strong>
-    <%= @sitting.lessons.map(&:duration).join(" + ") %>
+    <%= @sitting.lessons.map(&:duration).reject(&:blank?).join(" + ") %>
   </p>
 
   <p>

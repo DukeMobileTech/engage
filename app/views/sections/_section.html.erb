@@ -1,4 +1,10 @@
 <div>
+
+  <p>
+    <strong>Site:</strong>
+    <%= @section.site.name %>
+  </p>
+
   <p>
     <strong>Name:</strong>
     <%= @section.name %>
@@ -20,8 +26,8 @@
   </p>
 
   <p>
-    <strong>Site:</strong>
-    <%= @section.site.name %>
+    <strong>Sessions:</strong>
+    <%= @section.sittings.map(&:name).join(", ") %>
   </p>
 
   <p>

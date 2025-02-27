@@ -1,22 +1,24 @@
-<p style="color: green"><%= notice %></p>
-<h2 class="text-center"><%= @site.name %></h2>
+<div class="mb-5">
+  <p style="color: green"><%= notice %></p>
+  <h2 class="text-center"><%= @site.name %></h2>
 
-<div class="row">
-  <%= render partial: "sidebar", locals: { site: @site } %>
+  <div class="row">
+    <%= render partial: "sidebar", locals: { site: @site } %>
 
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="card">
-      <div class="card-header">
-        <h4>Site Details</h4>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h4>Site Details</h4>
+        </div>
+
+        <div class="card-body">
+          <%= render "site", locals: { site: @site } %>
+        </div>
+
+        <div class="m-1 d-flex flex-row-reverse">
+          <%= link_to "Edit this site", edit_site_path(@site), class: 'btn btn-primary' %>
+        </div>
       </div>
-
-      <div class="card-body">
-        <%= render "site", locals: { site: @site } %>
-      </div>
-
-      <div class="m-1 d-flex flex-row-reverse">
-        <%= link_to "Edit this site", edit_site_path(@site), class: 'btn btn-primary' %>
-      </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </div>

@@ -1,7 +1,9 @@
-<p style="color: green"><%= notice %></p>
-<% content_for :title, "New site" %>
-<h4 class="text-center">Creating New Site</h4>
+<div class="mb-5">
+  <p style="color: green"><%= notice %></p>
+  <% content_for :title, "New site" %>
+  <h4 class="text-center">Creating New Site</h4>
 
-<div class="row">
-  <%= render "form", site: @site %>
+  <div class="row">
+    <%= render "form", site: @site %>
+  </div>
 </div>

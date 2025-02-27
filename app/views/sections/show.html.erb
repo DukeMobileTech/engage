@@ -43,7 +43,7 @@
             <tr>
               <td><%= report.filename %></td>
               <td><%= link_to "Download", rails_blob_path(report, disposition: "attachment"), class: 'btn btn-primary' %></td>
-              <td><%= link_to "Delete", active_storage_attachment_path(report), "data-turbo-method": :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+              <td><%= link_to "Delete", active_storage_attachment_path(report), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %></td>
             </tr>
           <% end %>
         </tbody>

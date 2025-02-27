@@ -255,8 +255,10 @@ class Section < ApplicationRecord
 
   def add_reporting_data_dosage_sheet(sheet)
     attendance_list = participants.map { |p| p.average_attendance(self) }
+    avg_att = attendance_list.sum / attendance_list.size if attendance_list.size.positive?
+    avg_att = 0 if attendance_list.size.zero?
     sheet.add_row [ "Dosage", "" ]
-    sheet.add_row [ "Average Attendance %", attendance_list.sum / attendance_list.size ]
+    sheet.add_row [ "Average Attendance %", avg_att ]
     sheet.add_row [ "Number of Participants >= 75% Attendance", attendance_list.select { |a| a >= 75 }.size ]
     sheet.add_row []
   end
