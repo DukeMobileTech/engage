@@ -30,6 +30,7 @@ gem "mission_control-jobs"
 gem "csv"
 gem "bootstrap", "~> 5.3.3"
 gem "dartsass-rails"
+gem "bootswatch", github: "thomaspark/bootswatch"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false

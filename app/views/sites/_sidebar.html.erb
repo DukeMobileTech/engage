@@ -6,15 +6,15 @@
     </div>
     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
       <h6 class="mt-0 text-center"><%= @site.name %></h6>
-      <ul class="nav flex-column">
+      <ul class="nav nav-tabs">
         <li class="nav-item">
-          <%= link_to "Details", @site, class: "nav-link d-flex align-items-center gap-2" %>
+          <%= link_to "Details", @site, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Site Participants", site_site_participants_path(@site), class: "nav-link d-flex align-items-center gap-2" %>
+          <%= link_to "Site Participants", site_site_participants_path(@site), class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Sections", site_sections_path(@site), class: "nav-link d-flex align-items-center gap-2" %>
+          <%= link_to "Sections", site_sections_path(@site), class: "nav-link" %>
         </li>
       </ul>
     </div>

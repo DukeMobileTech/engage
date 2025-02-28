@@ -20,32 +20,37 @@
   </head>
 
   <body>
-    <div class="container">
-      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <div class="col-md-3 mb-2 mb-md-0">
-          <%= link_to image_tag("logo.png"), root_path %>
+    <div class="bs-component">
+      <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid ms-5 me-5">
+          <%= link_to image_tag("logo.png"), root_path, class: "navbar-brand" %>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarId" aria-controls="navbarId" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarId">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item"><%= link_to "Sites", sites_path, class: "nav-link px-2 btn btn-outline-info" %></li>
+              <li class="nav-item"><%= link_to "Participants", participants_path, class: "nav-link px-2 btn btn-outline-info" %></li>
+              <li class="nav-item"><%= link_to "Data Exports", data_uploads_path, class: "nav-link px-2 btn btn-outline-info" %></li>
+              <li class="nav-item"><%= link_to "Curriculums", curriculums_path, class: "nav-link px-2 btn btn-outline-info" %></li>
+              <li class="nav-item"><%= link_to "Survey Forms", questionnaires_path, class: "nav-link px-2 btn btn-outline-info" %></li>
+              <li class="nav-item"><%= link_to "Users", users_path, class: "nav-link px-2 btn btn-outline-info" %></li>
+            </ul>
+            <div class="d-flex">
+              <% if authenticated? %>
+                <span class="me-2 text-dark">Welcome, <strong><%= Current.user.name %></strong></span>
+                <%= link_to "Sign Out", session_path, "data-turbo-method": :delete, class: "btn btn-outline-danger" %>
+              <% else %>
+                <%= link_to "Sign In", new_session_path, class: "btn btn-outline-primary me-2" unless current_page?(new_session_path) %>
+              <% end %>
+            </div>
+          </div>
         </div>
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><%= link_to "Sites", sites_path, class: "nav-link px-2" %></li>
-          <li><%= link_to "Participants", participants_path, class: "nav-link px-2" %></li>
-          <li><%= link_to "Data Exports", data_uploads_path, class: "nav-link px-2" %></li>
-          <li><%= link_to "Curriculums", curriculums_path, class: "nav-link px-2" %></li>
-          <li><%= link_to "Survey Forms", questionnaires_path, class: "nav-link px-2" %></li>
-          <li><%= link_to "Users", users_path, class: "nav-link px-2" %></li>
-        </ul>
-        <div class="col-md-3 text-end">
-          <% if authenticated? %>
-            <span class="me-2">Welcome, <strong><%= Current.user.name %></strong></span>
-            <%= link_to "Sign Out", session_path, "data-turbo-method": :delete, class: "btn btn-outline-danger" %>
-          <% else %>
-            <%= link_to "Sign In", new_session_path, class: "btn btn-outline-primary me-2" unless current_page?(new_session_path) %>
-          <% end %>
-        </div>
-      </header>
+      </nav>
     </div>
-    <main class="container">
+
+    <div class="container">
       <%= yield %>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </div>
   </body>
 </html>

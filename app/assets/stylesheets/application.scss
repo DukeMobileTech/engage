@@ -1,18 +1,5 @@
 // Sassy
-$white: #ffffff;
-
-$theme-colors: (
-    "light":      #dcdbd2,
-    "dark":       #0e0a07,
-    "primary":    #242f45,
-    "secondary":  #d9653d,
-    "info":       #e38d6c,
-    "accent1":    #524865,
-    "accent2":    #67748e,
-    "accent3":    #a2a0a2,
-    "success":    #28a462,
-    "warning":    #e3cb28,
-    "danger":     #f11e15,
-);
+@import "zephyr/variables";
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+@import "zephyr/bootswatch";
