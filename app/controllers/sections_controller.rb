@@ -62,7 +62,7 @@ class SectionsController < ApplicationController
 
   # POST /sections/1/data_tracker
   def data_tracker
-    @section.generate_data_tracker
+    DataTrackerReportJob.perform_later(@section)
     redirect_to site_section_path(@site, @section)
   end
 

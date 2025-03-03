@@ -1,25 +1,25 @@
 <% content_for :title, "Survey Forms" %>
-<div class="mb-5">
-    <h3 class="text-center">Questionnaires</h3>
 
-  <div class="row">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Responses</th>
+<div class="mb-5">
+  <p style="color: green"><%= notice %></p>
+  <h3 class="text-center">Questionnaires</h3>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Responses</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @questionnaires.each do |questionnaire| %>
+        <tr scope="row">
+          <td><%= link_to questionnaire.title.titleize, questionnaire %></td>
+          <td><%= link_to questionnaire.responses.size, questionnaire_responses_path(questionnaire) %></td>
         </tr>
-      </thead>
-      <tbody>
-        <% @questionnaires.each do |questionnaire| %>
-          <tr scope="row">
-            <td><%= link_to questionnaire.title.titleize, questionnaire %></td>
-            <td><%= link_to questionnaire.responses.size, questionnaire_responses_path(questionnaire) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 
   <div class="d-flex flex-row-reverse">
     <%= link_to "New questionnaire", new_questionnaire_path, class: "btn btn-primary" %>

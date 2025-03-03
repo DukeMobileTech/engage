@@ -3,3 +3,21 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 @import "zephyr/bootswatch";
+
+.navbar-brand img {
+  max-height: 75px;
+}
+
+.navbar .navbar-nav .nav-link {
+  color: white;
+  font-weight: bold;
+}
+
+.nav-link {
+  background: #2fb380;
+  min-width: 100px;
+}
+
+body {
+  padding-top: 120px;
+}

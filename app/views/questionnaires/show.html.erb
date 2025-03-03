@@ -11,7 +11,7 @@
     <% when 'single_choice' %>
       <% question.answers.each do |answer| %>
       <div class="ms-4">
-        <%= radio_button_tag question.id, answer.id %>
+        <%= radio_button_tag question.id, answer.id, disabled: true %>
         <span class="form-label ps-2"><%= answer.text %></span>
         <b><span class="ps-2"><%= answer.label %></span></b>
       </div>
@@ -19,17 +19,17 @@
     <% when 'multiple_choice' %>
       <% question.answers.each do |answer| %>
       <div class="ms-4">
-        <%= check_box_tag question.id, answer.id, class: "form-check-input" %>
+        <%= check_box_tag question.id, answer.id, disabled: true, class: "form-check-input" %>
         <span class="form-label"><%= answer.text %></span>
       </div>
       <% end %>
     <% when 'long_answer' %>
       <div class="ms-4">
-        <%= text_area_tag question.id %>
+        <%= text_area_tag question.id, nil, disabled: true %>
       </div>
     <% when 'number_answer' %>
       <div class="ms-4">
-        <%= number_field_tag question.id %>
+        <%= number_field_tag question.id, nil, disabled: true %>
       </div>
     <% end %>
     <div class="ps-4"><%= sanitize question.answer_instructions %></div>

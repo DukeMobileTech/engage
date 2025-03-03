@@ -30,10 +30,7 @@ class DataUpload < ApplicationRecord
 
   def report_header
     %w[GrantNumber IOName	ProgramModel SectionName State	Urbanicity	Setting
-    YouthParticipantCt	SexMaleCt	SexFemaleCt	SexNotReportedCt	GenderIdMale
-    GenderIdFemale	GenderIdFTM	GenderIdMTF	GenderIdNeither	GenderIdSomethingElse
-    GenderIdNotReported	OrientationHetero	OrientationBi	OrientationHomo
-    OrientationSomethingElse	OrientationNotDecided	OrientationNotReported
+    YouthParticipantCt	SexMaleCt	SexFemaleCt	SexNotReportedCt
     RaceNatAmerHispanicCt	RaceNatAmerNonHispanicCt	RaceNatAmerNotReportedCt
     RaceAsianHispanicCt	RaceAsianNonHispanicCt	RaceAsianNotReportedCt
     RaceBlackHispanicCt	RaceBlackNonHispanicCt	RaceBlackNotReportedCt
@@ -66,22 +63,11 @@ class DataUpload < ApplicationRecord
     rows = []
     sections.each do |section|
       row = [ "", "", section.curriculum.title, section.name, section.site.state, section.site.urbanicity, section.site.setting ]
-      # Youth Participant Counts
+      # Youth Counts
       youth = section.section_participants.where(participant_id: section.participants.where(category: "Youth").pluck(:id))
       sexes = youth.map { |p| p.sex }
       ys_row = [ youth.count, sexes.count("Male"), sexes.count("Female"), sexes.count("Not Reported") + sexes.count(nil) ]
       row += ys_row
-      gender = youth.map { |p| p.gender }
-      yg_row = [ gender.count("Cisgender Man"), gender.count("Cisgender Woman"),
-                 gender.count("Transgender Man"), gender.count("Transgender Woman"),
-                 gender.count("Non-binary Person"), gender.count("Other"),
-                 gender.count("Not Reported") + gender.count(nil) ]
-      row += yg_row
-      orient = youth.map { |p| p.orientation }
-      yo_row = [ orient.count("Straight or heterosexual"), orient.count("Bisexual"),
-                 orient.count("Lesbian, gay, or homosexual"), orient.count("Something Else"),
-                 orient.count("Have not Decided"), orient.count("Not Reported") + orient.count(nil) ]
-      row += yo_row
       native, native_hispanic, native_non_hispanic = section.race_ethnicity_counts(youth, "American Indian or Alaska Native")
       asian, asian_hispanic, asian_non_hispanic = section.race_ethnicity_counts(youth, "Asian")
       black, black_hispanic, black_non_hispanic = section.race_ethnicity_counts(youth, "Black or African American")
@@ -115,6 +101,72 @@ class DataUpload < ApplicationRecord
                  grade.count("Ungraded"), grade.count("Not in School"), grade.count("Not Reported") + grade.count(nil) ]
       row += yg_row
       # Caregiver Counts
+      cg = section.section_participants.where(participant_id: section.participants.where(category: "Caregiver").pluck(:id))
+      row << cg.size
+      cg_nat, cg_nat_his, cg_nat_non_his = section.race_ethnicity_counts(cg, "American Indian or Alaska Native")
+      cg_asi, cg_asi_his, cg_asi_non_his = section.race_ethnicity_counts(cg, "Asian")
+      cg_bla, cg_bla_his, cg_bla_non_his = section.race_ethnicity_counts(cg, "Black or African American")
+      cg_isl, cg_isl_his, cg_isl_non_his = section.race_ethnicity_counts(cg, "Native Hawaiian or Other Pacific Islander")
+      cg_whi, cg_whi_his, cg_whi_non_his = section.race_ethnicity_counts(cg, "White")
+      cg_mul = cg.select { |p| p.race&.include?(",") }
+      cgm_his = cg_mul.select { |m| m.ethnicity == "Hispanic or Latino" }
+      cgm_non_his = cg_mul.select { |m| m.ethnicity == "Not Hispanic or Latino" }
+      cg_un_rep = cg.select { |p| (p.race == "Not Reported" || p.race.blank?) }
+      cg_un_rep_his = cg_un_rep.select { |u| u.ethnicity == "Hispanic or Latino" }
+      cg_un_rep_non_his = cg_un_rep.select { |u| u.ethnicity == "Not Hispanic or Latino" }
+      cgr_row = [ cg_nat_his, cg_nat_non_his, (cg_nat - cg_nat_his - cg_nat_non_his),
+                  cg_asi_his, cg_asi_non_his, (cg_asi - cg_asi_his - cg_asi_non_his),
+                  cg_bla_his, cg_bla_non_his, (cg_bla - cg_bla_his - cg_bla_non_his),
+                  cg_isl_his, cg_isl_non_his, (cg_isl - cg_isl_his - cg_isl_non_his),
+                  cg_whi_his, cg_whi_non_his, (cg_whi - cg_whi_his - cg_whi_non_his),
+                  cgm_his.count, cgm_non_his.count, (cg_mul.count - cgm_his.count - cgm_non_his.count),
+                  cg_un_rep_his.count, cg_un_rep_non_his.count, (cg_un_rep.count - cg_un_rep_his.count - cg_un_rep_non_his.count)
+                ]
+      row += cgr_row
+      # Youth Serving Professional Counts
+      ysp = section.section_participants.where(participant_id: section.participants.where(category: "Youth Serving Professional").pluck(:id))
+      row << ysp.size
+      ysp_nat, ysp_nat_his, ysp_nat_non_his = section.race_ethnicity_counts(ysp, "American Indian or Alaska Native")
+      ysp_asi, ysp_asi_his, ysp_asi_non_his = section.race_ethnicity_counts(ysp, "Asian")
+      ysp_bla, ysp_bla_his, ysp_bla_non_his = section.race_ethnicity_counts(ysp, "Black or African American")
+      ysp_isl, ysp_isl_his, ysp_isl_non_his = section.race_ethnicity_counts(ysp, "Native Hawaiian or Other Pacific Islander")
+      ysp_whi, ysp_whi_his, ysp_whi_non_his = section.race_ethnicity_counts(ysp, "White")
+      ysp_mul = ysp.select { |p| p.race&.include?(",") }
+      yspm_his = ysp_mul.select { |m| m.ethnicity == "Hispanic or Latino" }
+      yspm_non_his = ysp_mul.select { |m| m.ethnicity == "Not Hispanic or Latino" }
+      ysp_un_rep = ysp.select { |p| (p.race == "Not Reported" || p.race.blank?) }
+      ysp_un_rep_his = ysp_un_rep.select { |u| u.ethnicity == "Hispanic or Latino" }
+      ysp_un_rep_non_his = ysp_un_rep.select { |u| u.ethnicity == "Not Hispanic or Latino" }
+      yspr_row = [ ysp_nat_his, ysp_nat_non_his, (ysp_nat - ysp_nat_his - ysp_nat_non_his),
+                   ysp_asi_his, ysp_asi_non_his, (ysp_asi - ysp_asi_his - ysp_asi_non_his),
+                   ysp_bla_his, ysp_bla_non_his, (ysp_bla - ysp_bla_his - ysp_bla_non_his),
+                   ysp_isl_his, ysp_isl_non_his, (ysp_isl - ysp_isl_his - ysp_isl_non_his),
+                   ysp_whi_his, ysp_whi_non_his, (ysp_whi - ysp_whi_his - ysp_whi_non_his),
+                   yspm_his.count, yspm_non_his.count, (ysp_mul.count - yspm_his.count - yspm_non_his.count),
+                   ysp_un_rep_his.count, ysp_un_rep_non_his.count, (ysp_un_rep.count - ysp_un_rep_his.count - ysp_un_rep_non_his.count)
+                ]
+      row += yspr_row
+      # rest
+      attendance_list = section.participants.map { |p| p.average_attendance(section) }
+      avg_att = attendance_list.sum / attendance_list.size if attendance_list.size.positive?
+      avg_att = 0 if attendance_list.size.zero?
+      part_75_or_more = attendance_list.select { |a| a >= 75 }.size
+      sessions_planned = section.sittings.size
+      sessions_completed = section.sittings.where(completed: true).size
+      sessions_observed = section.observations&.size || 0
+      adh_list = []
+      qual_list = []
+      section.observations.each do |obs|
+        _si, quality, _ac, _cc, adh = section.sitting_quality_adherence(obs)
+        adh_list << adh
+        qual_list << quality&.to_i
+      end
+      avg_adh = (adh_list.sum / adh_list.size).round if adh_list.size.positive?
+      avg_adh = 0 if adh_list.size.zero?
+      avg_qual = (qual_list.sum / qual_list.size).round if qual_list.size.positive?
+      avg_qual = 0 if qual_list.size.zero?
+      row += [ avg_att, part_75_or_more, sessions_planned, sessions_completed, sessions_observed, avg_adh, avg_qual ]
+      # full row
       rows << row
     end
     rows
