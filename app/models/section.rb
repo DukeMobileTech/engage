@@ -31,7 +31,7 @@ class Section < ApplicationRecord
   has_many :sittings
   has_many :lessons, through: :curriculum
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :start_date, presence: true
   validates :end_date, presence: true
 
@@ -201,7 +201,8 @@ class Section < ApplicationRecord
     sheet.add_row [ "16", ages["16 yrs"]&.size || 0 ]
     sheet.add_row [ "17", ages["17 yrs"]&.size || 0 ]
     sheet.add_row [ "18", ages["18 yrs"]&.size || 0 ]
-    sheet.add_row [ "19 or older", ages["19 yrs or older"]&.size || 0 ]
+    sheet.add_row [ "19", ages["19 yrs"]&.size || 0 ]
+    sheet.add_row [ "20 or older", ages["20 yrs or older"]&.size || 0 ]
     sheet.add_row [ "Not reported", (ages["Not Reported"]&.size || 0) + (ages[nil]&.size || 0) ]
     sheet.add_row [ "Total", youth.size ]
     sheet.add_row []

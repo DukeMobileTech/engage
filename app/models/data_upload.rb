@@ -91,7 +91,7 @@ class DataUpload < ApplicationRecord
       age = youth.map { |p| p.age }
       ya_row = [ age.count("10 yrs old or younger"), age.count("11 yrs"), age.count("12 yrs"),
                  age.count("13 yrs"), age.count("14 yrs"), age.count("15 yrs"), age.count("16 yrs"),
-                 age.count("17 yrs"), age.count("18 yrs"), age.count("19 yrs or older"), "",
+                 age.count("17 yrs"), age.count("18 yrs"), age.count("19 yrs"), age.count("20 yrs or older"),
                  age.count("Not Reported") + age.count(nil) ]
       row += ya_row
       grade = youth.map { |p| p.grade }

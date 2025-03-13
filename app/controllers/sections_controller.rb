@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   before_action :set_site
+  before_action :set_curriculums
   before_action :set_section, only: %i[ show edit update destroy data_tracker ]
-  before_action :set_curriculums, only: %i[ new edit ]
 
   # GET /sections or /sections.json
   def index
