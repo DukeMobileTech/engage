@@ -17,13 +17,13 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :sections, class: "form-label" %>
-    <%= form.collection_check_boxes(:section_ids, @sections, :id, :name) do |b| %>
-      <div class="form-check">
-        <%= b.check_box(class: "form-check-input") %>
-        <%= b.label(class: "form-check-label") %>
-      </div>
-    <% end %>
+    <%= form.label :reporting_period_start, class: "form-label" %>
+    <%= form.date_field :reporting_period_start, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :reporting_period_end, class: "form-label" %>
+    <%= form.date_field :reporting_period_end, class: "form-control" %>
   </div>
 
   <div class="d-flex flex-row-reverse">

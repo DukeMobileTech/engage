@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_162403) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_17_210224) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -78,6 +78,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162403) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "reporting_period_start"
+    t.date "reporting_period_end"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -88,6 +90,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162403) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["curriculum_id"], name: "index_lessons_on_curriculum_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "state"
+    t.string "county"
+    t.string "urbanicity"
+    t.string "setting"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "participants", force: :cascade do |t|
@@ -137,15 +149,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162403) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "section_data_uploads", force: :cascade do |t|
-    t.integer "section_id", null: false
-    t.integer "data_upload_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["data_upload_id"], name: "index_section_data_uploads_on_data_upload_id"
-    t.index ["section_id"], name: "index_section_data_uploads_on_section_id"
   end
 
   create_table "section_participant_responses", force: :cascade do |t|
@@ -200,13 +203,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162403) do
   create_table "sites", force: :cascade do |t|
     t.string "name"
     t.string "code", null: false
-    t.string "state"
-    t.string "county"
-    t.string "urbanicity"
-    t.string "setting"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "organization_id"
     t.index ["code"], name: "index_sites_on_code", unique: true
+    t.index ["organization_id"], name: "index_sites_on_organization_id"
   end
 
   create_table "sitting_lessons", force: :cascade do |t|
@@ -275,8 +276,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162403) do
   add_foreign_key "responses", "participants"
   add_foreign_key "responses", "questionnaires"
   add_foreign_key "responses", "sittings"
-  add_foreign_key "section_data_uploads", "data_uploads"
-  add_foreign_key "section_data_uploads", "sections"
   add_foreign_key "section_participant_responses", "responses"
   add_foreign_key "section_participant_responses", "section_participants"
   add_foreign_key "section_participants", "participants"

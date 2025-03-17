@@ -8,14 +8,16 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Date Created</th>
+          <th>Reporting Period</th>
+          <th>Sections</th>
         </tr>
       </thead>
       <tbody>
         <% @data_uploads.each do |upload| %>
           <tr scope="row">
             <td><%= link_to upload.name, upload %></td>
-            <td><%= upload.created_at.strftime("%B %d, %Y") %></td>
+            <td><%= "#{upload.reporting_period_start} - #{upload.reporting_period_end}" %></td>
+            <td><%= upload.sections.map(&:name).join(", ") %></td>
           </tr>
         <% end %>
       </tbody>

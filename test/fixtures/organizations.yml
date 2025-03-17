@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id         :integer          not null, primary key
+#  county     :string
+#  name       :string           not null
+#  setting    :string
+#  state      :string
+#  urbanicity :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+one:
+  name: MyString
+  state: MyString
+  county: MyString
+  urbanicity: MyString
+  setting: MyString
+
+two:
+  name: MyString
+  state: MyString
+  county: MyString
+  urbanicity: MyString
+  setting: MyString

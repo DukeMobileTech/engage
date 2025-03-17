@@ -10,23 +10,8 @@
   </p>
 
   <p>
-    <strong>State:</strong>
-    <%= @site.state %>
-  </p>
-
-  <p>
-    <strong>County:</strong>
-    <%= @site.county %>
-  </p>
-
-  <p>
-    <strong>Urbanicity:</strong>
-    <%= @site.urbanicity %>
-  </p>
-
-  <p>
-    <strong>Setting:</strong>
-    <%= @site.setting %>
+    <strong>Organization:</strong>
+    <%= link_to @site.organization.name, @site.organization %>
   </p>
 
   <p>

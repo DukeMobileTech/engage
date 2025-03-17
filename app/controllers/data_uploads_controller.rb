@@ -72,6 +72,6 @@ class DataUploadsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def data_upload_params
-      params.expect(data_upload: [ :name, section_ids: [] ])
+      params.expect(data_upload: [ :name, :reporting_period_start, :reporting_period_end ])
     end
 end

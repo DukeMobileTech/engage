@@ -2,17 +2,17 @@
 #
 # Table name: data_uploads
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  reporting_period_end   :date
+#  reporting_period_start :date
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 class DataUpload < ApplicationRecord
   has_many_attached :reports
-  has_many :section_data_uploads, dependent: :destroy
-  has_many :sections, through: :section_data_uploads
 
-  validates :name, presence: true
+  validates :name, :reporting_period_end, :reporting_period_start, presence: true
 
   def generate_report
     tempfile = Tempfile.new(Time.now.to_i.to_s)
@@ -170,5 +170,11 @@ class DataUpload < ApplicationRecord
       rows << row
     end
     rows
+  end
+
+  # sections to include are those that have been completed and whose end_dates
+  # are within the date range reporting_period_start and reporting_period_end
+  def sections
+    Section.completed.where(end_date: reporting_period_start..reporting_period_end)
   end
 end

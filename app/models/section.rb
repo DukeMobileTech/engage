@@ -35,6 +35,8 @@ class Section < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true
 
+  scope :completed, -> { where(completed: true) }
+
   def progress
     "#{sittings.where(completed: true).map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count}"
   end

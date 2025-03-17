@@ -4,19 +4,17 @@
 #
 # Table name: sites
 #
-#  id         :integer          not null, primary key
-#  code       :string           not null
-#  county     :string
-#  name       :string
-#  setting    :string
-#  state      :string
-#  urbanicity :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  code            :string           not null
+#  name            :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :integer
 #
 # Indexes
 #
-#  index_sites_on_code  (code) UNIQUE
+#  index_sites_on_code             (code) UNIQUE
+#  index_sites_on_organization_id  (organization_id)
 #
 one:
   name: Site One

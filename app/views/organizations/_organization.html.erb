@@ -1,0 +1,34 @@
+<div>
+  <p>
+    <strong>Name:</strong>
+    <%= organization.name %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= organization.state %>
+  </p>
+
+  <p>
+    <strong>County:</strong>
+    <%= organization.county %>
+  </p>
+
+  <p>
+    <strong>Urbanicity:</strong>
+    <%= organization.urbanicity %>
+  </p>
+
+  <p>
+    <strong>Setting:</strong>
+    <%= organization.setting %>
+  </p>
+
+  <p>
+    <strong>Sites:</strong>
+    <% organization.sites.each do |site| %>
+      <span class="btn btn-outline-info"><%= link_to site.name, site, class: "blank-link" %> </span>
+    <% end %>
+    <%= link_to "Add new site", new_site_path(organization_id: organization.id), class: "btn btn-primary" %>
+  </p>
+</div>

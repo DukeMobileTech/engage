@@ -2,21 +2,20 @@
 #
 # Table name: sites
 #
-#  id         :integer          not null, primary key
-#  code       :string           not null
-#  county     :string
-#  name       :string
-#  setting    :string
-#  state      :string
-#  urbanicity :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  code            :string           not null
+#  name            :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :integer
 #
 # Indexes
 #
-#  index_sites_on_code  (code) UNIQUE
+#  index_sites_on_code             (code) UNIQUE
+#  index_sites_on_organization_id  (organization_id)
 #
 class Site < ApplicationRecord
+  belongs_to :organization
   has_many :site_participants, dependent: :destroy
   has_many :participants, through: :site_participants
   has_many :sections, dependent: :destroy
@@ -24,12 +23,9 @@ class Site < ApplicationRecord
   has_many :users, through: :user_sites
 
   validates :name, presence: true
-  validates :county, presence: true
-  validates :state, presence: true
-  validates :setting, presence: true
-  validates :urbanicity, presence: true
-
   before_create :assign_code
+
+  delegate :state, :county, :urbanicity, :setting, to: :organization
 
   def facilitators
     froles = Role.where(name: [ "admin", "facilitator" ])

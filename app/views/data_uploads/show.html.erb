@@ -1,14 +1,17 @@
 <div class="mb-5">
   <p style="color: green"><%= notice %></p>
   <h2 class="text-center"><%= @data_upload.name %></h2>
-
+  <div>
+    <p><b>Reporting Period:</b> <%= "#{@data_upload.reporting_period_start} - #{@data_upload.reporting_period_end}" %></p>
+    <p><b>Sections:</b> <%= @data_upload.sections.map(&:name).join(", ") %></p>
+  </div>
   <div class="card mt-2 mb-5">
     <div class="card-header">
       <h4>Section Data Upload Reports</h4>
     </div>
 
     <div class="card-body">
-      <div class="d-flex flex-row-reverse mt-1">
+      <div class="d-flex flex-row-reverse m-1">
         <%= link_to 'Generate Data Upload', generate_report_data_upload_path(@data_upload), "data-turbo-method": :post, class: 'btn btn-success' %>
       </div>
       <table class="table table-striped">

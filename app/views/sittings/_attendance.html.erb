@@ -1,4 +1,4 @@
-<%= form_for([@site, @section, @sitting]) do |form| %>
+<%= form_for([@site, @section, @sitting], data: { controller: 'checkbox-select-all' }) do |form| %>
   <% if sitting.errors.any? %>
     <div style="color: red">
       <h4><%= pluralize(sitting.errors.count, "error") %> prohibited this session from being saved:</h4>
@@ -12,9 +12,13 @@
 
   <div class="mb-3">
     <p class="fw-bold">Please check the participants who are present</p>
+    <div class="form-check">
+      <input type="checkbox" data-checkbox-select-all-target="checkboxAll" class="form-check-input" />
+      <span class="form-check-label fw-bold">Select All / Deselect All</span>
+    </div>
     <%= form.fields_for :attendances do |att_field| %>
       <div class="form-check">
-        <%= att_field.check_box :present, class: "form-check-input" %>
+        <%= att_field.check_box :present, data: { checkbox_select_all_target: 'checkbox' }, class: "form-check-input" %>
         <%= att_field.label "#{att_field.object.participant.upcased_name} - #{att_field.object.participant.demo_label}", class: "form-check-label" %>
       </div>
     <% end %>

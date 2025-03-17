@@ -1,10 +1,12 @@
-<% content_for :title, "Editing data upload" %>
+<div class="mb-5">
+  <% content_for :title, "Editing data upload" %>
 
-<h4 class="text-center">Editing data upload</h4>
+  <h4 class="text-center">Editing data upload</h4>
 
-<%= render "form", data_upload: @data_upload %>
+  <%= render "form", data_upload: @data_upload %>
 
-<div>
-  <%= link_to "Show this data upload", @data_upload %> |
-  <%= link_to "Back to data uploads", data_uploads_path %>
+  <div>
+    <%= link_to "Show this data upload", @data_upload, class: "btn btn-info" %>
+    <%= link_to "Back to data uploads", data_uploads_path, class: "btn btn-secondary" %>
+  </div>
 </div>

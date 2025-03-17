@@ -2,10 +2,12 @@
 #
 # Table name: data_uploads
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  reporting_period_end   :date
+#  reporting_period_start :date
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 require "test_helper"
 

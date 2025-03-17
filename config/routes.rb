@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :organizations
   mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :data_uploads do
     member do
