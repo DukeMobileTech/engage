@@ -31,7 +31,9 @@ class Section < ApplicationRecord
   has_many :sittings
   has_many :lessons, through: :curriculum
 
-  validates :name, presence: true, uniqueness: true
+  before_create :assign_name
+
+  validates :curriculum_id, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
 
@@ -292,5 +294,11 @@ class Section < ApplicationRecord
     sheet.add_row []
     sheet.add_row [ "Average Quality Rating" ]
     sheet.add_row [ "Overall Quality", avg_qual ]
+  end
+
+  private
+
+  def assign_name
+    self.name = "#{site.organization.name} - #{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
   end
 end

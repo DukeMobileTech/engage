@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control", placeholder: "Please enter the name of the section" %>
+    <%= form.label :name, class: "form-label" unless @section.new_record?  %>
+    <%= form.text_field :name, class: "form-control" unless @section.new_record? %>
   </div>
 
   <div class="mb-3">
