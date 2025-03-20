@@ -42,8 +42,9 @@
           </tbody>
         </table>
 
-        <div class="d-flex flex-row-reverse">
-          <%= link_to "Enroll Participants", edit_site_path(@site, enroll: true), class: "btn btn-primary" %>
+        <div class="d-flex justify-content-between">
+          <%= link_to "Enroll new participants", bulk_participants_path(site_id: @site), class: "btn btn-primary" %>
+          <%= link_to "Enroll existing participants", edit_site_path(@site, enroll: true), class: "btn btn-primary" %>
         </div>
 
       </div>

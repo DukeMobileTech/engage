@@ -28,7 +28,12 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :participants
+  resources :participants do
+    collection do
+      get "bulk" => "participants#bulk"
+      post "bulk_create" => "participants#bulk_create"
+    end
+  end
   resources :users, only: %i[index show new create edit update]
 
   scope :active_storage, module: :active_storage, as: :active_storage do

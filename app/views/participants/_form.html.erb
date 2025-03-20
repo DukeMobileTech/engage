@@ -23,7 +23,7 @@
 
   <div class="mb-3">
     <%= form.label :category, class: "form-label" %>
-    <%= form.select :category, [[], ['Caregiver', 'Caregiver'], ['Youth', 'Youth'],  ['Youth Serving Professional', 'Youth Serving Professional']], {}, { class: "form-select" } %>
+    <%= form.select :category, PARTICIPANT_TYPES, {}, { class: "form-select" } %>
   </div>
 
   <div class="d-flex flex-row-reverse">

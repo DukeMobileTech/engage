@@ -57,6 +57,21 @@ class ParticipantsController < ApplicationController
     end
   end
 
+  def bulk
+  end
+
+  def bulk_create
+    params[:participants].each do |attr|
+      participant = Participant.create(name: attr[:name], category: attr[:category])
+      participant.sites << Site.find(params[:site_id]) if params[:site_id].present?
+    end
+    if params[:site_id].present?
+      redirect_to site_site_participants_path(params[:site_id])
+    else
+      redirect_to participants_path
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_participant
