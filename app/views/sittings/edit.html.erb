@@ -5,7 +5,7 @@
     <% if params[:attendance] %>
       <div class="card-header">
         <% content_for :title, "Taking Attendance" %>
-        <h4>Taking Attendance</h4>
+        <h4>Taking Attendance For <%= @sitting.name %></h4>
       </div>
       <div class="card-body">
         <%= render "attendance", site: @site, section: @section, sitting: @sitting %>
@@ -13,7 +13,7 @@
     <% else %>
       <div class="card-header">
         <% content_for :title, "Editing session" %>
-        <h4>Editing session</h4>
+        <h4>Editing <%= @sitting.name %></h4>
       </div>
       <div class="card-body">
         <%= render "form", site: @site, section: @section, sitting: @sitting %>

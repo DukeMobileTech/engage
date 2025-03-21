@@ -4,7 +4,7 @@
   <p style="color: green"><%= notice %></p>
   <div class="card">
     <div class="card-header d-flex justify-content-between">
-      <h4>Session Details</h4>
+      <h4>Details For <%= @sitting.name %></h4>
       <span><%= link_to "Edit this session", edit_site_section_sitting_path(@site, @section, @sitting), class: 'btn btn-primary' %></span>
     </div>
     <div class="card-body">
@@ -13,7 +13,7 @@
   </div>
   <div class="card mt-3">
     <div class="card-header">
-      <h4>Session Forms</h4>
+      <h4><%= @sitting.name %> Forms</h4>
     </div>
     <div class="card-body d-flex justify-content-evenly">
       <span>
