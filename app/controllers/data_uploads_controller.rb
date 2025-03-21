@@ -13,12 +13,10 @@ class DataUploadsController < ApplicationController
   # GET /data_uploads/new
   def new
     @data_upload = DataUpload.new
-    @sections = Current.user.sections.where(completed: true)
   end
 
   # GET /data_uploads/1/edit
   def edit
-    @sections = Current.user.sections.where(completed: true)
   end
 
   # POST /data_uploads or /data_uploads.json

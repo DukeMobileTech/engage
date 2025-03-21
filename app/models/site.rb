@@ -28,12 +28,13 @@ class Site < ApplicationRecord
   delegate :state, :county, :urbanicity, :setting, to: :organization
 
   def facilitators
-    froles = Role.where(name: [ "admin", "facilitator" ])
-    UserRole.where(role: froles, user: users).map(&:user)
+    a_users = Role.where(name: "admin").map(&:users).flatten.uniq
+    f_users = UserRole.where(role: Role.where(name: "facilitator"), user: users).map(&:user).flatten.uniq
+    (a_users + f_users).uniq
   end
 
   def observers
-    Role.where(name: [ "admin", "observer" ]).map(&:users).flatten
+    Role.where(name: [ "admin", "observer" ]).map(&:users).flatten.uniq
   end
 
   private
