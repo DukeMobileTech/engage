@@ -28,4 +28,4 @@ permalink: /participants/
 
 To edit a participant, click the **Edit** button on the participant's page. An extra attribute, **Study Id**, is included in the edit form. This is a unique code that is used to identify the participant.
 
-[Next](/sections)
+[Next]({{"sections" | relative_url}})

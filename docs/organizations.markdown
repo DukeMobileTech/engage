@@ -6,7 +6,7 @@ permalink: /organizations/
 
 # Organizations
 
-**Organizations** are the partners that participate in the ENC-HEAL program. An organization is associated with one or more [sites](/sites).
+**Organizations** are the partners that participate in the ENC-HEAL program. An organization is associated with one or more [sites]({{"sites" | relative_url}}).
 
 Only **admin users** have the permission to create organizations.
 
@@ -19,4 +19,4 @@ Only **admin users** have the permission to create organizations.
 
 To add a new site to an organization, click the **Add new site** button on the organization's page.
 
-[Next](/sites)
+[Next]({{"sites" | relative_url}})

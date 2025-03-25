@@ -6,4 +6,4 @@ permalink: /about/
 
 This is the user guide for the ENC-HEAL Engage data tracking application.
 
-[Next](/organizations)
+[Next]({{"organizations" | relative_url}})
