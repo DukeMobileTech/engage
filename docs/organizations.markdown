@@ -4,7 +4,7 @@ title: Organizations
 permalink: /organizations/
 ---
 
-# Organizations
+# **Organizations**
 
 **Organizations** are the partners that participate in the ENC-HEAL program. An organization is associated with one or more [sites]({{"sites" | relative_url}}).
 

@@ -4,7 +4,7 @@ title: Participants
 permalink: /participants/
 ---
 
-# Participants
+# **Participants**
 
 **Participants** are individuals who are being trained on a specific subject. Each participant has a name and a category (Youth, Caregiver, Youth Serving Professional).
 

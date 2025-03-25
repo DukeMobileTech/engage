@@ -14,3 +14,5 @@ layout: home
 [Participants](participants)
 
 [Sections](sections)
+
+[Sessions](sessions)
