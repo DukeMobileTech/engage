@@ -2,6 +2,7 @@
 layout: page
 title: Sites
 permalink: /sites/
+nav_order: 3
 ---
 
 # **Sites**
@@ -12,7 +13,7 @@ A site includes:
 
 - [**Participants**]({{"participants" | relative_url}}): Individuals, such as youth, being trained on a specific subject.
 - [**Sections**]({{"sections" | relative_url}}): The actual curriculum implementations.
-- **Users**: Facilitators who teach the subject.
+- [**Users**]({{"users" | relative_url}}): Facilitators who teach the subject.
 
 Only **admin users** have the permission to create sites.
 

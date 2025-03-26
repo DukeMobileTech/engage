@@ -2,6 +2,7 @@
 layout: page
 title: Organizations
 permalink: /organizations/
+nav_order: 2
 ---
 
 # **Organizations**

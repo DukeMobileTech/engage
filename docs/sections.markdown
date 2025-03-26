@@ -2,6 +2,7 @@
 layout: page
 title: Sections
 permalink: /sections/
+nav_order: 5
 ---
 
 # **Sections**

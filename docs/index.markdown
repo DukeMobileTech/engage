@@ -16,3 +16,9 @@ layout: home
 [Sections](sections)
 
 [Sessions](sessions)
+
+[Demographics](demographics)
+
+[Data Exports](data_exports)
+
+[Users](users)

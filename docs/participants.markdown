@@ -2,6 +2,7 @@
 layout: page
 title: Participants
 permalink: /participants/
+nav_order: 4
 ---
 
 # **Participants**
