@@ -1,28 +1,39 @@
 class SitesController < ApplicationController
   before_action :set_site, only: %i[ show edit update destroy ]
+  after_action :verify_authorized
 
   # GET /sites or /sites.json
   def index
-    @sites = Site.all
+    user = Current.user
+    if user.admin?
+      @sites = Site.all
+    else
+      @sites = user.sites
+    end
+    authorize @sites
   end
 
   # GET /sites/1 or /sites/1.json
   def show
+    authorize @site
   end
 
   # GET /sites/new
   def new
     @site = Site.new
+    authorize @site
   end
 
   # GET /sites/1/edit
   def edit
     @participants = Participant.all
+    authorize @site
   end
 
   # POST /sites or /sites.json
   def create
     @site = Site.new(site_params)
+    authorize @site
 
     respond_to do |format|
       if @site.save
@@ -37,6 +48,7 @@ class SitesController < ApplicationController
 
   # PATCH/PUT /sites/1 or /sites/1.json
   def update
+    authorize @site
     respond_to do |format|
       if @site.update(site_params)
         format.html { redirect_to @site, notice: "Site was successfully updated." }
@@ -50,6 +62,7 @@ class SitesController < ApplicationController
 
   # DELETE /sites/1 or /sites/1.json
   def destroy
+    authorize @site
     @site.destroy!
 
     respond_to do |format|

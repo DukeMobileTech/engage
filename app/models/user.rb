@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :sections, through: :sites
   has_many :user_sittings, dependent: :destroy
   has_many :sittings, through: :user_sittings
+  has_many :organizations, -> { distinct }, through: :sites
+
   after_create :add_default_role
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 

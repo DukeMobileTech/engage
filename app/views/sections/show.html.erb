@@ -1,4 +1,7 @@
+<% content_for :title, @section.name %>
+
 <%= render partial: "header", locals: {site: @site, section: @section } %>
+
 <main class="mb-5">
   <p style="color: green"><%= notice %></p>
   <div class="card">
@@ -27,9 +30,11 @@
     </div>
 
     <div class="card-body">
-      <div class="d-flex flex-row-reverse mt-1">
-        <%= link_to 'Generate Data Tracker', data_tracker_site_section_path(@site, @section), "data-turbo-method": :post, class: 'btn btn-success' %>
-      </div>
+      <% if policy(@section).data_tracker? %>
+        <div class="d-flex flex-row-reverse mt-1 mb-1">
+          <%= link_to 'Generate Data Tracker', data_tracker_site_section_path(@site, @section), "data-turbo-method": :post, class: 'btn btn-success' %>
+        </div>
+      <% end %>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -42,8 +47,16 @@
           <% @section.reports.order(created_at: :desc).each do |report| %>
             <tr>
               <td><%= report.filename %></td>
-              <td><%= link_to "Download", rails_blob_path(report, disposition: "attachment"), class: 'btn btn-primary' %></td>
-              <td><%= link_to "Delete", active_storage_attachment_path(report), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %></td>
+              <td>
+                <% if policy(@section).show? %>
+                  <%= link_to "Download", rails_blob_path(report, disposition: "attachment"), class: 'btn btn-primary' %>
+                <% end %>
+              </td>
+              <td>
+                <% if policy(@section).destroy? %>
+                  <%= link_to "Delete", active_storage_attachment_path(report), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>

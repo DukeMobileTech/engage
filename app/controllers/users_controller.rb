@@ -1,21 +1,33 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update ]
+  after_action :verify_authorized
+
   def index
-    @users = User.includes(:roles).all
+    user = Current.user
+    if user.admin?
+      @users = User.includes(:roles).all
+    else
+      @users = User.includes(:roles).where(id: user.id)
+    end
+    authorize @users
   end
 
   def show
+    authorize @user
   end
 
   def edit
+    authorize @user
   end
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
 
     respond_to do |format|
       if @user.save
@@ -29,6 +41,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    authorize @user
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: "User was successfully updated." }

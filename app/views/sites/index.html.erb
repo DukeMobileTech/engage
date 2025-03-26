@@ -1,10 +1,8 @@
 <% content_for :title, "Sites" %>
 
 <div class="mb-5">
-  <div>
     <p style="color: green"><%= notice %></p>
     <h3 class="text-center">My Sites</h3>
-  </div>
 
   <div class="row">
     <table class="table table-striped">
@@ -40,6 +38,6 @@
   </div>
 
   <div class="d-flex flex-row-reverse">
-    <%= link_to "Add New Site", new_site_path, class: "btn btn-primary" %>
+    <%= link_to "New site", new_site_path, class: "btn btn-primary" %>
   </div>
 </div>

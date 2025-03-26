@@ -2,29 +2,35 @@ class SectionsController < ApplicationController
   before_action :set_site
   before_action :set_curriculums
   before_action :set_section, only: %i[ show edit update destroy data_tracker ]
+  after_action :verify_authorized
 
   # GET /sections or /sections.json
   def index
     @sections = @site.sections.all
+    authorize @sections
   end
 
   # GET /sections/1 or /sections/1.json
   def show
+    authorize @section
   end
 
   # GET /sections/new
   def new
     @section = Section.new
+    authorize @section
   end
 
   # GET /sections/1/edit
   def edit
     @participants = @site.participants if params[:enrollment]
+    authorize @section
   end
 
   # POST /sections or /sections.json
   def create
     @section = @site.sections.new(section_params)
+    authorize @section
 
     respond_to do |format|
       if @section.save
@@ -39,6 +45,7 @@ class SectionsController < ApplicationController
 
   # PATCH/PUT /sections/1 or /sections/1.json
   def update
+    authorize @section
     respond_to do |format|
       if @section.update(section_params)
         format.html { redirect_to site_section_path(@site, @section), notice: "Section was successfully updated." }
@@ -52,6 +59,7 @@ class SectionsController < ApplicationController
 
   # DELETE /sections/1 or /sections/1.json
   def destroy
+    authorize @section
     @section.destroy!
 
     respond_to do |format|
@@ -62,6 +70,7 @@ class SectionsController < ApplicationController
 
   # POST /sections/1/data_tracker
   def data_tracker
+    authorize @section
     DataTrackerReportJob.perform_later(@section)
     redirect_to site_section_path(@site, @section)
   end

@@ -77,3 +77,5 @@ group :production do
   # Use the pg database adapter
   gem "pg", ">= 1.1", "< 2.0"
 end
+
+gem "pundit", "~> 2.5"

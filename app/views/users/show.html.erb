@@ -9,7 +9,8 @@
     <%= render "user", locals: { users: @user } %>
   </div>
 
-  <div class="m-1 d-flex flex-row-reverse">
+  <div class="m-1 d-flex justify-content-between">
+    <%= link_to "Back", users_path, class: 'btn btn-secondary' %>
     <%= link_to "Edit user", edit_user_path(@user), class: 'btn btn-primary' %>
   </div>
 </div>

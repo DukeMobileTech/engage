@@ -1,27 +1,38 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[ show edit update destroy ]
+  after_action :verify_authorized
 
   # GET /organizations or /organizations.json
   def index
-    @organizations = Organization.all
+    user = Current.user
+    if user.admin?
+      @organizations = Organization.all
+    else
+      @organizations = user.organizations
+    end
+    authorize @organizations
   end
 
   # GET /organizations/1 or /organizations/1.json
   def show
+    authorize @organization
   end
 
   # GET /organizations/new
   def new
     @organization = Organization.new
+    authorize @organization
   end
 
   # GET /organizations/1/edit
   def edit
+    authorize @organization
   end
 
   # POST /organizations or /organizations.json
   def create
     @organization = Organization.new(organization_params)
+    authorize @organization
 
     respond_to do |format|
       if @organization.save
@@ -36,6 +47,7 @@ class OrganizationsController < ApplicationController
 
   # PATCH/PUT /organizations/1 or /organizations/1.json
   def update
+    authorize @organization
     respond_to do |format|
       if @organization.update(organization_params)
         format.html { redirect_to @organization, notice: "Organization was successfully updated." }
@@ -49,6 +61,7 @@ class OrganizationsController < ApplicationController
 
   # DELETE /organizations/1 or /organizations/1.json
   def destroy
+    authorize @organization
     @organization.destroy!
 
     respond_to do |format|

@@ -1,9 +1,12 @@
+<% content_for :title, "Editing user" %>
+
 <div class="mb-5">
-  <% content_for :title, "Editing user" %>
+  <p style="color: green"><%= notice %></p>
   <h4 class="text-center">Editing User: <%= @user.name %></h4>
+
   <%= render "form", user: @user %>
 
   <div class="m-1">
-    <%= link_to "Show user", user_path(@user), class: "btn btn-primary" %>
+    <%= link_to "Show user", user_path(@user), class: "btn btn-info" %>
   </div>
 </div>
