@@ -12,7 +12,7 @@
 admin = Role.find_or_create_by(name: "admin")
 facilitator = Role.find_or_create_by(name: "facilitator")
 observer = Role.find_or_create_by(name: "observer")
-user = Role.find_or_create_by(name: "user")
+viewer = Role.find_or_create_by(name: "viewer")
 
 if Rails.env.development?
   # Find/Create default user used for testing
@@ -27,7 +27,7 @@ if Rails.env.development?
   UserRole.find_or_create_by(user_id: o.id, role_id: observer.id)
   u = User.find_or_create_by(email_address: "user3@example.com")
   u.update!(name: "Test User", password: "Password1!")
-  UserRole.find_or_create_by(user_id: u.id, role_id: user.id)
+  UserRole.find_or_create_by(user_id: u.id, role_id: viewer.id)
 end
 
 # Find/Create demographics questionnaire

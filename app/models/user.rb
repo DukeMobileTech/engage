@@ -41,6 +41,6 @@ class User < ApplicationRecord
 
   private
     def add_default_role
-      user_roles.create(role: Role.find_by(name: "user"))
+      user_roles.create(role: Role.find_by(name: "viewer"))
     end
 end
