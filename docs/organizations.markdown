@@ -7,7 +7,7 @@ nav_order: 2
 
 # **Organizations**
 
-**Organizations** are the partners that participate in the ENC-HEAL program. An organization is associated with one or more [sites]({{"sites" | relative_url}}).
+**Organizations** are the partners that participate in the ENC-HEAL program. An organization is associated with one or more [sites]({{"sites" | relative_url}}). Examples would be a group of Boys & Girls Clubs, or a county’s school system.
 
 Only **admin users** have the permission to create organizations.
 
@@ -18,6 +18,6 @@ Only **admin users** have the permission to create organizations.
 3. Provide the organization's name, state, county, urbanicity, and setting.
 4. Click the **Save** button.
 
-To add a new site to an organization, click the **Add new site** button on the organization's page.
+To add a site to an organization, click the **Add new site** button on the organization's page.
 
 [Next]({{"sites" | relative_url}})

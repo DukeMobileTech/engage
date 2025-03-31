@@ -22,7 +22,10 @@ After enrolling participants to a section, the facilitator implementing the sect
 
 1. Navigate to the section's page.
 2. Click on the **Section Participants** tab.
-3. In the table of participants, there is a **Demographics** column. Click on the **Enter response** link for the participant you want to associate the demographics response with. If a demographics response is already associated with the participant, click on its link if you want to update it.
-4. This opens up a page with a list of the participant's demographics responses. Select the demographics response you want to associate with the section, and click the **Save** button. If there are no demographics responses for the participant, or they are out of date, click on the **Create New Demographics Response** button to create a new demographics response for the participant that will be associated with the section.
+3. In the table of participants, there is a **Demographics** column. If a participant does not have a demographics response associated with the section, it shows a link with the words **Enter response**. If a participant has a demographics response already associated with the section, it shows a link with some of the demographics information (**sex, age, grade, and date of the active demographics information**). Click on either link that is shown.
+4. This will take you to a page where you can either:
+
+> - Select from existing demographics responses in the system and click on the **Save** button, _OR_
+> - Click on the **Create New Demographics Response** button to enter a new set of demographics info.
 
 [Next]({{"data_exports" | relative_url}})

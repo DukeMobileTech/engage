@@ -7,7 +7,9 @@ nav_order: 5
 
 # **Sections**
 
-**Sections** are the actual curriculum implementations. Each section is associated with a [curriculum]({{"curriculums" | relative_url}}), and a [site]({{"sites" | relative_url}}).
+**Sections** are the actual curriculum implementations. A specific example would be the March-April 2025 delivery of LOVE Notes to the Boys & Girls Club in Nashville. Each section is associated with a [curriculum]({{"curriculums" | relative_url}}), and a [site]({{"sites" | relative_url}}).
+
+**NB**: _Please note the difference between "section" and "session". Each section includes one or more sessions._
 
 Only **admin users** have the permission to create and edit sections.
 
@@ -30,7 +32,7 @@ To enroll participants to a section, click on the "Section Participants" tab on 
 
 ## **To add sessions to a section:**
 
-To add a session to a section, click on the "Sessions" tab on the topbar on the section's page. Then click on "Add new session" button and follow the steps outlined in [**To create a session**]({{"sessions" | relative_url}}) section of the sessions page.
+To add a session to a section, click on the "Sessions" tab on the topbar on the section's page. Then click on "Add new session" button and follow the steps outlined in [**To create a session**]({{"sessions" | relative_url}}).
 
 ## **To generate a section data tracking report:**
 

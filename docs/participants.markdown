@@ -7,7 +7,7 @@ nav_order: 4
 
 # **Participants**
 
-**Participants** are individuals who are being trained on a specific subject. Each participant has a name and a category (Youth, Caregiver, Youth Serving Professional).
+**Participants** are individuals who are being trained on a specific subject. Each participant has a name, a unique code, and a category (Youth, Caregiver, Youth Serving Professional).
 
 **Facilitators, observers, and admin users** have permission to create participants.
 

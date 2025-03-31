@@ -9,6 +9,8 @@ nav_order: 6
 
 A **session** is the actual class that participants enrolled in a section sit in for training. Each session is associated with a [section]({{"sections" | relative_url}}), a [site]({{"sites" | relative_url}}), and one or more [lessons]({{"lessons" | relative_url}}).
 
+**NB**: _Please note the difference between "section" and "session"._
+
 **Facilitators, observers, and admin users** have the permission to create and edit sessions.
 
 ## **To create a session:**
