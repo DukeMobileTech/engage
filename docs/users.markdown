@@ -35,8 +35,14 @@ Below is a table of **_permissions_** for each **_role_**.
 3. Provide the user's name, email, role, and site(s).
 4. Click the **Create User** button.
 
+![Image]({{"assets/images/users-1.png" | relative_url}})
+![Image]({{"assets/images/users-2.png" | relative_url}})
+
 ## **To update a user:**
 
 1. To edit a user, click the **Edit** button on the user's page.
 2. Change the user's name, email, role(s) or site(s).
 3. Click the **Update User** button.
+
+![Image]({{"assets/images/users-3.png" | relative_url}})
+![Image]({{"assets/images/users-4.png" | relative_url}})

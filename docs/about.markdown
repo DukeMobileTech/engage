@@ -7,6 +7,6 @@ nav_order: 1
 
 # **About**
 
-This is the user guide for the ENC-HEAL Engage data tracking application.
+This is the user guide for the ENC-HEAL TEACH data tracking application.
 
 [Next]({{"organizations" | relative_url}})
