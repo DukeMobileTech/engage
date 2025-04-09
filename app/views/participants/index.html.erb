@@ -9,12 +9,19 @@
     <%= link_to "New participant", new_participant_path, class: "btn btn-primary" %>
   </div>
 
+<%= search_form_for @query  do |form| %>
+  <div class="row m-1">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-4"><%= form.search_field :name_or_study_id_or_category_cont, placeholder: 'Search by name or study id or category', class: "form-control" %></div>
+    <div class="col-lg-2"><%= form.submit class: "btn btn-outline-info" %></div>
+    <div class="col-lg-3"></div>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Study ID</th>
-        <th>Category</th>
+        <th><%= sort_link(@query, :name) %></th>
+        <th><%= sort_link(@query, :study_id) %></th>
+        <th><%= sort_link(@query, :category) %></th>
         <th>Sex</th>
         <th>Grade</th>
         <th>Sites</th>
@@ -37,6 +44,7 @@
       <% end %>
     </tbody>
   </table>
+<% end %>
 
   <div class="mb-2 d-flex justify-content-between">
     <%= link_to "New participants", bulk_participants_path, class: "btn btn-primary" %>

@@ -28,6 +28,11 @@ if Rails.env.development?
   u = User.find_or_create_by(email_address: "user3@example.com")
   u.update!(name: "Test User", password: "Password1!")
   UserRole.find_or_create_by(user_id: u.id, role_id: viewer.id)
+
+  # Add test participants
+  100.times do |i|
+    Participant.create!(name: Faker::Name.name, category: [ "Youth", "Caregiver", "Youth Serving Professional" ].sample)
+  end
 end
 
 # Find/Create demographics questionnaire

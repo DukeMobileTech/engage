@@ -27,6 +27,14 @@ class Participant < ApplicationRecord
 
   before_create :assign_study_id
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name study_id category] + _ransackers.keys
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
+
   def upcased_name
     self.name.split(" ").map(&:upcase_first).join(" ")
   end

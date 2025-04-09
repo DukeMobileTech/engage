@@ -59,6 +59,8 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", ">= 2.1"
+
+  gem "faker"
 end
 
 group :development do
@@ -79,3 +81,5 @@ group :production do
 end
 
 gem "pundit", "~> 2.5"
+
+gem "ransack", "~> 4.3"
