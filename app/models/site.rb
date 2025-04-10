@@ -27,6 +27,14 @@ class Site < ApplicationRecord
 
   delegate :state, :county, :urbanicity, :setting, to: :organization
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name code] + _ransackers.keys
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ :organization, :participants ]
+  end
+
   def facilitators
     a_users = Role.where(name: "admin").map(&:users).flatten.uniq
     f_users = UserRole.where(role: Role.where(name: "facilitator"), user: users).map(&:user).flatten.uniq

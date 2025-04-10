@@ -25,6 +25,14 @@ class SectionParticipant < ApplicationRecord
   has_many :responses, through: :participant
   has_one :section_participant_response, dependent: :destroy
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[participant_id] + _ransackers.keys
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ :participant ]
+  end
+
   def sitting_attendances
     attendances.where(sitting_id: section.sittings.pluck(:id)).where(present: true)
   end

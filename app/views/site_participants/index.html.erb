@@ -13,12 +13,19 @@
       </div>
 
       <div class="card-body">
+      <%= search_form_for @query, url: site_site_participants_path(@site)  do |form| %>
+        <div class="row mb-2">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-4"><%= form.search_field :participant_name_or_participant_study_id_or_participant_category_cont, placeholder: 'Search by name or study id or category', class: "form-control" %></div>
+          <div class="col-lg-2"><%= form.submit class: "btn btn-outline-info" %></div>
+          <div class="col-lg-3"></div>
+        </div>
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Study ID</th>
-              <th>Category</th>
+              <th><%= sort_link(@query, :participant_name) %></th>
+              <th><%= sort_link(@query, :participant_study_id, "Study ID") %></th>
+              <th><%= sort_link(@query, :participant_category) %></th>
               <th>Sex</th>
               <th>Grade</th>
               <th>Sections</th>
@@ -41,7 +48,7 @@
           <% end %>
           </tbody>
         </table>
-
+        <% end %>
         <div class="d-flex justify-content-between">
           <%= link_to "Enroll new participants", bulk_participants_path(site_id: @site), class: "btn btn-primary" %>
           <%= link_to "Enroll existing participants", edit_site_path(@site, enroll: true), class: "btn btn-primary" %>

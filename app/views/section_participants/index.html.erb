@@ -8,11 +8,19 @@
       <h4>Participants Enrolled In <%= @section.name %></h4>
     </div>
     <div class="card-body">
+    <%= search_form_for @query, url: site_section_section_participants_path(@site)  do |form| %>
+      <div class="row mb-2">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-4"><%= form.search_field :participant_name_or_participant_study_id_or_participant_category_cont, placeholder: 'Search by name or study id or category', class: "form-control" %></div>
+        <div class="col-lg-2"><%= form.submit class: "btn btn-outline-info" %></div>
+        <div class="col-lg-3"></div>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Category</th>
+            <th><%= sort_link(@query, :participant_name) %></th>
+            <th><%= sort_link(@query, :participant_study_id, "Study ID") %></th>
+            <th><%= sort_link(@query, :participant_category) %></th>
             <th>Attendance</th>
             <th>Demographics Survey</th>
           </tr>
@@ -21,6 +29,7 @@
           <% @section_participants.each do |sp| %>
             <tr>
               <td><%= link_to sp.participant.name, participant_path(sp.participant) %></td>
+              <td><%= sp.participant.study_id %></td>
               <td><%= sp.participant.category %></td>
               <td><%= link_to sp.attendance_str, site_section_section_participant_path(@site, @section, sp) %></td>
               <td><%= sp.demographics_response ? (link_to sanitize(sp.demographics_label), edit_site_section_section_participant_section_participant_response_path(@site, @section, sp, sp.section_participant_response)) : (link_to 'Enter response', new_site_section_section_participant_section_participant_response_path(@site, @section, sp)) %></td>
@@ -28,6 +37,7 @@
           <% end %>
         </tbody>
       </table>
+    <% end %>
       <div class="d-flex flex-row-reverse">
         <%= link_to "Enroll participants", edit_site_section_path(@site, @section, enrollment: true), class: "btn btn-primary" %>
       </div>

@@ -22,4 +22,12 @@
 class SiteParticipant < ApplicationRecord
   belongs_to :site
   belongs_to :participant
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[site_id participant_id] + _ransackers.keys
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ :site, :participant ]
+  end
 end
