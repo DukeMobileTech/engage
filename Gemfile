@@ -28,7 +28,7 @@ gem "solid_cable"
 
 gem "mission_control-jobs"
 gem "csv"
-gem "bootstrap", "~> 5.3.3"
+gem "bootstrap", "~> 5.3.5"
 gem "dartsass-rails"
 gem "bootswatch", github: "thomaspark/bootswatch"
 
