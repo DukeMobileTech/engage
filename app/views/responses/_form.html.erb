@@ -43,9 +43,9 @@
             </p>
           <% end %>
         <% when 'long_answer' %>
-          <%= response.text_area question.id, required: question.required %>
+          <%= response.text_area question.id, required: question.required, class: "form-control" %>
         <% when 'number_answer' %>
-          <%= response.number_field question.id, required: question.required %>
+          <%= response.number_field question.id, required: question.required, class: "form-control" %>
         <% end %>
       </div>
       <hr>

@@ -142,8 +142,8 @@ class Section < ApplicationRecord
 
   def race_ethnicity_counts(participant_list, race)
     group = participant_list.select { |p| p.race == race }
-    hispanic = group.select { |g| g.ethnicity == "Hispanic or Latino" }
-    non_hispanic = group.select { |g| g.ethnicity == "Not Hispanic or Latino" }
+    hispanic = group.select { |g| g.ethnicity == "Hispanic or Latino/a" }
+    non_hispanic = group.select { |g| g.ethnicity == "Not Hispanic or Latino/a" }
     [ group.size, hispanic.size, non_hispanic.size ]
   end
 
@@ -161,7 +161,7 @@ class Section < ApplicationRecord
     sheet.add_row [ "Reach by Sex", "Participants" ]
     sheet.add_row [ "Male", sexes.count("Male") ]
     sheet.add_row [ "Female", sexes.count("Female") ]
-    sheet.add_row [ "Not Reported", sexes.count("Not Reported") + sexes.count(nil) ]
+    sheet.add_row [ "Not Reported", sexes.count("Not Reported") + sexes.count(nil) + sexes.count("Prefer not to say") ]
     sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
     # Youth race/ethnicity
@@ -173,23 +173,23 @@ class Section < ApplicationRecord
     # gender identity
     sheet.add_row [ "Reach by Gender Identity", "Participants" ]
     groups = youth.group_by { |p| p.gender }
-    sheet.add_row [ "Male", groups["Cisgender Man"]&.size || 0 ]
-    sheet.add_row [ "Female", groups["Cisgender Woman"]&.size  || 0 ]
-    sheet.add_row [ "Transgender Male", groups["Transgender Man"]&.size || 0 ]
-    sheet.add_row [ "Transgender Female", groups["Transgender Woman"]&.size || 0 ]
-    sheet.add_row [ "Non-binary Person", groups["Non-binary Person"]&.size || 0 ]
-    sheet.add_row [ "Something Else", groups["Other"]&.size || 0 ]
+    sheet.add_row [ "Male", groups["Male"]&.size || 0 ]
+    sheet.add_row [ "Female", groups["Female"]&.size  || 0 ]
+    sheet.add_row [ "Transgender Male", groups["Transgender Female To Male"]&.size || 0 ]
+    sheet.add_row [ "Transgender Female", groups["Transgender Male To Female"]&.size || 0 ]
+    sheet.add_row [ "Non-binary Person", groups["Non-binary"]&.size || 0 ]
+    sheet.add_row [ "Something Else", groups["Something Else"]&.size || 0 ]
     sheet.add_row [ "Not Reported", (groups["Not Reported"]&.size || 0) + (groups[nil]&.size || 0) ]
     sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
     # sexual orientation
     sheet.add_row [ "Reach by Sexual Orientation", "Participants" ]
     orientations = youth.group_by { |p| p.orientation }
-    sheet.add_row [ "Straight or heterosexual", orientations["Straight or heterosexual"]&.size || 0 ]
+    sheet.add_row [ "Straight or heterosexual", orientations["Heterosexual"]&.size || 0 ]
     sheet.add_row [ "Bisexual", orientations["Bisexual"]&.size || 0 ]
-    sheet.add_row [ "Lesbian, gay, or homosexual", orientations["Lesbian, gay, or homosexual"]&.size || 0 ]
+    sheet.add_row [ "Lesbian, gay, or homosexual", orientations["Homosexual"]&.size || 0 ]
     sheet.add_row [ "Something Else", orientations["Something Else"]&.size || 0 ]
-    sheet.add_row [ "Have not Decided", orientations["Have not Decided"]&.size || 0 ]
+    sheet.add_row [ "Have not Decided", orientations["Not Decided"]&.size || 0 ]
     sheet.add_row [ "Not Reported", (orientations["Not Reported"]&.size || 0) + (orientations[nil]&.size || 0) ]
     sheet.add_row [ "Total", youth.size ]
     sheet.add_row []
@@ -244,13 +244,13 @@ class Section < ApplicationRecord
     sheet.add_row [ "Native American/Alaska Native", native_hispanic, native_non_hispanic, native - native_hispanic - native_non_hispanic ]
     islander, islander_hispanic, islander_non_hispanic = race_ethnicity_counts(participant_list, "Native Hawaiian or Other Pacific Islander")
     sheet.add_row [ "Native Hawaiian/Other Pacific Islander", islander_hispanic, islander_non_hispanic, islander - islander_hispanic - islander_non_hispanic ]
-    multiple = participant_list.select { |p| p.race&.include?(",") }
-    m_hispanic = multiple.select { |m| m.ethnicity == "Hispanic or Latino" }
-    m_non_hispanic = multiple.select { |m| m.ethnicity == "Not Hispanic or Latino" }
+    multiple = participant_list.select { |p| p.race&.include?(",") || p.race == "More than one race" }
+    m_hispanic = multiple.select { |m| m.ethnicity == "Hispanic or Latino/a" }
+    m_non_hispanic = multiple.select { |m| m.ethnicity == "Not Hispanic or Latino/a" }
     sheet.add_row [ "More than One", m_hispanic.size, m_non_hispanic.size, multiple.size - m_hispanic.size - m_non_hispanic.size ]
     unreported = participant_list.select { |p| (p.race == "Not Reported" || p.race.blank?) }
-    u_hispanic = unreported.select { |u| u.ethnicity == "Hispanic or Latino" }
-    u_non_hispanic = unreported.select { |u| u.ethnicity == "Not Hispanic or Latino" }
+    u_hispanic = unreported.select { |u| u.ethnicity == "Hispanic or Latino/a" }
+    u_non_hispanic = unreported.select { |u| u.ethnicity == "Not Hispanic or Latino/a" }
     sheet.add_row [ "Not Reported", u_hispanic.size, u_non_hispanic.size, unreported.size - u_hispanic.size - u_non_hispanic.size ]
     hispanic_total = white_hispanic + black_hispanic + asian_hispanic + native_hispanic + islander_hispanic + m_hispanic.size + u_hispanic.size
     non_hispanic_total = white_non_hispanic + black_non_hispanic + asian_non_hispanic + native_non_hispanic + islander_non_hispanic + m_non_hispanic.size + u_non_hispanic.size

@@ -66,19 +66,19 @@ class DataUpload < ApplicationRecord
       # Youth Counts
       youth = section.section_participants.where(participant_id: section.participants.where(category: "Youth").pluck(:id))
       sexes = youth.map { |p| p.sex }
-      ys_row = [ youth.count, sexes.count("Male"), sexes.count("Female"), sexes.count("Not Reported") + sexes.count(nil) ]
+      ys_row = [ youth.count, sexes.count("Male"), sexes.count("Female"), sexes.count("Not Reported") + sexes.count(nil) + sexes.count("Prefer not to say") ]
       row += ys_row
       native, native_hispanic, native_non_hispanic = section.race_ethnicity_counts(youth, "American Indian or Alaska Native")
       asian, asian_hispanic, asian_non_hispanic = section.race_ethnicity_counts(youth, "Asian")
       black, black_hispanic, black_non_hispanic = section.race_ethnicity_counts(youth, "Black or African American")
       islander, islander_hispanic, islander_non_hispanic = section.race_ethnicity_counts(youth, "Native Hawaiian or Other Pacific Islander")
       white, white_hispanic, white_non_hispanic = section.race_ethnicity_counts(youth, "White")
-      multiple = youth.select { |p| p.race&.include?(",") }
-      m_hispanic = multiple.select { |m| m.ethnicity == "Hispanic or Latino" }
-      m_non_hispanic = multiple.select { |m| m.ethnicity == "Not Hispanic or Latino" }
+      multiple = youth.select { |p| p.race&.include?(",") || p.race == "More than one race" }
+      m_hispanic = multiple.select { |m| m.ethnicity == "Hispanic or Latino/a" }
+      m_non_hispanic = multiple.select { |m| m.ethnicity == "Not Hispanic or Latino/a" }
       unreported = youth.select { |p| (p.race == "Not Reported" || p.race.blank?) }
-      u_hispanic = unreported.select { |u| u.ethnicity == "Hispanic or Latino" }
-      u_non_hispanic = unreported.select { |u| u.ethnicity == "Not Hispanic or Latino" }
+      u_hispanic = unreported.select { |u| u.ethnicity == "Hispanic or Latino/a" }
+      u_non_hispanic = unreported.select { |u| u.ethnicity == "Not Hispanic or Latino/a" }
       yr_row = [ native_hispanic, native_non_hispanic, (native - native_hispanic - native_non_hispanic),
                  asian_hispanic, asian_non_hispanic, (asian - asian_hispanic - asian_non_hispanic),
                  black_hispanic, black_non_hispanic, (black - black_hispanic - black_non_hispanic),
@@ -108,12 +108,12 @@ class DataUpload < ApplicationRecord
       cg_bla, cg_bla_his, cg_bla_non_his = section.race_ethnicity_counts(cg, "Black or African American")
       cg_isl, cg_isl_his, cg_isl_non_his = section.race_ethnicity_counts(cg, "Native Hawaiian or Other Pacific Islander")
       cg_whi, cg_whi_his, cg_whi_non_his = section.race_ethnicity_counts(cg, "White")
-      cg_mul = cg.select { |p| p.race&.include?(",") }
-      cgm_his = cg_mul.select { |m| m.ethnicity == "Hispanic or Latino" }
-      cgm_non_his = cg_mul.select { |m| m.ethnicity == "Not Hispanic or Latino" }
+      cg_mul = cg.select { |p| p.race&.include?(",") || p.race == "More than one race" }
+      cgm_his = cg_mul.select { |m| m.ethnicity == "Hispanic or Latino/a" }
+      cgm_non_his = cg_mul.select { |m| m.ethnicity == "Not Hispanic or Latino/a" }
       cg_un_rep = cg.select { |p| (p.race == "Not Reported" || p.race.blank?) }
-      cg_un_rep_his = cg_un_rep.select { |u| u.ethnicity == "Hispanic or Latino" }
-      cg_un_rep_non_his = cg_un_rep.select { |u| u.ethnicity == "Not Hispanic or Latino" }
+      cg_un_rep_his = cg_un_rep.select { |u| u.ethnicity == "Hispanic or Latino/a" }
+      cg_un_rep_non_his = cg_un_rep.select { |u| u.ethnicity == "Not Hispanic or Latino/a" }
       cgr_row = [ cg_nat_his, cg_nat_non_his, (cg_nat - cg_nat_his - cg_nat_non_his),
                   cg_asi_his, cg_asi_non_his, (cg_asi - cg_asi_his - cg_asi_non_his),
                   cg_bla_his, cg_bla_non_his, (cg_bla - cg_bla_his - cg_bla_non_his),
@@ -131,12 +131,12 @@ class DataUpload < ApplicationRecord
       ysp_bla, ysp_bla_his, ysp_bla_non_his = section.race_ethnicity_counts(ysp, "Black or African American")
       ysp_isl, ysp_isl_his, ysp_isl_non_his = section.race_ethnicity_counts(ysp, "Native Hawaiian or Other Pacific Islander")
       ysp_whi, ysp_whi_his, ysp_whi_non_his = section.race_ethnicity_counts(ysp, "White")
-      ysp_mul = ysp.select { |p| p.race&.include?(",") }
-      yspm_his = ysp_mul.select { |m| m.ethnicity == "Hispanic or Latino" }
-      yspm_non_his = ysp_mul.select { |m| m.ethnicity == "Not Hispanic or Latino" }
+      ysp_mul = ysp.select { |p| p.race&.include?(",") || p.race == "More than one race" }
+      yspm_his = ysp_mul.select { |m| m.ethnicity == "Hispanic or Latino/a" }
+      yspm_non_his = ysp_mul.select { |m| m.ethnicity == "Not Hispanic or Latino/a" }
       ysp_un_rep = ysp.select { |p| (p.race == "Not Reported" || p.race.blank?) }
-      ysp_un_rep_his = ysp_un_rep.select { |u| u.ethnicity == "Hispanic or Latino" }
-      ysp_un_rep_non_his = ysp_un_rep.select { |u| u.ethnicity == "Not Hispanic or Latino" }
+      ysp_un_rep_his = ysp_un_rep.select { |u| u.ethnicity == "Hispanic or Latino/a" }
+      ysp_un_rep_non_his = ysp_un_rep.select { |u| u.ethnicity == "Not Hispanic or Latino/a" }
       yspr_row = [ ysp_nat_his, ysp_nat_non_his, (ysp_nat - ysp_nat_his - ysp_nat_non_his),
                    ysp_asi_his, ysp_asi_non_his, (ysp_asi - ysp_asi_his - ysp_asi_non_his),
                    ysp_bla_his, ysp_bla_non_his, (ysp_bla - ysp_bla_his - ysp_bla_non_his),
