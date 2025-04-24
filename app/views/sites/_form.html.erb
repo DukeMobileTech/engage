@@ -17,6 +17,11 @@
   </div>
 
   <div class="mb-3">
+    <%= form.label :county, class: "form-label" %>
+    <%= form.text_field :county, class: "form-control", placeholder: "Please enter the name of the county the site is located in" %>
+  </div>
+
+  <div class="mb-3">
     <%= form.label :code, class: "form-label" unless site.new_record? %>
     <%= form.text_field :code, class: "form-control" unless site.new_record? %>
   </div>

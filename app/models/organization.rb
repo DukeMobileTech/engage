@@ -3,7 +3,6 @@
 # Table name: organizations
 #
 #  id         :integer          not null, primary key
-#  county     :string
 #  name       :string           not null
 #  setting    :string
 #  state      :string
@@ -15,7 +14,7 @@ class Organization < ApplicationRecord
   has_many :sites
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[county name setting state urbanicity] + _ransackers.keys
+    %w[name setting state urbanicity] + _ransackers.keys
   end
 
   def self.ransackable_associations(auth_object = nil)

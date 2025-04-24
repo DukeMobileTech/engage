@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_210224) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_24_195758) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -95,7 +95,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_210224) do
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.string "state"
-    t.string "county"
     t.string "urbanicity"
     t.string "setting"
     t.datetime "created_at", null: false
@@ -206,6 +205,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_210224) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "organization_id"
+    t.string "county"
     t.index ["code"], name: "index_sites_on_code", unique: true
     t.index ["organization_id"], name: "index_sites_on_organization_id"
   end

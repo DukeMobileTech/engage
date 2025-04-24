@@ -4,6 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  code            :string           not null
+#  county          :string
 #  name            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -25,10 +26,10 @@ class Site < ApplicationRecord
   validates :name, presence: true
   before_create :assign_code
 
-  delegate :state, :county, :urbanicity, :setting, to: :organization
+  delegate :state, :urbanicity, :setting, to: :organization
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name code] + _ransackers.keys
+    %w[name code county] + _ransackers.keys
   end
 
   def self.ransackable_associations(auth_object = nil)

@@ -299,6 +299,6 @@ class Section < ApplicationRecord
   private
 
   def assign_name
-    self.name = "#{site.organization.name} - #{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
+    self.name = "#{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
   end
 end

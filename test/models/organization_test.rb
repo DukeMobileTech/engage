@@ -3,7 +3,6 @@
 # Table name: organizations
 #
 #  id         :integer          not null, primary key
-#  county     :string
 #  name       :string           not null
 #  setting    :string
 #  state      :string
