@@ -61,6 +61,10 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "#{Rails.application.credentials.config[:SMTP_HOSTNAME]}" }
+  # config.action_mailer.sendmail_settings = {
+  #   location: "/usr/sbin/sendmail",
+  #   arguments: [ "-i", "-t" ]
+  # }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   config.action_mailer.smtp_settings = {
@@ -69,7 +73,9 @@ Rails.application.configure do
     address: Rails.application.credentials.config[:SMTP_ADDRESS],
     port: Rails.application.credentials.config[:SMTP_PORT],
     domain: Rails.application.credentials.config[:SMTP_DOMAIN],
-    authentication: :plain
+    authentication: :plain,
+    openssl_verify_mode: "peer",
+    enable_starttls_auto: true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
