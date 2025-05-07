@@ -7,8 +7,7 @@ image: ngkipla/engage
 # Deploy to these servers.
 servers:
   web:
-    - rapid-2242.vm.duke.edu
-    # - rapid-2148.vm.duke.edu
+    - 167.71.165.5
   # job:
   #   hosts:
   #     - rapid-2148.vm.duke.edu
@@ -19,9 +18,8 @@ servers:
 #
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
-  ssl: true
-  host: rapid-2242.vm.duke.edu
-  # host: rapid-2148.vm.duke.edu
+  ssl: false
+  host: teach.kodvinci.com
 
 # Credentials for your image host.
 registry:
@@ -50,7 +48,7 @@ env:
 
     # Match this to any external database server to configure Active Record correctly
     # Use engage-db for a db accessory server on same machine via local kamal docker network.
-    # DB_HOST: 192.168.0.2
+    # DB_HOST: DB_HOST
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
@@ -95,8 +93,7 @@ accessories:
   postgres:
     image: postgres:17
     port: 127.0.0.1:5432:5432
-    host: rapid-2242.vm.duke.edu
-    # host: rapid-2148.vm.duke.edu
+    host: 167.71.165.5
     env:
       clear:
         POSTGRES_USER: engage
