@@ -47,6 +47,9 @@ gem "thruster", require: false
 # xlsx spreadsheet generation
 gem "caxlsx", "~> 4.2"
 
+# Use pg as the database for Active Record
+gem "pg", ">= 1.1", "< 2.0"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -56,9 +59,6 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-
-  # Use sqlite3 as the database for Active Record
-  gem "sqlite3", ">= 2.1"
 
   gem "faker"
 end
@@ -75,11 +75,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
-group :production do
-  # Use the pg database adapter
-  gem "pg", ">= 1.1", "< 2.0"
-end
-
 gem "pundit", "~> 2.5"
 
 gem "ransack", "~> 4.3"
+
+gem "sendgrid-ruby", "~> 6.7.0"
