@@ -32,7 +32,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Use smtp to send emails.
-  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
 
   # Perform deliveries
   config.action_mailer.perform_deliveries = true
@@ -45,6 +45,16 @@ Rails.application.configure do
 
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+  # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
+  config.action_mailer.smtp_settings = {
+    user_name: Rails.application.credentials.config[:SMTP_USERNAME],
+    password: Rails.application.credentials.config[:SMTP_PASSWORD],
+    address: Rails.application.credentials.config[:SMTP_ADDRESS],
+    port: Rails.application.credentials.config[:SMTP_PORT],
+    domain: Rails.application.credentials.config[:SMTP_DOMAIN],
+    authentication: :plain
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
