@@ -7,11 +7,7 @@ image: ngkipla/engage
 # Deploy to these servers.
 servers:
   web:
-    - rapid-2148.vm.duke.edu
-  # job:
-  #   hosts:
-  #     - rapid-2148.vm.duke.edu
-  #   cmd: bin/jobs
+    - rapid-2242.vm.duke.edu
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
 # Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
@@ -19,7 +15,7 @@ servers:
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: rapid-2148.vm.duke.edu
+  host: rapid-2242.vm.duke.edu
 
 # Credentials for your image host.
 registry:
@@ -93,7 +89,7 @@ accessories:
   postgres:
     image: postgres:17
     port: 127.0.0.1:5432:5432
-    host: rapid-2148.vm.duke.edu
+    host: rapid-2242.vm.duke.edu
     env:
       clear:
         POSTGRES_USER: engage
