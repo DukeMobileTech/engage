@@ -26,6 +26,7 @@ class User < ApplicationRecord
   has_many :organizations, -> { distinct }, through: :sites
 
   after_create :add_default_role
+  after_create :send_welcome_email
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   def admin?
@@ -42,5 +43,9 @@ class User < ApplicationRecord
   private
     def add_default_role
       user_roles.create(role: Role.find_by(name: "viewer"))
+    end
+
+    def send_welcome_email
+      PasswordsMailer.welcome(self).deliver_later
     end
 end
