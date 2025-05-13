@@ -35,6 +35,7 @@ class Sitting < ApplicationRecord
 
   validates :done_on, presence: true
   validates :section_id, presence: true
+  validate :completion_conditions
 
   def present_participants
     attendances.where(present: true)
@@ -56,11 +57,24 @@ class Sitting < ApplicationRecord
     name || title
   end
 
+  def filedily_log_responses
+    responses.where(questionnaire_id: Questionnaire.fidelity&.id)
+  end
+
   private
 
     def take_attendance
       section.participants.each do |participant|
         attendances.create(participant: participant)
+      end
+    end
+
+    def completion_conditions
+      if completed? && present_participants.empty?
+        errors.add(:completed, "can't be true if no participants attended session")
+      end
+      if completed? && filedily_log_responses.empty?
+        errors.add(:completed, "can't be true if no fidelity log response")
       end
     end
 end
