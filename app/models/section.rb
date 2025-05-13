@@ -36,6 +36,7 @@ class Section < ApplicationRecord
   validates :curriculum_id, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
+  validate :completed_only_if_all_sittings_completed
 
   scope :completed, -> { where(completed: true) }
 
@@ -301,4 +302,11 @@ class Section < ApplicationRecord
   def assign_name
     self.name = "#{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
   end
+
+  def completed_only_if_all_sittings_completed
+    if completed? && sittings.any? { |sitting| !sitting.completed? }
+      errors.add(:completed, "can't be true unless all sessions are completed")
+    end
+  end
+
 end

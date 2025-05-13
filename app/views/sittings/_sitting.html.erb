@@ -35,6 +35,13 @@
   </p>
 
   <p>
+    <strong>Fidelity logs:</strong>
+    <% @sitting.filedily_log_responses.each do |log| %>
+      <span><%= link_to log.id, questionnaire_response_path(Questionnaire.fidelity&.id, log.id) %></span>
+    <% end %>
+  </p>
+
+  <p>
     <strong>Facilitators:</strong>
     <%= @sitting.users.map(&:name).join(", ") %>
   </p>

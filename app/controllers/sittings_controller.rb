@@ -1,7 +1,7 @@
 class SittingsController < ApplicationController
   before_action :set_site
   before_action :set_section
-  before_action :set_lessons, only: %i[ new edit ]
+  before_action :set_lessons, only: %i[ new edit update]
   before_action :set_sitting, only: %i[ show edit update destroy ]
 
   # GET /sittings or /sittings.json
@@ -46,6 +46,7 @@ class SittingsController < ApplicationController
 
   # PATCH/PUT /sittings/1 or /sittings/1.json
   def update
+    @facilitators = @site.facilitators
     if params[:sitting]
       params[:sitting][:attendances_attributes]&.each do |index, attendance|
         @sitting.attendances.find(attendance["id"]).update(present: attendance["present"])
