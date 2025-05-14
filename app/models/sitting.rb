@@ -61,6 +61,10 @@ class Sitting < ApplicationRecord
     responses.where(questionnaire_id: Questionnaire.fidelity&.id)
   end
 
+  def program_observation_responses
+    responses.where(questionnaire_id: Questionnaire.observation&.id)
+  end
+
   private
 
     def take_attendance

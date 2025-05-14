@@ -12,17 +12,70 @@
     </div>
   <% end %>
 
-  <% @questionnaire.questions.each do |question| %>
-  <div class="mb-3">
-    <h4>
-      <%= question.number %> ) <%= question.identifier %>
-    </h4>
-    <div class="ms-2">
-      <%= sanitize question.text %>
+  <% if @questionnaire.fidelity? %>
+    <% @response.sitting.activities.each do |activity| %>
+    <div class="mb-3">
+      <h4>
+        <%= activity.name %>
+      </h4>
+      <div class="ms-2">
+        <%= @response.activity_answers(activity.id, @questionnaire.activity_question.id) %>
+      </div>
+      <% del_mod = @response.activity_answers(activity.id, @questionnaire.delivery_modified_question.id) %>
+      <% if del_mod.present? %>
+        <div class="ms-4 fw-bold">
+          <%= @questionnaire.delivery_modified_question.text %>
+        </div>
+        <div class="ms-5">
+          <%= @response.activity_answers(activity.id, @questionnaire.delivery_modified_question.id) %>
+        </div>
+      <% end %>
+      <% cont_mod = @response.activity_answers(activity.id, @questionnaire.content_modified_question.id) %>
+      <% if cont_mod.present? %>
+        <div class="ms-4 fw-bold">
+          <%= @questionnaire.content_modified_question.text %>
+        </div>
+        <div class="ms-5">
+          <%= @response.activity_answers(activity.id, @questionnaire.content_modified_question.id) %>
+        </div>
+      <% end %>
+      <% not_del = @response.activity_answers(activity.id, @questionnaire.not_delivered_question.id) %>
+      <% if not_del.present? %>
+        <div class="ms-4 fw-bold">
+          <%= @questionnaire.not_delivered_question.text %>
+        </div>
+        <div class="ms-5">
+          <%= @response.activity_answers(activity.id, @questionnaire.not_delivered_question.id) %>
+        </div>
+      <% end %>
     </div>
-    <div class="ms-4">
-      <strong><em><%= question.question_answer(@response) %></em></strong>
+    <% end %>
+    <% (@questionnaire.questions - [ @questionnaire.activity_question, @questionnaire.delivery_modified_question, @questionnaire.content_modified_question, @questionnaire.not_delivered_question ]).each do |question| %>
+    <div class="mb-3">
+      <h4>
+        <%= question.number %> ) <%= question.identifier %>
+      </h4>
+      <div class="ms-2">
+        <%= sanitize question.text %>
+      </div>
+      <div class="ms-4">
+        <strong><em><%= question.question_answer(@response) %></em></strong>
+      </div>
     </div>
-  </div>
+    <% end %>
+  <% else %>
+    <% @questionnaire.questions.each do |question| %>
+    <div class="mb-3">
+      <h4>
+        <%= question.number %> ) <%= question.identifier %>
+      </h4>
+      <div class="ms-2">
+        <%= sanitize question.text %>
+      </div>
+      <div class="ms-4">
+        <strong><em><%= question.question_answer(@response) %></em></strong>
+      </div>
+    </div>
+    <% end %>
   <% end %>
 </div>

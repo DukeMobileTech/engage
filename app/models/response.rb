@@ -65,4 +65,14 @@ class Response < ApplicationRecord
 
     question.answers.find { |a| a.id.to_s == answers[question.id.to_s] }&.text
   end
+
+  def activity_answers(activity_id, question_id)
+    index = answers["#{activity_id}_#{question_id}"]
+    question = Question.find(question_id)
+    if question.question_type == "single_choice"
+      question.answers.where(id: index.to_i).first.text
+    else
+      index
+    end
+  end
 end
