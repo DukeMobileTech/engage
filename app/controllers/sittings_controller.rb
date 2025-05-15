@@ -1,7 +1,7 @@
 class SittingsController < ApplicationController
   before_action :set_site
   before_action :set_section
-  before_action :set_lessons, only: %i[ new edit update]
+  before_action :set_lessons, only: %i[ new edit update bulk]
   before_action :set_sitting, only: %i[ show edit update destroy ]
 
   # GET /sittings or /sittings.json
@@ -71,6 +71,21 @@ class SittingsController < ApplicationController
       format.html { redirect_to site_section_sittings_path(@site, @section), status: :see_other, notice: "Session was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def bulk
+    @facilitators = @site.facilitators
+  end
+
+  def bulk_create
+    params[:sittings].each do |attr|
+      sitting = @section.sittings.create(name: attr[:name], done_on: attr[:done_on], completed: attr[:completed])
+      lessons = Lesson.where(id: attr[:lesson_ids])
+      users = User.where(id: attr[:user_ids])
+      sitting.lessons << lessons
+      sitting.users << users
+    end
+    redirect_to site_section_sittings_path(@site, @section)
   end
 
   private
