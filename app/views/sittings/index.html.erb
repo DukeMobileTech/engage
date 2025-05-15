@@ -33,7 +33,8 @@
         </tbody>
       </table>
       <div class="d-flex flex-row-reverse">
-        <%= link_to "Add new session", new_site_section_sitting_path(@site, @section), class: "btn btn-primary" %>
+        <span class="m-1"><%= link_to "Add new session", new_site_section_sitting_path(@site, @section), class: "btn btn-primary" %></span>
+        <span class="m-1"><%= link_to "Add multiple new sessions", bulk_site_section_sittings_path(@site, @section), class: "btn btn-primary" %></span>
       </div>
     </div>
   </div>

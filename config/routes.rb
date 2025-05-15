@@ -21,6 +21,10 @@ Rails.application.routes.draw do
         resources :section_participant_responses, only: %i[new create edit update]
       end
       resources :sittings do
+        collection do
+          get "bulk" => "sittings#bulk"
+          post "bulk_create" => "sittings#bulk_create"
+        end
         resources :attendances, only: :index
       end
       member do
