@@ -37,15 +37,17 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
-    <%= form.label :user_sites, class: "form-label fw-bold" %>
-    <%= form.collection_check_boxes(:site_ids, Site.all, :id, :name) do |b| %>
-      <div class="form-check">
-        <%= b.check_box(class: "form-check-input") %>
-        <%= b.label(class: "form-check-label") %>
-      </div>
-    <% end %>
-  </div>
+  <% unless user.admin? %>
+    <div class="mb-3">
+      <%= form.label :user_sites, class: "form-label fw-bold" %>
+      <%= form.collection_check_boxes(:site_ids, Site.all, :id, :name) do |b| %>
+        <div class="form-check">
+          <%= b.check_box(class: "form-check-input") %>
+          <%= b.label(class: "form-check-label") %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="d-flex flex-row-reverse">
     <%= form.submit class: 'btn btn-success'%>
