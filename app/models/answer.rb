@@ -2,7 +2,7 @@
 #
 # Table name: answers
 #
-#  id          :integer          not null, primary key
+#  id          :bigint           not null, primary key
 #  label       :string
 #  number      :integer
 #  text        :text
@@ -16,7 +16,7 @@
 #
 # Foreign Keys
 #
-#  question_id  (question_id => questions.id)
+#  fk_rails_...  (question_id => questions.id)
 #
 class Answer < ApplicationRecord
   default_scope { order(:number) }

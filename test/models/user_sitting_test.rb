@@ -2,7 +2,7 @@
 #
 # Table name: user_sittings
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  sitting_id :integer          not null
@@ -15,8 +15,8 @@
 #
 # Foreign Keys
 #
-#  sitting_id  (sitting_id => sittings.id)
-#  user_id     (user_id => users.id)
+#  fk_rails_...  (sitting_id => sittings.id)
+#  fk_rails_...  (user_id => users.id)
 #
 require "test_helper"
 

@@ -2,7 +2,7 @@
 #
 # Table name: sections
 #
-#  id            :integer          not null, primary key
+#  id            :bigint           not null, primary key
 #  completed     :boolean          default(FALSE)
 #  end_date      :date
 #  name          :string
@@ -19,8 +19,8 @@
 #
 # Foreign Keys
 #
-#  curriculum_id  (curriculum_id => curriculums.id)
-#  site_id        (site_id => sites.id)
+#  fk_rails_...  (curriculum_id => curriculums.id)
+#  fk_rails_...  (site_id => sites.id)
 #
 require "test_helper"
 

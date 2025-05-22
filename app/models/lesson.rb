@@ -2,7 +2,7 @@
 #
 # Table name: lessons
 #
-#  id            :integer          not null, primary key
+#  id            :bigint           not null, primary key
 #  content       :text
 #  duration      :string
 #  title         :string
@@ -16,11 +16,12 @@
 #
 # Foreign Keys
 #
-#  curriculum_id  (curriculum_id => curriculums.id)
+#  fk_rails_...  (curriculum_id => curriculums.id)
 #
 class Lesson < ApplicationRecord
   belongs_to :curriculum
   has_many :activities, dependent: :destroy, inverse_of: :lesson, autosave: true
+  has_many :sitting_lessons, dependent: :destroy
   accepts_nested_attributes_for :activities, reject_if: :all_blank, allow_destroy: true
   validates :title, presence: true
 end

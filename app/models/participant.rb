@@ -2,7 +2,7 @@
 #
 # Table name: participants
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  category   :string           default("Youth")
 #  name       :string
 #  created_at :datetime         not null
@@ -14,13 +14,13 @@
 #  index_participants_on_study_id  (study_id) UNIQUE
 #
 class Participant < ApplicationRecord
-  has_many :site_participants
+  has_many :site_participants, dependent: :destroy
   has_many :sites, through: :site_participants
-  has_many :section_participants
+  has_many :section_participants, dependent: :destroy
   has_many :sections, through: :section_participants
   has_many :attendances, dependent: :destroy
   has_many :sittings, through: :attendances
-  has_many :responses
+  has_many :responses, dependent: :nullify
 
   validates :name, presence: true
   validates :category, presence: true

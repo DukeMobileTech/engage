@@ -2,7 +2,7 @@
 #
 # Table name: organizations
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string           not null
 #  setting    :string
 #  state      :string

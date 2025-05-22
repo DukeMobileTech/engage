@@ -4,7 +4,7 @@
 #
 # Table name: organizations
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string           not null
 #  setting    :string
 #  state      :string
@@ -15,13 +15,11 @@
 one:
   name: MyString
   state: MyString
-  county: MyString
   urbanicity: MyString
   setting: MyString
 
 two:
   name: MyString
   state: MyString
-  county: MyString
   urbanicity: MyString
   setting: MyString

@@ -2,7 +2,7 @@
 #
 # Table name: data_uploads
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  name                   :string
 #  reporting_period_end   :date
 #  reporting_period_start :date

@@ -2,7 +2,7 @@
 #
 # Table name: sites
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  code            :string           not null
 #  county          :string
 #  name            :string

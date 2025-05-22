@@ -4,7 +4,7 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  email_address   :string           not null
 #  name            :string           not null
 #  password_digest :string           not null
@@ -24,3 +24,23 @@ two:
   email_address: two@example.com
   password_digest: <%= BCrypt::Password.create("pa$sW0rd") %>
   name: Jane Doe
+
+admin:
+  email_address: admin@example.com
+  password_digest: <%= BCrypt::Password.create("AdminPassword1!") %>
+  name: Admin User
+
+viewer:
+  email_address: viewer@example.com
+  password_digest: <%= BCrypt::Password.create("ViewerPassword1!") %>
+  name: Viewer User
+
+facilitator:
+  email_address: facilitator@example.com
+  password_digest: <%= BCrypt::Password.create("FacilitatorPassword1!") %>
+  name: Facilitator User
+
+observer:
+  email_address: observer@example.com
+  password_digest: <%= BCrypt::Password.create("ObserverPassword1!") %>
+  name: Observer User

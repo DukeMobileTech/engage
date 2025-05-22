@@ -4,7 +4,7 @@
 #
 # Table name: sittings
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  completed  :boolean          default(FALSE)
 #  done_on    :datetime
 #  name       :string
@@ -18,14 +18,16 @@
 #
 # Foreign Keys
 #
-#  section_id  (section_id => sections.id)
+#  fk_rails_...  (section_id => sections.id)
 #
 one:
   done_on: 2024-12-04 09:49:49
   section: one
-  lesson: one
+  name: Session One
+  completed: false
 
 two:
   done_on: 2024-12-04 09:49:49
   section: two
-  lesson: two
+  name: Session Two
+  completed: false

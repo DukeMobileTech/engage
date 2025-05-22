@@ -3,6 +3,7 @@ require "test_helper"
 class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @organization = organizations(:one)
+    sign_in
   end
 
   test "should get index" do
@@ -17,7 +18,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create organization" do
     assert_difference("Organization.count") do
-      post organizations_url, params: { organization: { county: @organization.county, name: @organization.name, setting: @organization.setting, state: @organization.state, urbanicity: @organization.urbanicity } }
+      post organizations_url, params: { organization: { name: @organization.name, setting: @organization.setting, state: @organization.state, urbanicity: @organization.urbanicity } }
     end
 
     assert_redirected_to organization_url(Organization.last)
@@ -34,7 +35,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update organization" do
-    patch organization_url(@organization), params: { organization: { county: @organization.county, name: @organization.name, setting: @organization.setting, state: @organization.state, urbanicity: @organization.urbanicity } }
+    patch organization_url(@organization), params: { organization: { name: @organization.name, setting: @organization.setting, state: @organization.state, urbanicity: @organization.urbanicity } }
     assert_redirected_to organization_url(@organization)
   end
 

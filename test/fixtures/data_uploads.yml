@@ -4,7 +4,7 @@
 #
 # Table name: data_uploads
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  name                   :string
 #  reporting_period_end   :date
 #  reporting_period_start :date
@@ -12,7 +12,11 @@
 #  updated_at             :datetime         not null
 #
 one:
-  name: MyString
+  name: MyString One
+  reporting_period_start: 2023-01-01
+  reporting_period_end: 2023-01-31
 
 two:
-  name: MyString
+  name: MyString Two
+  reporting_period_start: 2023-02-01
+  reporting_period_end: 2023-02-28
