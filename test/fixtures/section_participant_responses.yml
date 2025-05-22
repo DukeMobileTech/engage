@@ -18,8 +18,10 @@
 #  fk_rails_...  (response_id => responses.id)
 #  fk_rails_...  (section_participant_id => section_participants.id)
 #
-class SectionParticipantResponse < ApplicationRecord
-  belongs_to :response
-  belongs_to :section_participant
-  has_one :participant, through: :section_participant
-end
+one:
+  response: one
+  section_participant: one
+
+two:
+  response: two
+  section_participant: two

@@ -4,7 +4,7 @@
 #
 # Table name: questions
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint           not null, primary key
 #  answer_instructions :text
 #  identifier          :string           not null
 #  number              :integer
@@ -22,7 +22,7 @@
 #
 # Foreign Keys
 #
-#  questionnaire_id  (questionnaire_id => questionnaires.id)
+#  fk_rails_...  (questionnaire_id => questionnaires.id)
 #
 one:
   questionnaire: one
@@ -31,6 +31,7 @@ one:
   question_type: 1
   number: 1
   required: true
+  answer_instructions: Answer instructions for question one
 
 two:
   questionnaire: two
@@ -39,3 +40,4 @@ two:
   question_type: 2
   number: 2
   required: false
+  answer_instructions: Answer instructions for question two

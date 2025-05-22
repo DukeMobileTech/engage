@@ -3,6 +3,7 @@ require "test_helper"
 class SitesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @site = sites(:one)
+    @organization = organizations(:one)
     sign_in
   end
 
@@ -18,7 +19,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create site" do
     assert_difference("Site.count") do
-      post sites_url, params: { site: { code: @site.code, county: @site.county, name: @site.name, setting: @site.setting, state: @site.state, urbanicity: @site.urbanicity } }
+      post sites_url, params: { site: { code: @site.code, county: @site.county, name: @site.name, organization_id: @organization.id } }
     end
 
     assert_redirected_to site_url(Site.last)

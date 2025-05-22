@@ -4,13 +4,16 @@
 #
 # Table name: roles
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 one:
-  name: MyString
+  name: admin
 
 two:
-  name: MyString
+  name: viewer
+
+admin:
+  name: admin

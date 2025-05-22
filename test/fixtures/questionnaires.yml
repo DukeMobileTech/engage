@@ -4,13 +4,16 @@
 #
 # Table name: questionnaires
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 one:
-  title: Survey One
+  title: program observation
 
 two:
-  title: Survey Two
+  title: fidelity monitoring
+
+three:
+  title: demographics

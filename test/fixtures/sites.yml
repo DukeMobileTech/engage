@@ -4,7 +4,7 @@
 #
 # Table name: sites
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  code            :string           not null
 #  county          :string
 #  name            :string
@@ -20,15 +20,11 @@
 one:
   name: Site One
   code: ABCD
-  state: NC
   county: Pace
-  urbanicity: Urban
-  setting: In School
+  organization: one
 
 two:
   name: Site Two
   code: WXYZ
-  state: NC
   county: Craven
-  urbanicity: Rural
-  setting: Community Based
+  organization: two

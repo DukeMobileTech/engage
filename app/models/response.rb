@@ -2,7 +2,7 @@
 #
 # Table name: responses
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  answers          :json
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -20,16 +20,16 @@
 #
 # Foreign Keys
 #
-#  participant_id    (participant_id => participants.id)
-#  questionnaire_id  (questionnaire_id => questionnaires.id)
-#  sitting_id        (sitting_id => sittings.id)
+#  fk_rails_...  (participant_id => participants.id)
+#  fk_rails_...  (questionnaire_id => questionnaires.id)
+#  fk_rails_...  (sitting_id => sittings.id)
 #
 class Response < ApplicationRecord
   belongs_to :questionnaire
   belongs_to :participant, optional: true
   belongs_to :sitting, optional: true
   belongs_to :user, optional: true
-  has_many :section_participant_responses
+  has_many :section_participant_responses, dependent: :destroy
 
   validates :answers, presence: true
 

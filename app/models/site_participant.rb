@@ -3,7 +3,7 @@
 #
 # Table name: site_participants
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  participant_id :integer          not null
@@ -16,8 +16,8 @@
 #
 # Foreign Keys
 #
-#  participant_id  (participant_id => participants.id)
-#  site_id         (site_id => sites.id)
+#  fk_rails_...  (participant_id => participants.id)
+#  fk_rails_...  (site_id => sites.id)
 #
 class SiteParticipant < ApplicationRecord
   belongs_to :site

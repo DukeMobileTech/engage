@@ -3,6 +3,7 @@ require "test_helper"
 class CurriculumsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @curriculum = curriculums(:one)
+    sign_in
   end
 
   test "should get index" do

@@ -2,7 +2,7 @@
 #
 # Table name: sitting_lessons
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  lesson_id  :integer          not null
@@ -15,8 +15,8 @@
 #
 # Foreign Keys
 #
-#  lesson_id   (lesson_id => lessons.id)
-#  sitting_id  (sitting_id => sittings.id)
+#  fk_rails_...  (lesson_id => lessons.id)
+#  fk_rails_...  (sitting_id => sittings.id)
 #
 require "test_helper"
 

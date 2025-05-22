@@ -2,7 +2,7 @@
 #
 # Table name: section_participants
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  participant_id :integer          not null
@@ -15,8 +15,8 @@
 #
 # Foreign Keys
 #
-#  participant_id  (participant_id => participants.id)
-#  section_id      (section_id => sections.id)
+#  fk_rails_...  (participant_id => participants.id)
+#  fk_rails_...  (section_id => sections.id)
 #
 class SectionParticipant < ApplicationRecord
   belongs_to :section

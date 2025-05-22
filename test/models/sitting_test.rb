@@ -2,7 +2,7 @@
 #
 # Table name: sittings
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  completed  :boolean          default(FALSE)
 #  done_on    :datetime
 #  name       :string
@@ -16,7 +16,7 @@
 #
 # Foreign Keys
 #
-#  section_id  (section_id => sections.id)
+#  fk_rails_...  (section_id => sections.id)
 #
 require "test_helper"
 
