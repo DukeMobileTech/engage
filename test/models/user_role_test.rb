@@ -2,7 +2,7 @@
 #
 # Table name: user_roles
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  role_id    :integer          not null
@@ -15,8 +15,8 @@
 #
 # Foreign Keys
 #
-#  role_id  (role_id => roles.id)
-#  user_id  (user_id => users.id)
+#  fk_rails_...  (role_id => roles.id)
+#  fk_rails_...  (user_id => users.id)
 #
 require "test_helper"
 

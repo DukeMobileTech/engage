@@ -2,7 +2,7 @@
 #
 # Table name: questions
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint           not null, primary key
 #  answer_instructions :text
 #  identifier          :string           not null
 #  number              :integer
@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  questionnaire_id  (questionnaire_id => questionnaires.id)
+#  fk_rails_...  (questionnaire_id => questionnaires.id)
 #
 require "test_helper"
 

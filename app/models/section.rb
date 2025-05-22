@@ -2,7 +2,7 @@
 #
 # Table name: sections
 #
-#  id            :integer          not null, primary key
+#  id            :bigint           not null, primary key
 #  completed     :boolean          default(FALSE)
 #  end_date      :date
 #  name          :string
@@ -19,16 +19,16 @@
 #
 # Foreign Keys
 #
-#  curriculum_id  (curriculum_id => curriculums.id)
-#  site_id        (site_id => sites.id)
+#  fk_rails_...  (curriculum_id => curriculums.id)
+#  fk_rails_...  (site_id => sites.id)
 #
 class Section < ApplicationRecord
   has_many_attached :reports
   belongs_to :curriculum
   belongs_to :site
-  has_many :section_participants
+  has_many :section_participants, dependent: :destroy
   has_many :participants, through: :section_participants
-  has_many :sittings
+  has_many :sittings, dependent: :destroy
   has_many :lessons, through: :curriculum
 
   before_create :assign_name
@@ -308,5 +308,4 @@ class Section < ApplicationRecord
       errors.add(:completed, "can't be true unless all sessions are completed")
     end
   end
-
 end

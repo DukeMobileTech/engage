@@ -3,6 +3,7 @@ require "test_helper"
 class QuestionnairesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @questionnaire = questionnaires(:one)
+    sign_in
   end
 
   test "should get index" do

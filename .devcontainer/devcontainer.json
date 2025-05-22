@@ -29,10 +29,15 @@
     "vscode": {
       "extensions": [
         "Shopify.ruby-lsp",
-        "esbenp.prettier-vscode",
-        "misogi.ruby-rubocop",
-        "eamodio.gitlens"
-      ]
+        "rebornix.Ruby"
+      ],
+      "settings": {
+        "ruby.lint.rubocop": true,
+        "ruby.format": "rubocop",
+        "editor.formatOnSave": true,
+        "ruby.useBundler": true,
+        "rubyLsp.enabled": true
+      }
     }
   }
 

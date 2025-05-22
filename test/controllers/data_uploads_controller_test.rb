@@ -3,6 +3,7 @@ require "test_helper"
 class DataUploadsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @data_upload = data_uploads(:one)
+    sign_in
   end
 
   test "should get index" do
@@ -17,7 +18,7 @@ class DataUploadsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create data_upload" do
     assert_difference("DataUpload.count") do
-      post data_uploads_url, params: { data_upload: { name: @data_upload.name } }
+      post data_uploads_url, params: { data_upload: { name: @data_upload.name, reporting_period_start: @data_upload.reporting_period_start, reporting_period_end: @data_upload.reporting_period_end } }
     end
 
     assert_redirected_to data_upload_url(DataUpload.last)

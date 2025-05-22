@@ -2,47 +2,33 @@ require "test_helper"
 
 class ResponsesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @response = responses(:one)
+    @questionnaire = questionnaires(:three)
+    @response = @questionnaire.responses.create(answers: { "1" => "Answer 1", "2" => "Answer 2" })
+    sign_in
   end
 
   test "should get index" do
-    get responses_url
+    get questionnaire_responses_url(@questionnaire)
     assert_response :success
   end
 
   test "should get new" do
-    get new_response_url
+    get new_questionnaire_response_url(@questionnaire)
     assert_response :success
   end
 
   test "should create response" do
     assert_difference("Response.count") do
-      post responses_url, params: { response: { answers: @response.answers, questionnaire_id: @response.questionnaire_id } }
+      answers = { "1" => "Answer 1", "2" => "Answer 2" }
+      post questionnaire_responses_url(@questionnaire), params: { response: { answers: answers, questionnaire_id: @questionnaire.id } }
     end
 
-    assert_redirected_to response_url(Response.last)
+    assert_redirected_to questionnaire_response_url(@questionnaire, Response.last)
   end
 
   test "should show response" do
-    get response_url(@response)
+    @response = @questionnaire.responses.create(answers: { "1" => "Answer 1", "2" => "Answer 2" })
+    get questionnaire_response_url(@questionnaire, @response)
     assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_response_url(@response)
-    assert_response :success
-  end
-
-  test "should update response" do
-    patch response_url(@response), params: { response: { answers: @response.answers, questionnaire_id: @response.questionnaire_id } }
-    assert_redirected_to response_url(@response)
-  end
-
-  test "should destroy response" do
-    assert_difference("Response.count", -1) do
-      delete response_url(@response)
-    end
-
-    assert_redirected_to responses_url
   end
 end

@@ -2,7 +2,7 @@
 #
 # Table name: activities
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -14,7 +14,7 @@
 #
 # Foreign Keys
 #
-#  lesson_id  (lesson_id => lessons.id)
+#  fk_rails_...  (lesson_id => lessons.id)
 #
 class Activity < ApplicationRecord
   belongs_to :lesson
