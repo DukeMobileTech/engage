@@ -62,6 +62,17 @@ jobs:
     #    ports:
     #      - 6379:6379
     #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    services:
+      postgres:
+        image: postgres:17
+        ports:
+          - 5432:5432
+        options: --health-cmd "pg_isready" --health-interval 10s --health-timeout 5s --health-retries 5
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: engage_test
+    
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips sqlite3
@@ -78,6 +89,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/engage_test
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test test:system
 
