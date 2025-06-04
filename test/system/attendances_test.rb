@@ -2,42 +2,27 @@ require "application_system_test_case"
 
 class AttendancesTest < ApplicationSystemTestCase
   setup do
+    @site = sites(:one)
+    @section = sections(:one)
+    @sitting = sittings(:one)
     @attendance = attendances(:one)
+    sign_in
   end
 
   test "visiting the index" do
-    visit attendances_url
-    assert_selector "h1", text: "Attendances"
+    visit site_section_sitting_attendances_url(@site, @section, @sitting)
+    assert_selector "h4", text: "Participant Attendance For #{@sitting.name} on #{@sitting.done_on.strftime("%F %H:%M %p")}"
+    assert_selector "table thead tr th", text: "NAME"
+    assert_selector "table thead tr th", text: "CATEGORY"
+    assert_selector "table thead tr th", text: "SEX"
+    assert_selector "table thead tr th", text: "AGE"
+    assert_selector "table thead tr th", text: "PRESENT"
+    assert_link "Edit Attendance"
   end
 
-  test "should create attendance" do
-    visit attendances_url
-    click_on "New attendance"
-
-    fill_in "Participant", with: @attendance.participant_id
-    fill_in "Sitting", with: @attendance.sitting_id
-    click_on "Create Attendance"
-
-    assert_text "Attendance was successfully created"
-    click_on "Back"
-  end
-
-  test "should update Attendance" do
-    visit attendance_url(@attendance)
-    click_on "Edit this attendance", match: :first
-
-    fill_in "Participant", with: @attendance.participant_id
-    fill_in "Sitting", with: @attendance.sitting_id
-    click_on "Update Attendance"
-
-    assert_text "Attendance was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy Attendance" do
-    visit attendance_url(@attendance)
-    click_on "Destroy this attendance", match: :first
-
-    assert_text "Attendance was successfully destroyed"
+  test "edit attendance link" do
+    visit site_section_sitting_attendances_url(@site, @section, @sitting)
+    click_on "Edit Attendance"
+    assert_selector "h4", text: "Taking Attendance For #{@sitting.name}"
   end
 end
