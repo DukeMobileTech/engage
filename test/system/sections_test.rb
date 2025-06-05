@@ -3,47 +3,100 @@ require "application_system_test_case"
 class SectionsTest < ApplicationSystemTestCase
   setup do
     @section = sections(:one)
+    @site = sites(:one)
+    sign_in
   end
 
   test "visiting the index" do
-    visit sections_url
-    assert_selector "h1", text: "Sections"
+    visit site_sections_url(@site)
+    assert_selector "h2", text: @site.name
+    assert_selector "div.sidebar"
+    assert_selector "main"
+    assert_table "sections"
+    assert_link "Add new section"
+  end
+
+  test "site details link" do
+    visit site_sections_url(@site)
+    assert_link "Details"
+    click_on "Details"
+    assert_selector "h4", text: "Site Details"
+  end
+
+  test "site participants link" do
+    visit site_sections_url(@site)
+    assert_link "Site Participants"
+    click_on "Site Participants"
+    assert_selector "h4", text: "Site Participants"
+  end
+
+  test "site sections link" do
+    visit site_sections_url(@site)
+    assert_link "Sections"
+    click_on "Sections"
+    assert_selector "h4", text: "Site Sections"
   end
 
   test "should create section" do
-    visit sections_url
-    click_on "New section"
+    visit site_sections_url(@site)
+    click_on "Add new section"
 
-    fill_in "Curriculum", with: @section.curriculum_id
+    select(@section.curriculum.title, from: "section_curriculum_id")
     fill_in "End date", with: @section.end_date
-    fill_in "Name", with: @section.name
-    fill_in "Site", with: @section.site_id
     fill_in "Start date", with: @section.start_date
+    uncheck("Completed")
     click_on "Create Section"
 
     assert_text "Section was successfully created"
-    click_on "Back"
+  end
+
+  test "visiting the show section" do
+    visit site_section_url(@site, @section)
+    assert_selector "div", text: "Site Name: #{@site.name}"
+    assert_selector "div", text: "Section Name: #{@section.name}"
+    assert_link "Details"
+    assert_link "Section Participants"
+    assert_link "Sessions"
+    assert_selector "h4", text: "Details For #{@section.name}"
+    assert_link "Edit this section"
+    assert_selector "h4", text: "Program Observations"
+    assert_link "View Observations"
+    assert_selector "h4", text: "Data Tracker Reports"
+    assert_link "Generate Data Tracker"
+  end
+
+  test "section details link" do
+    visit site_section_url(@site, @section)
+    assert_link "Details"
+    click_on "Details"
+    assert_selector "h4", text: "Details For #{@section.name}"
+  end
+
+  test "section participants link" do
+    visit site_section_url(@site, @section)
+    assert_link "Section Participants"
+    click_on "Section Participants"
+    assert_selector "h4", text: "Participants Enrolled In #{@section.name}"
+  end
+
+  test "section sessions link" do
+    visit site_section_url(@site, @section)
+    assert_link "Sessions"
+    click_on "Sessions"
+    assert_selector "h4", text: "Sessions Administered For #{@section.name}"
   end
 
   test "should update Section" do
-    visit section_url(@section)
+    visit site_section_url(@site, @section)
     click_on "Edit this section", match: :first
 
-    fill_in "Curriculum", with: @section.curriculum_id
+    select(@section.curriculum.title, from: "section_curriculum_id")
     fill_in "End date", with: @section.end_date.to_s
     fill_in "Name", with: @section.name
-    fill_in "Site", with: @section.site_id
     fill_in "Start date", with: @section.start_date.to_s
+    uncheck("Completed")
     click_on "Update Section"
 
     assert_text "Section was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy Section" do
-    visit section_url(@section)
-    click_on "Destroy this section", match: :first
-
-    assert_text "Section was successfully destroyed"
   end
 end

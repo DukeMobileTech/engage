@@ -5,6 +5,7 @@ require "rails/test_help"
 module ActionDispatch
   class IntegrationTest
     def sign_in
+      Rails.cache.clear
       user = users(:one)
       post session_url(email_address: user.email_address, password: "Password1!")
     end
