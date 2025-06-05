@@ -14,7 +14,7 @@
   <div>
     <p class="fw-bold">Select the participants you want enrolled in this section</p>
     <div class="form-check">
-      <input type="checkbox" data-checkbox-select-all-target="checkboxAll" class="form-check-input" />
+      <input id="select-all" type="checkbox" data-checkbox-select-all-target="checkboxAll" class="form-check-input" />
       <span class="form-check-label fw-bold">Select All / Deselect All</span>
     </div>
     <%= form.collection_check_boxes :participant_ids, @participants, :id, :enroll_label do |b| %>

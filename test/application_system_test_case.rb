@@ -27,6 +27,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def sign_in(user = nil)
+    Rails.cache.clear
     user ||= users(:one)
     visit new_session_path
     fill_in :email_address, with: user.email_address

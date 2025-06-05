@@ -23,5 +23,5 @@ one:
   participant: one
 
 two:
-  site: two
+  site: one
   participant: two

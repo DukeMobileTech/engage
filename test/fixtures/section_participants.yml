@@ -27,3 +27,7 @@ one:
 two:
   section: one
   participant: two
+
+three:
+  section: two
+  participant: one
