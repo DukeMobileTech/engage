@@ -4,8 +4,11 @@ class SectionParticipantsController < ApplicationController
 
   # GET /section_participants or /section_participants.json
   def index
-    @query = @section.section_participants.ransack(params[:query])
+    @query = @section.section_participants.joins(:participant).ransack(params[:query])
     @section_participants = @query.result(distinct: true)
+                                  .select("section_participants.*, participants.name AS participant_name, participants.study_id AS participant_study_id, participants.category AS participant_category")
+                                  .includes(:participant)
+                                  .order("participants.name ASC")
   end
 
   # GET /section_participants/1 or /section_participants/1.json

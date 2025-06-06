@@ -4,7 +4,7 @@ class ParticipantsController < ApplicationController
   # GET /participants or /participants.json
   def index
     @query = Participant.ransack(params[:query])
-    @participants = @query.result(distinct: true)
+    @participants = @query.result(distinct: true).order("name ASC").includes(:sites)
   end
 
   # GET /participants/1 or /participants/1.json
