@@ -38,10 +38,9 @@
         <% case question.question_type %>
         <% when 'single_choice' %>
           <% question.answers.each do |answer| %>
-            <p class="ms-2 form-check">
+            <p class="m-2 form-check">
               <%= response.radio_button question.id, answer.id, { required: question.required, class: "form-check-input" } %>
-              <span class="form-check-label"><%= answer.text %></span>
-              <span class="ms-2 form-check-label"><%= answer.label %></span>
+              <span class="form-check-label"><%= response.label question.id, "#{answer.text} #{answer.label}", value: answer.id %></span>
             </p>
           <% end %>
         <% when 'multiple_choice' %>
