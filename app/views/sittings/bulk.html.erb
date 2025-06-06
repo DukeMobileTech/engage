@@ -6,11 +6,10 @@
     <h4 class="text-center">New Sessions</h4>
     <div class="row fw-bold mb-2">
       <div class="col-lg-2">Name</div>
-      <div class="col-lg-2">Date Administered</div>
-      <div class="col-lg-2">Lessons</div>
-      <div class="col-lg-2">Facilitators</div>
-      <div class="col-lg-2">Completed</div>
-      <div class="col-lg-2">Delete</div>
+      <div class="col-lg-3">Date Administered</div>
+      <div class="col-lg-3">Lessons</div>
+      <div class="col-lg-3">Facilitators</div>
+      <div class="col-lg-1">Delete</div>
     </div>
 
     <%= form_with(url: bulk_create_site_section_sittings_path, method: :post, data: { controller: 'sittings' }) do |form| %>
