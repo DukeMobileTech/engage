@@ -1,15 +1,17 @@
-<div class="text-center">
-  <span class="fw-light">Site Name:</span>
-  <span class="fw-bold"><%= link_to @site.name, site_sections_path(@site) %></span>
-</div>
+<div class="card">
+  <div class="text-center">
+    <span class="fw-light">Site Name:</span>
+    <span class="fw-bold"><%= link_to @site.name, site_sections_path(@site) %></span>
+  </div>
 
-<div class="text-center">
-  <span class="fw-light">Section Name:</span>
-  <span class="fw-bold"><%= link_to @section.name, site_section_path(@site, @section) %></span>
-</div>
+  <div class="text-center">
+    <span class="fw-light">Section Name:</span>
+    <span class="fw-bold"><%= link_to @section.name, site_section_path(@site, @section) %></span>
+  </div>
 
-<div class="d-flex justify-content-evenly m-2">
-  <%= link_to "Details", site_section_path(@site, @section), class: "btn btn-primary" %>
-  <%= link_to "Section Participants", site_section_section_participants_path(@site, @section), class: "btn btn-primary" %>
-  <%= link_to "Sessions", site_section_sittings_path(@site, @section), class: "btn btn-primary" %>
+  <div class="d-flex justify-content-evenly m-2">
+    <%= link_to "Details", site_section_path(@site, @section), class: "btn btn-primary" %>
+    <%= link_to "Section Participants", site_section_section_participants_path(@site, @section), class: "btn btn-primary" %>
+    <%= link_to "Sessions", site_section_sittings_path(@site, @section), class: "btn btn-primary" %>
+  </div>
 </div>

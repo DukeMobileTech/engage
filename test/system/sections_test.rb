@@ -44,7 +44,6 @@ class SectionsTest < ApplicationSystemTestCase
     select(@section.curriculum.title, from: "section_curriculum_id")
     fill_in "End date", with: @section.end_date
     fill_in "Start date", with: @section.start_date
-    uncheck("Completed")
     click_on "Create Section"
 
     assert_text "Section was successfully created"
@@ -94,7 +93,7 @@ class SectionsTest < ApplicationSystemTestCase
     fill_in "End date", with: @section.end_date.to_s
     fill_in "Name", with: @section.name
     fill_in "Start date", with: @section.start_date.to_s
-    uncheck("Completed")
+    uncheck("section_completed")
     click_on "Update Section"
 
     assert_text "Section was successfully updated"
