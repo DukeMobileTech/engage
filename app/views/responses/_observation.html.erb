@@ -37,12 +37,15 @@
 
         <% case question.question_type %>
         <% when 'single_choice' %>
+        <div data-controller="radio">
           <% question.answers.each do |answer| %>
             <p class="m-2 form-check">
               <%= response.radio_button question.id, answer.id, { required: question.required, class: "form-check-input" } %>
               <span class="form-check-label"><%= response.label question.id, "#{answer.text} #{answer.label}", value: answer.id %></span>
             </p>
           <% end %>
+          <button type="button" class="btn btn-secondary" data-action="click->radio#clear">Clear Selection</button>
+        </div>
         <% when 'multiple_choice' %>
           <% question.answers.each do |answer| %>
             <p class="ms-2 form-check">
