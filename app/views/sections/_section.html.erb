@@ -27,7 +27,11 @@
 
   <p>
     <strong>Sessions:</strong>
-    <%= @section.sittings.map(&:name).join(", ") %>
+    <% @section.sittings.each do |sitting| %>
+      <span class="badge text-bg-warning">
+        <%= link_to sitting.name, site_section_sitting_path(@site, @section, sitting) %>
+      </span>
+    <% end %>
   </p>
 
   <p>
