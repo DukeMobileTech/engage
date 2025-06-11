@@ -7,7 +7,7 @@ class PasswordsController < ApplicationController
 
   def create
     if user = User.find_by(email_address: params[:email_address])
-      PasswordsMailer.reset(user).deliver_later
+      PasswordsMailer.reset(user).deliver_later if user.active?
     end
 
     redirect_to new_session_path, notice: "Password reset instructions sent (if user with that email address exists)."
@@ -17,6 +17,11 @@ class PasswordsController < ApplicationController
   end
 
   def update
+    unless @user.active?
+      redirect_to new_session_path, alert: "User is not active. Please contact your admin."
+      return
+    end
+
     if @user.update(params.permit(:password, :password_confirmation))
       redirect_to new_session_path, notice: "Password has been reset."
     else

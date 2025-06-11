@@ -38,7 +38,11 @@ Rails.application.routes.draw do
       post "bulk_create" => "participants#bulk_create"
     end
   end
-  resources :users, only: %i[index show new create edit update]
+  resources :users, only: %i[index show new create edit update] do
+    member do
+      post "invite" => "users#invite"
+    end
+  end
 
   scope :active_storage, module: :active_storage, as: :active_storage do
     resources :attachments, only: [ :destroy ]
