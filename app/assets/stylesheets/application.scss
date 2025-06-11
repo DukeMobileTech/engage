@@ -23,6 +23,12 @@
   text-decoration: none;
 }
 
+.pagination {
+  -webkit-box-pack: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+}
+
 body {
   padding-top: 120px;
 }
