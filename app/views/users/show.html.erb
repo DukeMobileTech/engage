@@ -1,16 +1,26 @@
+<% content_for :title, "User Details" %>
 <p style="color: green"><%= notice %></p>
+<p style="color: red"><%= alert %></p>
 
-<div class="card">
+<div class="card mb-5">
   <div class="card-header">
     <h4><%= @user.name %></h4>
   </div>
 
   <div class="card-body">
+    <h5 class="mb-2"><u>User Details</u></h5>
     <%= render "user", locals: { users: @user } %>
+    <% unless @user == Current.user %>
+      <h5 class="mb-2"><u>Invite User</u></h5>
+      <p>Send an email to the user inviting them to create their password</p>
+      <%= link_to "Send Invite", invite_user_path(@user), data: { turbo_method: :post }, class: 'btn btn-success' %>
+    <% end %>
   </div>
 
-  <div class="m-1 d-flex justify-content-between">
-    <%= link_to "Back", users_path, class: 'btn btn-secondary' %>
-    <%= link_to "Edit user", edit_user_path(@user), class: 'btn btn-primary' %>
+  <div class="card-footer">
+    <div class="m-1 d-flex justify-content-between">
+      <%= link_to "Back", users_path, class: 'btn btn-secondary' %>
+      <%= link_to "Edit user", edit_user_path(@user), class: 'btn btn-primary' %>
+    </div>
   </div>
 </div>

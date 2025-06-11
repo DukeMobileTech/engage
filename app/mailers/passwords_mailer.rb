@@ -20,7 +20,7 @@ class PasswordsMailer < ApplicationMailer
     to = SendGrid::Email.new(email: @user.email_address)
     content = SendGrid::Content.new(
       type: "text/html",
-      value: "<html><body><p>#{@user.name}, welcome to the ENC-HEAL TEACH app!</p><p>Please reset your password within the next 15 minutes on this password reset page:
+      value: "<html><body><p>Welcome to the ENC-HEAL TEACH app #{@user.name}.</p><p>Please reset your password within the next 15 minutes on this password reset page:
 #{edit_password_url(@user.password_reset_token)}</p><p>If you are unable to do so, you can request a new password reset link using this email address on this page:
 #{new_password_url()}</p></body></html>"
     )

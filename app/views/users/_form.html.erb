@@ -28,6 +28,11 @@
   </div>
 
   <div class="mb-3">
+    <%= form.check_box :active, class: "form-check-input" %>
+    <%= form.label :active, class: "form-check-label" %>
+  </div>
+
+  <div class="mb-3">
     <%= form.label :user_roles, class: "form-label fw-bold" %>
     <%= form.collection_check_boxes(:role_ids, Role.all, :id, :name) do |b| %>
       <div class="form-check">

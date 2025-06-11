@@ -5,6 +5,7 @@
 # Table name: users
 #
 #  id              :bigint           not null, primary key
+#  active          :boolean          default(FALSE)
 #  email_address   :string           not null
 #  name            :string           not null
 #  password_digest :string           not null
@@ -19,28 +20,34 @@ one:
   email_address: one@example.com
   password_digest: <%= BCrypt::Password.create("Password1!") %>
   name: John Doe
+  active: true
 
 two:
   email_address: two@example.com
   password_digest: <%= BCrypt::Password.create("pa$sW0rd") %>
   name: Jane Doe
+  active: true
 
 admin:
   email_address: admin@example.com
   password_digest: <%= BCrypt::Password.create("AdminPassword1!") %>
   name: Admin User
+  active: true
 
 viewer:
   email_address: viewer@example.com
   password_digest: <%= BCrypt::Password.create("ViewerPassword1!") %>
   name: Viewer User
+  active: true
 
 facilitator:
   email_address: facilitator@example.com
   password_digest: <%= BCrypt::Password.create("FacilitatorPassword1!") %>
   name: Facilitator User
+  active: true
 
 observer:
   email_address: observer@example.com
   password_digest: <%= BCrypt::Password.create("ObserverPassword1!") %>
   name: Observer User
+  active: true

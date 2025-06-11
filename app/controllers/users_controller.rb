@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update ]
+  before_action :set_user, only: %i[ show edit update invite ]
   after_action :verify_authorized
 
   def index
@@ -42,6 +42,7 @@ class UsersController < ApplicationController
 
   def update
     authorize @user
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: "User was successfully updated." }
@@ -53,6 +54,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def invite
+    authorize @user
+
+    respond_to do |format|
+      if @user.active?
+        PasswordsMailer.welcome(@user).deliver_later
+        format.html { redirect_to @user, notice: "User was successfully invited." }
+      else
+        format.html { redirect_to @user, alert: "User is not active, cannot send invite." }
+      end
+    end
+  end
+
   private
 
     def set_user
@@ -60,6 +74,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :email_address, :password, :password_confirmation, role_ids: [], site_ids: [])
+      params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :active, role_ids: [], site_ids: [])
     end
 end

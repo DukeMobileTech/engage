@@ -10,6 +10,7 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Active</th>
         <th>Roles</th>
         <th>Sites</th>
       </tr>
@@ -19,6 +20,13 @@
         <tr>
           <td><%= link_to user.name, user %></td>
           <td><%= user.email_address %></td>
+          <td>
+            <% if user.active? %>
+              <span class="badge bg-success">Yes</span>
+            <% else %>
+              <span class="badge bg-danger">No</span>
+            <% end %>
+          </td>
           <td>
             <% user.roles.each do |role| %>
               <span><%= role.name %> </span>

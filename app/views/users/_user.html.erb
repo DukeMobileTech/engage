@@ -1,6 +1,7 @@
 <div>
   <p><b>Name</b>: <%= @user.name %></p>
   <p><b>Email</b>: <%= @user.email_address %></p>
+  <p><b>Active</b>: <%= @user.active? ? "Yes" : "No" %></p>
   <p><b>Roles</b>: <%= @user.roles.pluck(:name).join(", ") %></p>
   <% unless @user.admin? %>
     <p><b>Sites</b>: <%= @user.sites.pluck(:name).join(", ") %></p>
