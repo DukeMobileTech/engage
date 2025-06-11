@@ -29,19 +29,25 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarId">
             <ul class="navbar-nav me-auto">
-              <li class="nav-item"><%= link_to "Organizations", organizations_path, class: "nav-link px-2 btn btn-outline-info" %></li>
-              <li class="nav-item"><%= link_to "Sites", sites_path, class: "nav-link px-2 btn btn-outline-info" %></li>
-              <li class="nav-item"><%= link_to "Participants", participants_path, class: "nav-link px-2 btn btn-outline-info" %></li>
-              <li class="nav-item"><%= link_to "Exports", data_uploads_path, class: "nav-link px-2 btn btn-outline-info" %></li>
-              <li class="nav-item"><%= link_to "Curriculums", curriculums_path, class: "nav-link px-2 btn btn-outline-info" %></li>
-              <li class="nav-item"><%= link_to "Forms", questionnaires_path, class: "nav-link px-2 btn btn-outline-info" %></li>
-              <li class="nav-item"><%= link_to "Users", users_path, class: "nav-link px-2 btn btn-outline-info" %></li>
-              <li class="nav-item"><a href="https://dukemobiletech.github.io/engage/" target="_blank" class="nav-link px-2 btn btn-outline-info">Manual</a></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Organizations", organizations_path, class: "btn #{'btn-info' if current_page?(organizations_path)} #{'btn-outline-info nav-link px-2' unless current_page?(organizations_path)}" %></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Sites", sites_path, class: "btn #{'btn-info' if current_page?(sites_path)} #{'btn-outline-info nav-link px-2' unless current_page?(sites_path)}" %></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Participants", participants_path, class: "btn #{'btn-info' if current_page?(participants_path)} #{'btn-outline-info nav-link px-2' unless current_page?(participants_path)}" %></li>
+              <% if Current.user&.admin? %>
+                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Exports", data_uploads_path, class: "btn #{'btn-info' if current_page?(data_uploads_path)} #{'btn-outline-info nav-link px-2' unless current_page?(data_uploads_path)}" %></li>
+                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Curriculums", curriculums_path, class: "btn #{'btn-info' if current_page?(curriculums_path)} #{'btn-outline-info nav-link px-2' unless current_page?(curriculums_path)}" %></li>
+                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Forms", questionnaires_path, class: "btn #{'btn-info' if current_page?(questionnaires_path)} #{'btn-outline-info nav-link px-2' unless current_page?(questionnaires_path)}" %></li>
+                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Users", users_path, class: "btn #{'btn-info' if current_page?(users_path)} #{'btn-outline-info nav-link px-2' unless current_page?(users_path)}" %></li>
+              <% end %>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><a href="https://dukemobiletech.github.io/engage/" target="_blank" class="btn #{'btn-info' if current_page?(manual_path)} #{'btn-outline-info nav-link px-2' unless current_page?(manual_path)}">Manual</a></li>
             </ul>
             <div class="d-flex">
               <% if authenticated? %>
-                <span class="me-2 text-dark">Welcome, <strong><%= Current.user.name %></strong></span>
-                <%= link_to "Sign Out", session_path, "data-turbo-method": :delete, class: "btn btn-link text-danger fw-bold" %>
+                <span class="me-2 text-light">Welcome <strong><%= Current.user.display_name %></strong>
+                  <% Current.user.roles.each do |role| %>
+                    <span class="badge bg-warning text-dark ms-1"><%= role.name.capitalize %></span>
+                  <% end %>
+                </span>
+                <%= link_to "Sign Out", session_path, "data-turbo-method": :delete, class: "btn btn-outline-danger" %>
               <% else %>
                 <%= link_to "Sign In", new_session_path, class: "btn btn-outline-primary me-2" unless current_page?(new_session_path) %>
               <% end %>

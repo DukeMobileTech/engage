@@ -29,6 +29,10 @@ class User < ApplicationRecord
   after_create :add_default_role
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
+  def display_name
+    name.split(" ").first.capitalize
+  end
+
   def admin?
     roles.exists?(name: "admin")
   end
