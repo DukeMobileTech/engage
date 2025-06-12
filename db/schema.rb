@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_10_182739) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_13_185340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -102,6 +102,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_182739) do
     t.string "setting"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_organizations_on_discarded_at"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -110,6 +112,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_182739) do
     t.string "category", default: "Youth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_participants_on_discarded_at"
     t.index ["study_id"], name: "index_participants_on_study_id", unique: true
   end
 
@@ -141,6 +145,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_182739) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_responses_on_discarded_at"
     t.index ["participant_id"], name: "index_responses_on_participant_id"
     t.index ["questionnaire_id"], name: "index_responses_on_questionnaire_id"
     t.index ["sitting_id"], name: "index_responses_on_sitting_id"
@@ -180,7 +186,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_182739) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed", default: false
+    t.datetime "discarded_at"
     t.index ["curriculum_id"], name: "index_sections_on_curriculum_id"
+    t.index ["discarded_at"], name: "index_sections_on_discarded_at"
     t.index ["site_id"], name: "index_sections_on_site_id"
   end
 
@@ -209,7 +217,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_182739) do
     t.datetime "updated_at", null: false
     t.integer "organization_id"
     t.string "county"
+    t.datetime "discarded_at"
     t.index ["code"], name: "index_sites_on_code", unique: true
+    t.index ["discarded_at"], name: "index_sites_on_discarded_at"
     t.index ["organization_id"], name: "index_sites_on_organization_id"
   end
 
@@ -229,6 +239,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_182739) do
     t.datetime "updated_at", null: false
     t.boolean "completed", default: false
     t.string "name"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_sittings_on_discarded_at"
     t.index ["section_id"], name: "index_sittings_on_section_id"
   end
 

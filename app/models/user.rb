@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :organizations, -> { distinct }, through: :sites
 
   after_create :add_default_role
+  after_update :remove_redundant_roles, if: -> { user_roles.count > 1 }
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   def display_name
@@ -35,6 +36,14 @@ class User < ApplicationRecord
 
   def admin?
     roles.exists?(name: "admin")
+  end
+
+  def facilitator?
+    roles.exists?(name: "facilitator")
+  end
+
+  def observer?
+    roles.exists?(name: "observer")
   end
 
   alias_method :original_sites, :sites
@@ -47,5 +56,9 @@ class User < ApplicationRecord
   private
     def add_default_role
       user_roles.create(role: Role.find_by(name: "viewer"))
+    end
+
+    def remove_redundant_roles
+      user_roles.where(role: Role.find_by(name: "viewer")).destroy_all if user_roles.count > 1
     end
 end

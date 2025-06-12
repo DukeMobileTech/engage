@@ -15,8 +15,16 @@
           <%= render "site", locals: { site: @site } %>
         </div>
 
-        <div class="m-1 d-flex flex-row-reverse">
-          <%= link_to "Edit this site", edit_site_path(@site), class: 'btn btn-primary' %>
+        <div class="card-footer">
+          <div class="m-1 d-flex justify-content-between">
+            <%= link_to "Back to sites", sites_path, class: "btn btn-secondary" %>
+            <% if policy(@site).destroy? %>
+              <%= link_to "Delete this site", @site, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this site?" }, class: "btn btn-danger" %>
+            <% end %>
+            <% if policy(@site).edit? %>
+              <%= link_to "Edit this site", edit_site_path(@site), class: 'btn btn-primary' %>
+            <% end %>
+          </div>
         </div>
       </div>
     </main>

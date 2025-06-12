@@ -2,18 +2,21 @@
 #
 # Table name: participants
 #
-#  id         :bigint           not null, primary key
-#  category   :string           default("Youth")
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  study_id   :string
+#  id           :bigint           not null, primary key
+#  category     :string           default("Youth")
+#  discarded_at :datetime
+#  name         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  study_id     :string
 #
 # Indexes
 #
-#  index_participants_on_study_id  (study_id) UNIQUE
+#  index_participants_on_discarded_at  (discarded_at)
+#  index_participants_on_study_id      (study_id) UNIQUE
 #
 class Participant < ApplicationRecord
+  include Discard::Model
   has_many :site_participants, dependent: :destroy
   has_many :sites, through: :site_participants
   has_many :section_participants, dependent: :destroy
@@ -76,11 +79,11 @@ class Participant < ApplicationRecord
   end
 
   def demographics_responses
-    responses.where(questionnaire_id: demographics_questionnaire&.id)
+    responses.kept.where(questionnaire_id: demographics_questionnaire&.id)
   end
 
   def demographics_response
-    responses.order(created_at: :desc).find_by(questionnaire_id: demographics_questionnaire&.id)
+    responses.kept.order(created_at: :desc).find_by(questionnaire_id: demographics_questionnaire&.id)
   end
 
   def single_choice_answer(identifier)

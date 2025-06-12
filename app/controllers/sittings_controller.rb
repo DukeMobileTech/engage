@@ -3,20 +3,24 @@ class SittingsController < ApplicationController
   before_action :set_section
   before_action :set_lessons, only: %i[ new edit update bulk]
   before_action :set_sitting, only: %i[ show edit update destroy ]
+  after_action :verify_authorized
 
   # GET /sittings or /sittings.json
   def index
-    @sittings = @section.sittings.order(done_on: :desc)
+    @sittings = @section.sittings.kept.order(done_on: :desc)
+    authorize @sittings
   end
 
   # GET /sittings/1 or /sittings/1.json
   def show
+    authorize @sitting
   end
 
   # GET /sittings/new
   def new
     @sitting = @section.sittings.new
     @facilitators = @site.facilitators
+    authorize @sitting
   end
 
   # GET /sittings/1/edit
@@ -27,11 +31,13 @@ class SittingsController < ApplicationController
       end
     end
     @facilitators = @site.facilitators
+    authorize @sitting
   end
 
   # POST /sittings or /sittings.json
   def create
     @sitting = @section.sittings.new(sitting_params)
+    authorize @sitting
 
     respond_to do |format|
       if @sitting.save
@@ -46,6 +52,7 @@ class SittingsController < ApplicationController
 
   # PATCH/PUT /sittings/1 or /sittings/1.json
   def update
+    authorize @sitting
     @facilitators = @site.facilitators
     if params[:sitting]
       params[:sitting][:attendances_attributes]&.each do |index, attendance|
@@ -65,19 +72,22 @@ class SittingsController < ApplicationController
 
   # DELETE /sittings/1 or /sittings/1.json
   def destroy
-    @sitting.destroy!
+    authorize @sitting
+    @sitting.discard
 
     respond_to do |format|
-      format.html { redirect_to site_section_sittings_path(@site, @section), status: :see_other, notice: "Session was successfully destroyed." }
+      format.html { redirect_to site_section_sittings_path(@site, @section), status: :see_other, notice: "Session was successfully discarded." }
       format.json { head :no_content }
     end
   end
 
   def bulk
     @facilitators = @site.facilitators
+    authorize @section.sittings.new
   end
 
   def bulk_create
+    authorize @section.sittings.new
     params[:sittings].each do |attr|
       sitting = @section.sittings.create(name: attr[:name], done_on: attr[:done_on], completed: attr[:completed])
       lessons = Lesson.where(id: attr[:lesson_ids])

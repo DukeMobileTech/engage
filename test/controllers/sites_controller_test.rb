@@ -41,7 +41,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy site" do
-    assert_difference("Site.count", -1) do
+    assert_difference("Site.kept.count", -1) do
       delete site_url(@site)
     end
 

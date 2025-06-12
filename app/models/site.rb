@@ -5,6 +5,7 @@
 #  id              :bigint           not null, primary key
 #  code            :string           not null
 #  county          :string
+#  discarded_at    :datetime
 #  name            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -13,9 +14,11 @@
 # Indexes
 #
 #  index_sites_on_code             (code) UNIQUE
+#  index_sites_on_discarded_at     (discarded_at)
 #  index_sites_on_organization_id  (organization_id)
 #
 class Site < ApplicationRecord
+  include Discard::Model
   belongs_to :organization
   has_many :site_participants, dependent: :destroy
   has_many :participants, through: :site_participants
@@ -47,8 +50,7 @@ class Site < ApplicationRecord
   end
 
   private
-
-  def assign_code
-    self.code = "#{self.name[0..2]}-#{self.county[0..2]}-#{Random.alphanumeric(3)}".upcase
-  end
+    def assign_code
+      self.code = "#{self.name[0..2]}-#{self.county[0..2]}-#{Random.alphanumeric(3)}".upcase
+    end
 end

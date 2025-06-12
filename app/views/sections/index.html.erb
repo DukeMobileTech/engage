@@ -36,9 +36,13 @@
             <% end %>
           </tbody>
         </table>
-        <div class="d-flex flex-row-reverse">
-          <%= link_to "Add new section", new_site_section_path, class: "btn btn-primary" %>
-        </div>
+      </div>
+      <div class="card-footer">
+        <% if policy(Section.new).new? %>
+          <div class="d-flex flex-row-reverse">
+            <%= link_to "Add new section", new_site_section_path, class: "btn btn-primary" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </main>

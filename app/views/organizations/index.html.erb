@@ -26,9 +26,9 @@
       <% end %>
     </tbody>
   </table>
-
-  <div class="d-flex flex-row-reverse">
-    <%= link_to "New organization", new_organization_path, class: "btn btn-primary" %>
-  </div>
-
+  <% if policy(@organizations).new? %>
+    <div class="d-flex flex-row-reverse">
+      <%= link_to "New organization", new_organization_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </div>

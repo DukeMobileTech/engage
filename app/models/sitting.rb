@@ -2,23 +2,26 @@
 #
 # Table name: sittings
 #
-#  id         :bigint           not null, primary key
-#  completed  :boolean          default(FALSE)
-#  done_on    :datetime
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  section_id :integer          not null
+#  id           :bigint           not null, primary key
+#  completed    :boolean          default(FALSE)
+#  discarded_at :datetime
+#  done_on      :datetime
+#  name         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  section_id   :integer          not null
 #
 # Indexes
 #
-#  index_sittings_on_section_id  (section_id)
+#  index_sittings_on_discarded_at  (discarded_at)
+#  index_sittings_on_section_id    (section_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (section_id => sections.id)
 #
 class Sitting < ApplicationRecord
+  include Discard::Model
   belongs_to :section
   delegate :site, to: :section, allow_nil: true
   has_many :attendances, dependent: :destroy

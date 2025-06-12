@@ -83,3 +83,5 @@ gem "ransack", "~> 4.3"
 gem "sendgrid-ruby", "~> 6.7.0"
 
 gem "kaminari", "~> 1.2"
+
+gem "discard", "~> 1.4"

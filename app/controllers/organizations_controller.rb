@@ -6,9 +6,9 @@ class OrganizationsController < ApplicationController
   def index
     user = Current.user
     if user.admin?
-      @organizations = Organization.all
+      @organizations = Organization.kept
     else
-      @organizations = user.organizations
+      @organizations = user.organizations.kept
     end
     authorize @organizations
   end
@@ -62,7 +62,7 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1 or /organizations/1.json
   def destroy
     authorize @organization
-    @organization.destroy!
+    @organization.discard
 
     respond_to do |format|
       format.html { redirect_to organizations_path, status: :see_other, notice: "Organization was successfully destroyed." }

@@ -29,14 +29,14 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarId">
             <ul class="navbar-nav me-auto">
-              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Organizations", organizations_path, class: "btn #{'btn-info' if current_page?(organizations_path)} #{'btn-outline-info nav-link px-2' unless current_page?(organizations_path)}" %></li>
-              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Sites", sites_path, class: "btn #{'btn-info' if current_page?(sites_path)} #{'btn-outline-info nav-link px-2' unless current_page?(sites_path)}" %></li>
-              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Participants", participants_path, class: "btn #{'btn-info' if current_page?(participants_path)} #{'btn-outline-info nav-link px-2' unless current_page?(participants_path)}" %></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Organizations", organizations_path, class: "btn #{'btn-info' if params[:controller] == 'organizations'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'organizations'}" %></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Sites", sites_path, class: "btn #{'btn-info' if ["sites", "sections", "site_participants", "section_participants", "sittings", "attendances", "section_participant_responses"].include?(params[:controller])} #{'btn-outline-info nav-link px-2' unless ["sites", "sections", "site_participants", "section_participants", "sittings", "attendances", "section_participant_responses"].include?(params[:controller])}" %></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Participants", participants_path, class: "btn #{'btn-info' if params[:controller] == 'participants'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'participants'}" %></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Forms", questionnaires_path, class: "btn #{'btn-info' if ["questionnaires", "responses"].include?(params[:controller])} #{'btn-outline-info nav-link px-2' unless ["questionnaires", "responses"].include?(params[:controller])}" %></li>
               <% if Current.user&.admin? %>
-                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Exports", data_uploads_path, class: "btn #{'btn-info' if current_page?(data_uploads_path)} #{'btn-outline-info nav-link px-2' unless current_page?(data_uploads_path)}" %></li>
-                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Curriculums", curriculums_path, class: "btn #{'btn-info' if current_page?(curriculums_path)} #{'btn-outline-info nav-link px-2' unless current_page?(curriculums_path)}" %></li>
-                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Forms", questionnaires_path, class: "btn #{'btn-info' if current_page?(questionnaires_path)} #{'btn-outline-info nav-link px-2' unless current_page?(questionnaires_path)}" %></li>
-                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Users", users_path, class: "btn #{'btn-info' if current_page?(users_path)} #{'btn-outline-info nav-link px-2' unless current_page?(users_path)}" %></li>
+                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Exports", data_uploads_path, class: "btn #{'btn-info' if params[:controller] == 'data_uploads'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'data_uploads'}" %></li>
+                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Curriculums", curriculums_path, class: "btn #{'btn-info' if params[:controller] == 'curriculums'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'curriculums'}" %></li>
+                <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Users", users_path, class: "btn #{'btn-info' if params[:controller] == 'users'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'users'}" %></li>
               <% end %>
               <li class="nav-item me-2 mb-2 mb-lg-0"><a href="https://dukemobiletech.github.io/engage/" target="_blank" class="btn #{'btn-info' if current_page?(manual_path)} #{'btn-outline-info nav-link px-2' unless current_page?(manual_path)}">Manual</a></li>
             </ul>
