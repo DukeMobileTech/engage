@@ -6,9 +6,9 @@ class SitesController < ApplicationController
   def index
     user = Current.user
     if user.admin?
-      @sites = Site.all
+      @sites = Site.kept
     else
-      @sites = user.sites
+      @sites = user.sites.kept
     end
     authorize @sites
   end
@@ -63,7 +63,7 @@ class SitesController < ApplicationController
   # DELETE /sites/1 or /sites/1.json
   def destroy
     authorize @site
-    @site.destroy!
+    @site.discard
 
     respond_to do |format|
       format.html { redirect_to sites_path, status: :see_other, notice: "Site was successfully destroyed." }

@@ -41,7 +41,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy section" do
-    assert_difference("Section.count", -1) do
+    assert_difference("Section.kept.count", -1) do
       delete site_section_url(@site, @section)
     end
 

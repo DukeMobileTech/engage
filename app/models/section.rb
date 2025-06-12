@@ -4,6 +4,7 @@
 #
 #  id            :bigint           not null, primary key
 #  completed     :boolean          default(FALSE)
+#  discarded_at  :datetime
 #  end_date      :date
 #  name          :string
 #  start_date    :date
@@ -15,6 +16,7 @@
 # Indexes
 #
 #  index_sections_on_curriculum_id  (curriculum_id)
+#  index_sections_on_discarded_at   (discarded_at)
 #  index_sections_on_site_id        (site_id)
 #
 # Foreign Keys
@@ -23,6 +25,7 @@
 #  fk_rails_...  (site_id => sites.id)
 #
 class Section < ApplicationRecord
+  include Discard::Model
   has_many_attached :reports
   belongs_to :curriculum
   belongs_to :site
@@ -298,14 +301,13 @@ class Section < ApplicationRecord
   end
 
   private
-
-  def assign_name
-    self.name = "#{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
-  end
-
-  def completed_only_if_all_sittings_completed
-    if completed? && sittings.any? { |sitting| !sitting.completed? }
-      errors.add(:completed, "can't be true unless all sessions are completed")
+    def assign_name
+      self.name = "#{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
     end
-  end
+
+    def completed_only_if_all_sittings_completed
+      if completed? && sittings.any? { |sitting| !sitting.completed? }
+        errors.add(:completed, "can't be true unless all sessions are completed")
+      end
+    end
 end

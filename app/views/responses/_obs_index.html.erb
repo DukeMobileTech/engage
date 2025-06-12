@@ -7,6 +7,8 @@
         <th>Session</th>
         <th>Done On</th>
         <th>Observer</th>
+        <th>Entered By</th>
+        <th>Discard</th>
       </tr>
     </thead>
     <tbody>
@@ -15,13 +17,19 @@
           <td><%= response&.sitting&.section&.name %></td>
           <td><%= response.sitting ? (link_to response.sitting&.name, site_section_sitting_path(response.sitting.site, response.sitting.section, response.sitting)) : '' %></td>
           <td><%= link_to response.created_at.strftime("%F"), questionnaire_response_path(response.questionnaire, response) %></td>
-          <td><%= response.observer.name if response.observer %></td>
+          <td><%= response.observer&.name if response.observer %></td>
+          <td><%= response.user&.name if response.user %></td>
+          <td>
+            <% if policy(response).destroy? %>
+              <%= link_to "Discard", questionnaire_response_path(response.questionnaire, response), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to discard this response?" }, class: 'btn btn-sm btn-danger' %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
   <div class="d-flex flex-row-reverse">
-    <% if @sitting %>
+    <% if @sitting && policy(@questionnaire.responses.new).new? %>
       <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
     <% end %>
   </div>

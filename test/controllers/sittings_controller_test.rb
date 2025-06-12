@@ -44,7 +44,7 @@ class SittingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy sitting" do
-    assert_difference("Sitting.count", -1) do
+    assert_difference("Sitting.kept.count", -1) do
       delete site_section_sitting_url(@site, @section, @sitting)
     end
 

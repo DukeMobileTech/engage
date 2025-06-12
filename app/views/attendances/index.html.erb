@@ -30,9 +30,13 @@
           <% end %>
         </tbody>
       </table>
-      <div class="d-flex flex-row-reverse">
-        <%= link_to "Edit Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
-      </div>
+    </div>
+    <div class="card-footer">
+      <% if policy(@sitting).edit? %>
+        <div class="d-flex flex-row-reverse">
+          <%= link_to "Edit Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </main>

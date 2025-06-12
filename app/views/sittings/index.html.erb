@@ -32,9 +32,13 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+    <div class="card-footer">
       <div class="d-flex flex-row-reverse">
-        <span class="m-1"><%= link_to "Add new session", new_site_section_sitting_path(@site, @section), class: "btn btn-primary" %></span>
-        <span class="m-1"><%= link_to "Add multiple new sessions", bulk_site_section_sittings_path(@site, @section), class: "btn btn-primary" %></span>
+        <% if policy(Sitting.new).new? %>
+          <span class="m-1"><%= link_to "Add new session", new_site_section_sitting_path(@site, @section), class: "btn btn-primary" %></span>
+          <span class="m-1"><%= link_to "Add multiple new sessions", bulk_site_section_sittings_path(@site, @section), class: "btn btn-primary" %></span>
+        <% end %>
       </div>
     </div>
   </div>

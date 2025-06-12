@@ -4,24 +4,28 @@
     <thead>
       <tr>
         <th>Participant</th>
-        <th>Session</th>
         <th>Done On</th>
-        <th>Done By</th>
+        <th>Entered By</th>
+        <th>Discard</th>
       </tr>
     </thead>
     <tbody>
       <% @responses.each do |response| %>
         <tr scope="row">
-          <td><%= response.participant ? (link_to response.participant&.name, response.participant) : '' %></td>
-          <td><%= response.sitting ? (link_to response.sitting.label, site_section_sitting_path(response.sitting.site, response.sitting.section, response.sitting)) : '' %></td>
+          <td><%= response.participant ? (link_to response.index_demo_label, response.participant) : '' %></td>
           <td><%= link_to response.created_at.strftime("%F"), questionnaire_response_path(response.questionnaire, response) %></td>
           <td><%= response.user.name if response.user %></td>
+          <td>
+            <% if policy(response).destroy? %>
+              <%= link_to "Discard", questionnaire_response_path(response.questionnaire, response), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to discard this response?" }, class: 'btn btn-sm btn-danger' %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
   <div class="d-flex flex-row-reverse">
-    <% if @sitting %>
+    <% if @sitting && policy(Response.new).new? %>
       <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
     <% end %>
   </div>

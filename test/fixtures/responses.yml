@@ -6,6 +6,7 @@
 #
 #  id               :bigint           not null, primary key
 #  answers          :json
+#  discarded_at     :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  participant_id   :integer
@@ -15,6 +16,7 @@
 #
 # Indexes
 #
+#  index_responses_on_discarded_at      (discarded_at)
 #  index_responses_on_participant_id    (participant_id)
 #  index_responses_on_questionnaire_id  (questionnaire_id)
 #  index_responses_on_sitting_id        (sitting_id)

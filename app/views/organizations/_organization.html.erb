@@ -24,6 +24,8 @@
     <% organization.sites.each do |site| %>
       <span class="btn btn-outline-info"><%= link_to site.name, site, class: "blank-link" %> </span>
     <% end %>
-    <%= link_to "Add new site", new_site_path(organization_id: organization.id), class: "btn btn-primary" %>
+    <% if policy(Site.new).new? %>
+      <%= link_to "Add new site", new_site_path(organization_id: organization.id), class: "btn btn-primary" %>
+    <% end %>
   </p>
 </div>

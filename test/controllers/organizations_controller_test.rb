@@ -40,7 +40,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy organization" do
-    assert_difference("Organization.count", -1) do
+    assert_difference("Organization.kept.count", -1) do
       delete organization_url(@organization)
     end
 

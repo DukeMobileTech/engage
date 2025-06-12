@@ -4,6 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  answers          :json
+#  discarded_at     :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  participant_id   :integer
@@ -13,6 +14,7 @@
 #
 # Indexes
 #
+#  index_responses_on_discarded_at      (discarded_at)
 #  index_responses_on_participant_id    (participant_id)
 #  index_responses_on_questionnaire_id  (questionnaire_id)
 #  index_responses_on_sitting_id        (sitting_id)
@@ -25,6 +27,7 @@
 #  fk_rails_...  (sitting_id => sittings.id)
 #
 class Response < ApplicationRecord
+  include Discard::Model
   belongs_to :questionnaire
   belongs_to :participant, optional: true
   belongs_to :sitting, optional: true
@@ -55,6 +58,10 @@ class Response < ApplicationRecord
     "<b>SEX:</b> #{single_choice_answer('sex')}; <b>AGE:</b> #{single_choice_answer('age')}; <b>GRADE:</b> #{single_choice_answer('grade')}; <b>DATE:</b> #{created_at.strftime("%F")}"
   end
 
+  def index_demo_label
+    "#{participant&.name} (SEX: #{single_choice_answer('sex')} GRADE: #{single_choice_answer('grade')} DATE: #{created_at.strftime("%F")})"
+  end
+
   def single_choice_answer(identifier)
     form = Questionnaire.find_by(title: "demographics")
 
@@ -74,5 +81,17 @@ class Response < ApplicationRecord
     else
       index
     end
+  end
+
+  def observation?
+    questionnaire&.observation?
+  end
+
+  def fidelity?
+    questionnaire&.fidelity?
+  end
+
+  def demographics?
+    questionnaire&.demographics?
   end
 end

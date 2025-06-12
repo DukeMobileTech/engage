@@ -6,7 +6,7 @@ class SectionsController < ApplicationController
 
   # GET /sections or /sections.json
   def index
-    @sections = @site.sections.all
+    @sections = @site.sections.kept
     authorize @sections
   end
 
@@ -60,7 +60,7 @@ class SectionsController < ApplicationController
   # DELETE /sections/1 or /sections/1.json
   def destroy
     authorize @section
-    @section.destroy!
+    @section.discard
 
     respond_to do |format|
       format.html { redirect_to site_sections_path, status: :see_other, notice: "Section was successfully destroyed." }

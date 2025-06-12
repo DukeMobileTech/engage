@@ -4,6 +4,7 @@
 #
 #  id            :bigint           not null, primary key
 #  completed     :boolean          default(FALSE)
+#  discarded_at  :datetime
 #  end_date      :date
 #  name          :string
 #  start_date    :date
@@ -15,6 +16,7 @@
 # Indexes
 #
 #  index_sections_on_curriculum_id  (curriculum_id)
+#  index_sections_on_discarded_at   (discarded_at)
 #  index_sections_on_site_id        (site_id)
 #
 # Foreign Keys
