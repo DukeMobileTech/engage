@@ -24,8 +24,8 @@
             <tr>
               <td><%= link_to sitting.name, site_section_sitting_path(@site, @section, sitting) %></td>
               <td><%= sitting.lessons.map(&:title).join(", ")  %></td>
-              <td><%= sitting.done_on.strftime("%F %H:%M %p") %></td>
-              <td><%= sitting.participation %></td>
+              <td><%= sitting.done_on.strftime("%Y-%m-%d") %></td>
+              <td><%= sitting.sitting_lessons.map(&:participation).join(", ") %></td>
               <td><%= sitting.completed ? "Yes" : "No" %></td>
               <td><%= sitting.users.map(&:name).join(", ") %></td>
             </tr>

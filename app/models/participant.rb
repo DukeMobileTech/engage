@@ -24,6 +24,7 @@ class Participant < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :sittings, through: :attendances
   has_many :responses, dependent: :nullify
+  has_many :lesson_attendances, dependent: :destroy
 
   validates :name, presence: true
   validates :category, presence: true

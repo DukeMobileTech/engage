@@ -1,0 +1,17 @@
+<%= render partial: "sections/header", locals: {site: @site, section: @section } %>
+
+<main class="mb-5">
+  <p style="color: green"><%= notice %></p>
+  <% content_for :title, "Taking Attendance" %>
+  <div class="card">
+    <div class="card-header">
+      <h4>Taking Attendance For <%= @sitting_lesson.name %></h4>
+    </div>
+    <div class="card-body">
+      <%= render "form", site: @site, section: @section, sitting: @sitting, sitting_lesson: @sitting_lesson %>
+    </div>
+    <div class="card-footer">
+      <%= link_to "Back to sitting lesson", site_section_sitting_sitting_lesson_path(@site, @section, @sitting, @sitting_lesson), class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</main>
