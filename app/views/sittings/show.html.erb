@@ -26,11 +26,6 @@
       <h4><%= @sitting.name %> Forms</h4>
     </div>
     <div class="card-body d-flex justify-content-evenly">
-      <% if policy(@sitting).edit? %>
-        <span>
-          <%= link_to "Attendance", edit_site_section_sitting_path(@site, @section, @sitting, attendance: true), class: 'btn btn-primary' %>
-        </span>
-      <% end %>
       <%# <span> %>
         <%#= link_to "Demographics", questionnaire_responses_path(Questionnaire.demographics, sitting_id: @sitting.id), class: 'btn btn-primary' %>
       <%# </span> %>

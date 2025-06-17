@@ -44,7 +44,7 @@ class Section < ApplicationRecord
   scope :completed, -> { where(completed: true) }
 
   def progress
-    "#{sittings.where(completed: true).map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count}"
+    "#{sittings.where(completed: true).map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count} lessons completed"
   end
 
   def generate_data_tracker

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_13_185340) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_17_140932) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,6 +83,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_13_185340) do
     t.datetime "updated_at", null: false
     t.date "reporting_period_start"
     t.date "reporting_period_end"
+  end
+
+  create_table "lesson_attendances", force: :cascade do |t|
+    t.bigint "participant_id", null: false
+    t.bigint "sitting_lesson_id", null: false
+    t.boolean "present", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_lesson_attendances_on_participant_id"
+    t.index ["sitting_lesson_id"], name: "index_lesson_attendances_on_sitting_lesson_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -287,6 +297,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_13_185340) do
   add_foreign_key "answers", "questions"
   add_foreign_key "attendances", "participants"
   add_foreign_key "attendances", "sittings"
+  add_foreign_key "lesson_attendances", "participants"
+  add_foreign_key "lesson_attendances", "sitting_lessons"
   add_foreign_key "lessons", "curriculums"
   add_foreign_key "questions", "questionnaires"
   add_foreign_key "responses", "participants"

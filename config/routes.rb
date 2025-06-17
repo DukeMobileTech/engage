@@ -25,7 +25,7 @@ Rails.application.routes.draw do
           get "bulk" => "sittings#bulk"
           post "bulk_create" => "sittings#bulk_create"
         end
-        resources :attendances, only: :index
+        resources :sitting_lessons, only: [ :show, :edit, :update ]
       end
       member do
         post "data_tracker" => "sections#data_tracker"

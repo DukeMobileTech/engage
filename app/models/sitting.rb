@@ -31,21 +31,14 @@ class Sitting < ApplicationRecord
   has_many :sitting_lessons, dependent: :destroy
   has_many :lessons, through: :sitting_lessons
   has_many :activities, through: :lessons
-
-  accepts_nested_attributes_for :attendances, reject_if: :all_blank, allow_destroy: true
-
-  after_create :take_attendance
+  has_many :lesson_attendances, through: :sitting_lessons
 
   validates :done_on, presence: true
   validates :section_id, presence: true
   validate :completion_conditions
 
   def present_participants
-    attendances.where(present: true)
-  end
-
-  def participation
-    "#{present_participants.count} out of #{section.section_participants.count}"
+    lesson_attendances.where(present: true)
   end
 
   def demographic_responses
@@ -69,13 +62,6 @@ class Sitting < ApplicationRecord
   end
 
   private
-
-    def take_attendance
-      section.participants.each do |participant|
-        attendances.create(participant: participant)
-      end
-    end
-
     def completion_conditions
       if completed? && present_participants.empty?
         errors.add(:completed, "can't be true if no participants attended session")

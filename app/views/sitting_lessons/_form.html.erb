@@ -1,0 +1,34 @@
+<%= form_for([@site, @section, @sitting, @sitting_lesson], data: { controller: 'checkbox-select-all' }) do |form| %>
+  <% if @sitting_lesson.errors.any? %>
+    <div style="color: red">
+      <h4><%= pluralize(@sitting_lesson.errors.count, "error") %> prohibited this sitting lesson from being saved:</h4>
+      <ul>
+        <% @sitting_lesson.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <p class="fw-bold">Please check the participants who are present</p>
+    <div class="form-check">
+      <input type="checkbox" data-checkbox-select-all-target="checkboxAll" class="form-check-input" />
+      <span class="form-check-label fw-bold">Select All / Deselect All</span>
+    </div>
+    <% @participants.each do |participant| %>
+      <% attendance = @sitting_lesson.lesson_attendances.find { |a| a.participant_id == participant.id } || @sitting_lesson.lesson_attendances.build(participant: participant) %>
+      <%= form.fields_for :lesson_attendances, attendance do |att_field| %>
+        <div class="form-check">
+          <%= att_field.check_box :present, data: { checkbox_select_all_target: 'checkbox' }, class: "form-check-input" %>
+          <%= att_field.label :present, "#{participant.name} - #{participant.demo_label}", class: "form-check-label" %>
+          <%= att_field.hidden_field :participant_id, value: participant.id %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="d-flex flex-row-reverse">
+    <%= submit_tag "Save Attendance", class: 'btn btn-success' %>
+  </div>
+<% end %>

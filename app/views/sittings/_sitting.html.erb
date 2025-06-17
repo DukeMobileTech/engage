@@ -15,8 +15,19 @@
   </p>
 
   <p>
-    <strong>Lessons:</strong>
-    <%= @sitting.lessons.map(&:title).join(", ") %>
+    <strong>Session Lessons:</strong>
+    <% @sitting.sitting_lessons.each do |sitting_lesson| %>
+      <span class="badge text-bg-warning">
+        <%= link_to sitting_lesson.lesson.title, site_section_sitting_sitting_lesson_path(@site, @section, @sitting, sitting_lesson) %>
+      </span>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Session Attendance:</strong>
+    <% @sitting.sitting_lessons.each do |sitting_lesson| %>
+      <em><%= "#{sitting_lesson.lesson.title}: " %></em> <%= link_to sitting_lesson.participation, site_section_sitting_sitting_lesson_path(@site, @section, @sitting, sitting_lesson) %>
+    <% end %>
   </p>
 
   <p>
@@ -27,11 +38,6 @@
   <p>
     <strong>Entry Completed:</strong>
     <%= @sitting.completed ? "Yes" : "No" %>
-  </p>
-
-  <p>
-    <strong>Participants present:</strong>
-    <%= link_to @sitting.participation, site_section_sitting_attendances_path(@site, @section, @sitting) %>
   </p>
 
   <p>

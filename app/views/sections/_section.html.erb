@@ -27,7 +27,7 @@
 
   <p>
     <strong>Sessions:</strong>
-    <% @section.sittings.order(:done_on).each do |sitting| %>
+    <% @section.sittings.kept.order(:done_on).each do |sitting| %>
       <span class="badge text-bg-warning">
         <%= link_to sitting.name, site_section_sitting_path(@site, @section, sitting) %>
       </span>
