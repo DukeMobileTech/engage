@@ -23,8 +23,6 @@ class SittingLesson < ApplicationRecord
   belongs_to :sitting
   has_many :lesson_attendances, dependent: :destroy
 
-  after_create :take_attendance
-
   accepts_nested_attributes_for :lesson_attendances, reject_if: :all_blank, allow_destroy: true
 
   def name
