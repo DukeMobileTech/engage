@@ -2,7 +2,7 @@
 <main class="mb-5">
   <p style="color: green"><%= notice %></p>
   <% if params[:enrollment] %>
-    <div class="card">
+    <div class="card main-card">
       <% content_for :title, "Participant enrollment" %>
       <div class="card-header">
         <h4>Enrolling participants to section</h4>
@@ -12,7 +12,7 @@
       </div>
     </div>
   <% else %>
-    <div class="card">
+    <div class="card main-card">
       <% content_for :title, "Editing section" %>
       <div class="card-header">
         <h4><%= @site.name %></h4>

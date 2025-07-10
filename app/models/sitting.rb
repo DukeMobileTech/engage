@@ -41,6 +41,11 @@ class Sitting < ApplicationRecord
     lesson_attendances.where(present: true)
   end
 
+  def average_attendance
+    return 0 if present_participants.empty?
+    ((present_participants.size.to_f / lesson_attendances.size) * 100).round(2)
+  end
+
   def demographic_responses
     responses.where(questionnaire_id: Questionnaire.demographics&.id)
   end
@@ -53,7 +58,7 @@ class Sitting < ApplicationRecord
     name || title
   end
 
-  def filedily_log_responses
+  def fidelity_log_responses
     responses.where(questionnaire_id: Questionnaire.fidelity&.id)
   end
 
@@ -61,12 +66,22 @@ class Sitting < ApplicationRecord
     responses.where(questionnaire_id: Questionnaire.observation&.id)
   end
 
+  def status
+    if completed?
+      "completed"
+    elsif !completed? && (present_participants.any? || fidelity_log_responses.any? || program_observation_responses.any?)
+      "in-progress"
+    else
+      "not-started"
+    end
+  end
+
   private
     def completion_conditions
       if completed? && present_participants.empty?
         errors.add(:completed, "can't be true if no participants attended session")
       end
-      if completed? && filedily_log_responses.empty?
+      if completed? && fidelity_log_responses.empty?
         errors.add(:completed, "can't be true if no fidelity log response")
       end
     end

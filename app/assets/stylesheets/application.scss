@@ -32,3 +32,401 @@
 body {
   padding-top: 120px;
 }
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #28a745;
+  transition: width 0.3s ease;
+}
+
+.main-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px 20px 0 0 !important;
+  padding: 2rem;
+  border: none;
+}
+
+.card-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: #212529;
+  font-weight: 500;
+}
+
+.entry-status {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.entry-incomplete {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.entry-complete {
+  background: #d4edda;
+  color: #155724;
+}
+
+.progress-section {
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.progress-section.final {
+  background: linear-gradient(135deg, #28a745 0%, #28a745 100%);
+}
+
+.progress-section.middle {
+  background: linear-gradient(135deg, #ffc107 0%, #ffc107 100%);
+}
+
+.progress-section.first {
+  background: linear-gradient(135deg, #6c757d 0%, #6c757d 100%);
+}
+
+.lesson-stats {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.progress-circle {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  position: relative;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 8;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke: white;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.attendance-stats {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.attendance-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.attendance-icon {
+  background: rgba(255, 255, 255, 0.3);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.attendance-details {
+  flex: 1;
+}
+
+.attendance-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.2rem;
+}
+
+.attendance-value {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.attendance-value.good {
+  color: #003366;
+}
+
+.attendance-value.warning {
+  color: #5C3B00;
+}
+
+.attendance-value.poor {
+  color: #7B0000;
+}
+
+.attendance-status {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.attendance-status.good {
+  color: #003366;
+}
+
+.attendance-status.warning {
+  color: #5C3B00;
+}
+
+.attendance-status.poor {
+  color: #7B0000;
+}
+
+.attendance-breakdown {
+  margin-top: 1rem;
+}
+
+.attendance-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.attendance-fill {
+  height: 100%;
+  background: white;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.attendance-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.sessions-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.legend-completed {
+  background: #28a745;
+}
+
+.legend-progress {
+  background: #ffc107;
+}
+
+.legend-not-started {
+  background: #6c757d;
+}
+
+.sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.session-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.session-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #e9ecef;
+  transition: background 0.3s ease;
+}
+
+.session-card.completed {
+  border-color: #28a745;
+  background: #f8fff9;
+}
+
+.session-card.completed::before {
+  background: #28a745;
+}
+
+.session-card.in-progress {
+  border-color: #ffc107;
+  background: #fffef5;
+}
+
+.session-card.in-progress::before {
+  background: #ffc107;
+}
+
+.session-card.not-started {
+  border-color: #e9ecef;
+  background: #f8f9fa;
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.session-number {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.session-status {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.session-details {
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+.session-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.completed .session-icon {
+  color: #28a745;
+}
+
+.in-progress .session-icon {
+  color: #ffc107;
+}
+
+.not-started .session-icon {
+  color: #6c757d;
+}
+
+.no-link-style {
+  color: inherit;
+  text-decoration: none;
+}
+
+.no-link-style:hover,
+.no-link-style:focus {
+  text-decoration: underline;
+}

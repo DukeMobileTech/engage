@@ -42,7 +42,7 @@
 
   <p>
     <strong>Fidelity Log ID(s):</strong>
-    <% @sitting.filedily_log_responses.each do |log| %>
+    <% @sitting.fidelity_log_responses.each do |log| %>
       <span><%= link_to log.id, questionnaire_response_path(Questionnaire.fidelity&.id, log.id) %></span>
     <% end %>
   </p>
