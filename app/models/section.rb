@@ -43,8 +43,56 @@ class Section < ApplicationRecord
 
   scope :completed, -> { where(completed: true) }
 
-  def progress
-    "#{sittings.where(completed: true).map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count} lessons completed"
+  def completed_sittings
+    sittings.where(completed: true)
+  end
+
+  def progress_label
+    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count} lessons completed"
+  end
+
+  def progress_percentage
+    return 0 if lessons.count.zero?
+    (completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count.to_f / lessons.count * 100).round(2)
+  end
+
+  def progress_simple
+    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count}"
+  end
+
+  def progress_radius
+    45
+  end
+
+  def progress_circumference
+    2 * Math::PI * progress_radius
+  end
+
+  def progress_offset
+    progress = progress_percentage.to_f.clamp(0, 100)
+    progress_circumference * (1 - progress / 100.0)
+  end
+
+  def average_attendance_status
+    avg = average_attendance
+    if avg >= 75
+      "good"
+    elsif avg < 50
+      "poor"
+    else
+      "warning"
+    end
+  end
+
+  def lesson_progress_status
+    lessons_done = completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count
+    if lessons_done >= 0.67 * lessons.count
+      "final"
+    elsif lessons_done > 0.33 * lessons.count
+      "middle"
+    else
+      "first"
+    end
   end
 
   def generate_data_tracker
@@ -262,12 +310,15 @@ class Section < ApplicationRecord
     sheet.add_row []
   end
 
+  def average_attendance
+    sum = completed_sittings.map { |sitting| sitting.average_attendance }.sum
+    completed_sittings.size.positive? ? (sum / completed_sittings.size).round(2) : 0
+  end
+
   def add_reporting_data_dosage_sheet(sheet)
     attendance_list = participants.map { |p| p.average_attendance(self) }
-    avg_att = attendance_list.sum / attendance_list.size if attendance_list.size.positive?
-    avg_att = 0 if attendance_list.size.zero?
     sheet.add_row [ "Dosage", "" ]
-    sheet.add_row [ "Average Attendance %", avg_att ]
+    sheet.add_row [ "Average Attendance %", average_attendance ]
     sheet.add_row [ "Number of Participants >= 75% Attendance", attendance_list.select { |a| a >= 75 }.size ]
     sheet.add_row []
   end

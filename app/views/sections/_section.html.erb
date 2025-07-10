@@ -1,47 +1,151 @@
-<div>
+<div class="info-grid">
+  <div class="info-item">
+    <div class="info-label">Facilitators</div>
+    <div class="info-value"><%= @site.facilitators.map(&:name).join(", ") %></div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Program Duration</div>
+    <div class="info-value">
+      <%= @section.start_date.strftime("%B %e, %Y") %> - <%= @section.end_date.strftime("%B %e, %Y") %>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Curriculum</div>
+    <div class="info-value"><%= @section.curriculum.title %></div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Entry Status</div>
+    <div class="info-value">
+      <% if @section.completed %>
+        <span class="entry-status entry-complete">Complete</span>
+      <% else %>
+        <span class="entry-status entry-incomplete">Incomplete</span>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-  <p>
-    <strong>Site:</strong>
-    <%= @section.site.name %>
-  </p>
+<div class="progress-section <%= @section.lesson_progress_status %>">
+  <h3 class="mb-3">Overall Progress</h3>
+  <div class="row align-items-center">
+    <div class="col-md-6 text-center">
+      <div class="lesson-stats">
+        <div class="attendance-label">Lessons Progress</div>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @section.name %>
-  </p>
+        <div class="progress-circle">
+          <svg class="progress-ring" width="120" height="120">
+            <circle class="progress-ring-bg" cx="60" cy="60" r="<%= @section.progress_radius %>"></circle>
+            <circle class="progress-ring-fill" cx="60" cy="60" r="<%= @section.progress_radius %>" 
+              stroke-dasharray="<%= @section.progress_circumference %>"
+              stroke-dashoffset="<%= @section.progress_offset %>">
+            </circle>
+          </svg>
+          <div class="progress-text"><%= @section.progress_simple %></div>
+        </div>
+        <p class="mb-0"><%= "#{@section.progress_label} (#{@section.progress_percentage}%)" %></p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="attendance-stats">
+        <div class="attendance-item">
+          <div class="attendance-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="attendance-details">
+            <div class="attendance-label">Average Attendance</div>
+            <div class="attendance-value <%= @section.average_attendance_status %>"><%= @section.average_attendance %></div>
+            <% if @section.average_attendance >= 75 %>
+              <div class="attendance-status good">Above Target (75%)</div>
+            <% elsif @section.average_attendance < 50 %>
+              <div class="attendance-status poor">Below Target (75%)</div>
+            <% else %>
+              <div class="attendance-status warning">Below Target (75%)</div>
+            <% end %>
+          </div>
+        </div>
+        <div class="attendance-breakdown">
+          <div class="attendance-bar">
+            <div class="attendance-fill" style="width: <%= @section.average_attendance %>%"></div>
+          </div>
+          <div class="attendance-text">
+            <span>Target: 75%</span>
+            <span>Current: <%= @section.average_attendance %>%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <p>
-    <strong>Start Date:</strong>
-    <%= @section.start_date %>
-  </p>
+<h3 class="sessions-title">
+    <i class="fas fa-calendar-alt"></i>
+    Session Progress
+</h3>
 
-  <p>
-    <strong>End Date:</strong>
-    <%= @section.end_date %>
-  </p>
+<div class="legend">
+  <div class="legend-item">
+      <div class="legend-color legend-completed"></div>
+      <span>Completed</span>
+  </div>
+  <div class="legend-item">
+      <div class="legend-color legend-progress"></div>
+      <span>In Progress</span>
+  </div>
+  <div class="legend-item">
+      <div class="legend-color legend-not-started"></div>
+      <span>Not Started</span>
+  </div>
+</div>
 
-  <p>
-    <strong>Curriculum:</strong>
-    <%= @section.curriculum.title %>
-  </p>
-
-  <p>
-    <strong>Sessions:</strong>
-    <% @section.sittings.kept.order(:done_on).each do |sitting| %>
-      <span class="badge text-bg-warning">
-        <%= link_to sitting.name, site_section_sitting_path(@site, @section, sitting) %>
-      </span>
+<div class="sessions-grid">
+  <% @section.sittings.kept.order(:done_on).each do |sitting| %>
+  <%= link_to site_section_sitting_path(@site, @section, sitting), class: "no-link-style" do %>
+    <% if sitting.status == "completed" %>
+      <div class="session-card <%= sitting.status %>">
+        <div class="session-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="session-number"><%= sitting.name %></div>
+        <div class="session-status">Completed</div>
+        <div class="session-details">Lesson <%= sitting.lessons.map {|lesson| lesson.title.split().last}.join(", ") %></div>
+        <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
+        <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
+        <% if sitting.program_observation_responses.any? %>
+          <div class="session-details">Observation <i class="fa-solid fa-check"></i></div>
+        <% else %>
+          <div class="session-details">Observation <i class="fa-solid fa-xmark"></i></div>
+        <% end %>
+      </div>
+    <% elsif sitting.status == "in-progress" %>
+      <div class="session-card <%= sitting.status %>">
+        <div class="session-icon">
+            <i class="fas fa-play-circle"></i>
+        </div>
+        <div class="session-number"><%= sitting.name %></div>
+        <div class="session-status">In Progress</div>
+        <div class="session-details">Lesson <%= sitting.lessons.map {|lesson| lesson.title.split().last}.join(", ") %></div>
+        <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
+        <% if sitting.fidelity_log_responses.any? %>
+          <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
+        <% else %>
+          <div class="session-details">Fidelity <i class="fa-solid fa-xmark"></i></div>
+        <% end %>
+        <% if sitting.program_observation_responses.any? %>
+          <div class="session-details">Observation <i class="fa-solid fa-check"></i></div>
+        <% else %>
+          <div class="session-details">Observation <i class="fa-solid fa-xmark"></i></div>
+        <% end %>
+      </div>
+    <% elsif sitting.status == "not-started" %>
+      <div class="session-card <%= sitting.status %>">
+        <div class="session-icon">
+            <i class="fas fa-circle"></i>
+        </div>
+        <div class="session-number"><%= sitting.name %></div>
+        <div class="session-status">Not Started</div>
+        <div>Lesson <%= sitting.lessons.map {|lesson| lesson.title.split().last}.join(", ") %></div>
+      </div>
     <% end %>
-  </p>
-
-  <p>
-    <strong>Progress:</strong>
-    <%= @section.progress %>
-  </p>
-
-  <p>
-    <strong>Entry Completed:</strong>
-    <%= @section.completed ? "Yes" : "No" %>
-  </p>
-
+  <% end %>
+  <% end %>
 </div>

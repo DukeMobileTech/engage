@@ -56,7 +56,7 @@ class SectionsTest < ApplicationSystemTestCase
     assert_link "Details"
     assert_link "Section Participants"
     assert_link "Sessions"
-    assert_selector "h4", text: "Details For #{@section.name}"
+    assert_selector "h4", text: "#{@section.name} Program Details"
     assert_link "Edit this section"
     assert_selector "h4", text: "Program Observations"
     assert_link "View Observations"
@@ -68,7 +68,7 @@ class SectionsTest < ApplicationSystemTestCase
     visit site_section_url(@site, @section)
     assert_link "Details"
     click_on "Details"
-    assert_selector "h4", text: "Details For #{@section.name}"
+    assert_selector "h4", text: "#{@section.name} Program Details"
   end
 
   test "section participants link" do

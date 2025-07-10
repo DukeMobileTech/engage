@@ -1,7 +1,7 @@
 <%= render partial: "sections/header", locals: {site: @site, section: @section } %>
 
 <main class="mb-5">
-  <div class="card">
+  <div class="card main-card">
     <% if params[:attendance] %>
       <div class="card-header">
         <% content_for :title, "Taking Attendance" %>

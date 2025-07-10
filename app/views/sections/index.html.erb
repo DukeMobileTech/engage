@@ -4,7 +4,7 @@
 <div class="row">
   <%= render partial: "sites/sidebar", locals: { site: @site } %>
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
-    <div class="card">
+    <div class="card main-card">
       <div class="card-header">
         <% content_for :title, "Sections" %>
         <h4>Site Sections</h4>
@@ -13,12 +13,10 @@
         <table id="sections" class="table table-striped">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Curriculum</th>
-              <th>Lessons</th>
+              <th>Program Name</th>
               <th>Participants</th>
+              <th>Progress</th>
+              <th>Attendance</th>
               <th>Entry Completed</th>
             </tr>
           </thead>
@@ -26,12 +24,29 @@
             <% @sections.each do |section| %>
               <tr>
                 <td><%= link_to section.name, site_section_path(@site, section) %></td>
-                <td><%= section.start_date %></td>
-                <td><%= section.end_date %></td>
-                <td><%= section.curriculum.title %></td>
-                <td><%= section.progress %></td>
                 <td><%= section.participants.size %></td>
-                <td><%= section.completed ? "Yes" : "No" %></td>
+                <td>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: <%= section.progress_percentage %>%"></div>
+                  </div>
+                  <%= "#{section.progress_label} (#{section.progress_percentage}%)" %>
+                </td>
+                <td>
+                  <% if section.average_attendance >= 75.0 %>
+                    <span class="badge bg-success"><%= section.average_attendance %>% avg</span>
+                  <% elsif section.average_attendance >= 50.0 %>
+                    <span class="badge bg-warning"><%= section.average_attendance %>% avg</span>
+                  <% else %>
+                    <span class="badge bg-danger"><%= section.average_attendance %>% avg</span>
+                  <% end %>
+                </td>
+                <td>
+                  <% if section.completed? %>
+                    <span class="badge bg-success">Yes</span>
+                  <% else %>
+                    <span class="badge bg-danger">No</span>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>
