@@ -33,6 +33,8 @@ class Section < ApplicationRecord
   has_many :participants, through: :section_participants
   has_many :sittings, dependent: :destroy
   has_many :lessons, through: :curriculum
+  has_many :lesson_attendances, through: :sittings
+  has_many :sitting_lessons, through: :sittings
 
   before_create :assign_name
 
@@ -131,10 +133,10 @@ class Section < ApplicationRecord
   def attendance(sessions, participant)
     roster = []
     sessions.each do |session|
-      attendance = participant.attendances.find_by(sitting_id: session.id)
-      status = "0"
-      status = "1" if attendance&.present
-      roster << status
+      attendance = participant.lesson_attendances
+                              .where(sitting_lesson_id: session.sitting_lessons.pluck(:id))
+                              .where(present: true).first
+      roster << attendance.nil? ? "0" : "1"
     end
     roster
   end

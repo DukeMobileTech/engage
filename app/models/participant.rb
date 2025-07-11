@@ -21,8 +21,6 @@ class Participant < ApplicationRecord
   has_many :sites, through: :site_participants
   has_many :section_participants, dependent: :destroy
   has_many :sections, through: :section_participants
-  has_many :attendances, dependent: :destroy
-  has_many :sittings, through: :attendances
   has_many :responses, dependent: :nullify
   has_many :lesson_attendances, dependent: :destroy
 

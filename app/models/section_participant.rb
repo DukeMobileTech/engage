@@ -21,9 +21,9 @@
 class SectionParticipant < ApplicationRecord
   belongs_to :section
   belongs_to :participant
-  has_many :attendances, through: :participant
   has_many :responses, through: :participant
   has_one :section_participant_response, dependent: :destroy
+  has_many :lesson_attendances, through: :participant
 
   def self.ransackable_attributes(auth_object = nil)
     %w[participant_id] + _ransackers.keys
@@ -34,7 +34,7 @@ class SectionParticipant < ApplicationRecord
   end
 
   def sitting_attendances
-    attendances.where(sitting_id: section.sittings.pluck(:id)).where(present: true)
+    lesson_attendances.where(sitting_lesson_id: section.sitting_lessons.pluck(:id)).where(present: true)
   end
 
   def attendance_str
