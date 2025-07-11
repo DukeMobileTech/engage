@@ -25,11 +25,6 @@ class SittingsController < ApplicationController
 
   # GET /sittings/1/edit
   def edit
-    if @sitting.attendances.size != @section.participants.size
-      @section.participants.each do |participant|
-        @sitting.attendances.find_or_create_by(participant_id: participant.id)
-      end
-    end
     @facilitators = @site.facilitators
     authorize @sitting
   end
@@ -54,11 +49,6 @@ class SittingsController < ApplicationController
   def update
     authorize @sitting
     @facilitators = @site.facilitators
-    if params[:sitting]
-      params[:sitting][:attendances_attributes]&.each do |index, attendance|
-        @sitting.attendances.find(attendance["id"]).update(present: attendance["present"])
-      end
-    end
     respond_to do |format|
       if @sitting.update(sitting_params)
         format.html { redirect_to site_section_sitting_path(@site, @section, @sitting), notice: "Session was successfully updated." }
@@ -118,6 +108,6 @@ class SittingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sitting_params
-      params.expect(sitting: [ :name, :done_on, :section_id, :completed, attendances_attributes: [ :id, :participant_id, :sitting_id, :present ], user_ids: [], lesson_ids: [] ])
+      params.expect(sitting: [ :name, :done_on, :section_id, :completed, user_ids: [], lesson_ids: [] ])
     end
 end

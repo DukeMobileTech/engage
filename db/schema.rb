@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_17_140932) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_10_184849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -58,17 +58,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_140932) do
     t.datetime "updated_at", null: false
     t.string "label"
     t.index ["question_id"], name: "index_answers_on_question_id"
-  end
-
-  create_table "attendances", force: :cascade do |t|
-    t.integer "participant_id", null: false
-    t.integer "sitting_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "present", default: false
-    t.index ["participant_id"], name: "index_attendances_on_participant_id"
-    t.index ["sitting_id", "participant_id"], name: "index_attendances_on_sitting_id_and_participant_id", unique: true
-    t.index ["sitting_id"], name: "index_attendances_on_sitting_id"
   end
 
   create_table "curriculums", force: :cascade do |t|
@@ -295,8 +284,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_140932) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "lessons"
   add_foreign_key "answers", "questions"
-  add_foreign_key "attendances", "participants"
-  add_foreign_key "attendances", "sittings"
   add_foreign_key "lesson_attendances", "participants"
   add_foreign_key "lesson_attendances", "sitting_lessons"
   add_foreign_key "lessons", "curriculums"

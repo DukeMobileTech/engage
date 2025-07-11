@@ -24,7 +24,6 @@ class Sitting < ApplicationRecord
   include Discard::Model
   belongs_to :section
   delegate :site, to: :section, allow_nil: true
-  has_many :attendances, dependent: :destroy
   has_many :responses, dependent: :nullify
   has_many :user_sittings, dependent: :destroy
   has_many :users, through: :user_sittings

@@ -19,8 +19,8 @@
           <% @section_participant.sitting_attendances.each do |attendance| %>
           <tr>
             <td><%= @section.name %></td>
-            <td><%= attendance.sitting.name %></td>
-            <td><%= attendance.sitting.done_on.strftime("%F %H:%M %p") %></td>
+            <td><%= attendance.sitting_lesson.sitting.name %></td>
+            <td><%= attendance.sitting_lesson.sitting.done_on.strftime("%F %H:%M %p") %></td>
           </tr>
           <% end %>
         </tbody>

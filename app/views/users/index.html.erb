@@ -34,7 +34,7 @@
           </td>
           <td>
             <% unless user.admin? %>
-              <% user.sites.each do |site| %>
+              <% user.sites.kept.each do |site| %>
                 <span><%= link_to site.name, site %> </span>
               <% end %>
             <% end %>
