@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/thomaspark/bootswatch.git
-  revision: 6c4ea3bbde9815576d8088436ea6e0032d112740
+  revision: 0003aa6b1ec42e0a38b80b45a840250b0a6eafdd
   specs:
     bootswatch (5.3.7)
 
@@ -80,7 +80,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    annotaterb (4.16.0)
+    annotaterb (4.17.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
     ast (2.4.3)
@@ -96,7 +96,7 @@ GEM
       msgpack (~> 1.2)
     bootstrap (5.3.5)
       popper_js (>= 2.11.8, < 3)
-    brakeman (7.0.2)
+    brakeman (7.1.0)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -129,7 +129,7 @@ GEM
     dotenv (3.1.8)
     drb (2.2.3)
     ed25519 (1.4.0)
-    erb (5.0.1)
+    erb (5.0.2)
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
@@ -174,7 +174,7 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.8.0)
+    io-console (0.8.1)
     irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
@@ -182,7 +182,7 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    json (2.12.2)
+    json (2.13.0)
     kamal (2.7.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -222,7 +222,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.25.5)
-    mission_control-jobs (1.0.2)
+    mission_control-jobs (1.1.0)
       actioncable (>= 7.1)
       actionpack (>= 7.1)
       activejob (>= 7.1)
@@ -248,26 +248,26 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
-    nokogiri (1.18.8)
+    nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.8-aarch64-linux-gnu)
+    nokogiri (1.18.9-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.8-aarch64-linux-musl)
+    nokogiri (1.18.9-aarch64-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.8-arm-linux-gnu)
+    nokogiri (1.18.9-arm-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.8-arm-linux-musl)
+    nokogiri (1.18.9-arm-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.8-arm64-darwin)
+    nokogiri (1.18.9-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-darwin)
+    nokogiri (1.18.9-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-gnu)
+    nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-musl)
+    nokogiri (1.18.9-x86_64-linux-musl)
       racc (~> 1.4)
-    ostruct (0.6.2)
+    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -278,11 +278,10 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.4.0)
-    propshaft (1.1.0)
+    propshaft (1.2.1)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
-      railties (>= 7.0.0)
     psych (5.2.6)
       date
       stringio
@@ -340,7 +339,7 @@ GEM
       erb
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
-    reline (0.6.1)
+    reline (0.6.2)
       io-console (~> 0.5)
     rexml (3.4.1)
     rubocop (1.78.0)
@@ -354,7 +353,7 @@ GEM
       rubocop-ast (>= 1.45.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.45.1)
+    rubocop-ast (1.46.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     rubocop-performance (1.25.0)
@@ -411,7 +410,13 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_queue (1.1.5)
+    solid_errors (0.7.0)
+      actionpack (>= 7.0)
+      actionview (>= 7.0)
+      activerecord (>= 7.0)
+      activesupport (>= 7.0)
+      railties (>= 7.0)
+    solid_queue (1.2.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
       concurrent-ruby (>= 1.3.1)
@@ -505,6 +510,7 @@ DEPENDENCIES
   sendgrid-ruby (~> 6.7.0)
   solid_cable
   solid_cache
+  solid_errors (~> 0.7.0)
   solid_queue
   stimulus-rails
   thruster

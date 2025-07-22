@@ -46,11 +46,11 @@ class Section < ApplicationRecord
   scope :completed, -> { where(completed: true) }
 
   def completed_sittings
-    sittings.where(completed: true)
+    sittings.kept.where(completed: true)
   end
 
   def progress_label
-    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count} lessons completed"
+    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count} lessons entered"
   end
 
   def progress_percentage
@@ -145,7 +145,7 @@ class Section < ApplicationRecord
     demo = [ "ParticipantID", "Type", "Race/Ethnicity", "Sex", "Gender Indentity",
              "Sexual Orientation", "Age", "Grade" ]
     auto = [ "Reach", "Attendance" ]
-    sessions = sittings.order(:done_on)
+    sessions = sittings.kept.order(:done_on)
     sheet.add_row demo + auto + sessions.pluck(:name)
     section_participants.each do |sp|
       att_list = attendance(sessions, sp.participant)
@@ -161,7 +161,7 @@ class Section < ApplicationRecord
   end
 
   def observations
-    Response.where(questionnaire_id: observation_form&.id, sitting_id: sittings.pluck(:id))
+    Response.where(questionnaire_id: observation_form&.id, sitting_id: sittings.kept.pluck(:id))
   end
 
   def quality_question
@@ -341,8 +341,8 @@ class Section < ApplicationRecord
     sheet.add_row [ "Fidelity" ]
     sheet.add_row []
     sheet.add_row [ "Sessions" ]
-    sheet.add_row [ "Sessions Planned", sittings.size ]
-    sheet.add_row [ "Sessions Completed", sittings.where(completed: true).size ]
+    sheet.add_row [ "Sessions Planned", sittings.kept.size ]
+    sheet.add_row [ "Sessions Completed", sittings.kept.where(completed: true).size ]
     sheet.add_row []
     sheet.add_row [ "Observed Fidelity" ]
     sheet.add_row [ "How many classes were observed?", observations&.size || 0 ]
@@ -359,7 +359,7 @@ class Section < ApplicationRecord
     end
 
     def completed_only_if_all_sittings_completed
-      if completed? && sittings.any? { |sitting| !sitting.completed? }
+      if completed? && sittings.kept.any? { |sitting| !sitting.completed? }
         errors.add(:completed, "can't be true unless all sessions are completed")
       end
     end
