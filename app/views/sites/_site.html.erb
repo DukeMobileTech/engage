@@ -28,4 +28,9 @@
     <strong>Sections:</strong>
     <%= link_to @site.sections.size, site_sections_path(@site) %>
   </p>
+
+  <p>
+    <strong>Facilitators:</strong>
+    <%= @site.users.map(&:name).join(", ") %>
+  </p>
 </div>

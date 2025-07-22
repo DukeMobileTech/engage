@@ -85,3 +85,5 @@ gem "sendgrid-ruby", "~> 6.7.0"
 gem "kaminari", "~> 1.2"
 
 gem "discard", "~> 1.4"
+
+gem "solid_errors", "~> 0.7.0"
