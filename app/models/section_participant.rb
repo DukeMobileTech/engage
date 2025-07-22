@@ -34,7 +34,7 @@ class SectionParticipant < ApplicationRecord
   end
 
   def sitting_attendances
-    lesson_attendances.where(sitting_lesson_id: section.sitting_lessons.pluck(:id)).where(present: true)
+    lesson_attendances.where(sitting_lesson_id: section.sitting_lessons.joins(:sitting).merge(Sitting.kept).pluck(:id)).where(present: true)
   end
 
   def attendance_str
