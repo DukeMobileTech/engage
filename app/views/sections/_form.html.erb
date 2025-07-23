@@ -34,7 +34,7 @@
   <% unless @section.new_record? %>
     <div class="mb-3 form-check">
       <%= form.check_box :completed, class: "form-check-input" %>
-      <%= form.label "Entry Completed", class: "form-check-label" %>
+      <%= form.label :completed, "Entry Completed", class: "form-check-label" %>
     </div>
   <% end %>
 

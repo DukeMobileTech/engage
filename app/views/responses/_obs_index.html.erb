@@ -30,7 +30,11 @@
   </table>
   <div class="d-flex flex-row-reverse">
     <% if @sitting && policy(@questionnaire.responses.new).new? %>
-      <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+      <% if @responses.empty? %>
+        <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
+      <% else %>
+        <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), data: { turbo_method: :get, turbo_confirm: "Are you sure? There is already an observation for this session." }, class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
   </div>
 </div>
