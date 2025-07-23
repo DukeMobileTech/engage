@@ -31,6 +31,7 @@ class Section < ApplicationRecord
   belongs_to :site
   has_many :section_participants, dependent: :destroy
   has_many :participants, through: :section_participants
+  has_many :section_participant_responses, through: :section_participants
   has_many :sittings, dependent: :destroy
   has_many :lessons, through: :curriculum
   has_many :lesson_attendances, through: :sittings
@@ -361,6 +362,12 @@ class Section < ApplicationRecord
     def completed_only_if_all_sittings_completed
       if completed? && sittings.kept.any? { |sitting| !sitting.completed? }
         errors.add(:completed, "can't be true unless all sessions are completed")
+      end
+      if completed? && sittings.kept.empty?
+        errors.add(:completed, "can't be true unless there is at least one session")
+      end
+      if completed? && section_participant_responses.size < participants.size
+        errors.add(:completed, "can't be true unless all participants have a demographics response for this section")
       end
     end
 end

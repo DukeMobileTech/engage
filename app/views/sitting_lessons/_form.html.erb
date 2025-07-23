@@ -13,8 +13,8 @@
   <div class="mb-3">
     <p class="fw-bold">Please check the participants who are present</p>
     <div class="form-check">
-      <input type="checkbox" data-checkbox-select-all-target="checkboxAll" class="form-check-input" />
-      <span class="form-check-label fw-bold">Select All / Deselect All</span>
+      <input id="checkboxAll" type="checkbox" data-checkbox-select-all-target="checkboxAll" class="form-check-input" />
+      <label for="checkboxAll" class="form-check-label fw-bold">Select All / Deselect All</label>
     </div>
     <% @participants.each do |participant| %>
       <% attendance = @sitting_lesson.lesson_attendances.find { |a| a.participant_id == participant.id } || @sitting_lesson.lesson_attendances.build(participant: participant) %>
