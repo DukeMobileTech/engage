@@ -6,10 +6,15 @@ class SitesController < ApplicationController
   def index
     user = Current.user
     if user.admin?
-      @sites = Site.kept
+      @query = Site.kept.ransack(params[:query])
     else
-      @sites = user.sites.kept
+      @query = user.sites.kept.ransack(params[:query])
     end
+    @sites = @query.result(distinct: true)
+                   .page(params[:page])
+                   .per(params[:per_page] || 25)
+                   .includes(:organization, :participants, :sections)
+                   .order("name ASC")
     authorize @sites
   end
 

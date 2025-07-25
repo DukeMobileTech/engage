@@ -1,18 +1,38 @@
 <% content_for :title, "Sites" %>
 
 <div class="mb-5">
-    <p style="color: green"><%= notice %></p>
-    <h3 class="text-center">My Sites</h3>
+  <p style="color: green"><%= notice %></p>
+  <h3 class="text-center">My Sites</h3>
 
-  <div class="row">
-    <table id="sites" class="table table-striped">
-      <thead>
+  <%= search_form_for @query  do |form| %>
+  <div class="row justify-content-between align-items-center mb-4">
+    <div class="col-md-6">
+      <div class="d-flex">
+        <%= form.search_field :name_or_code_or_county_cont, placeholder: 'Search by name, code, county ...', class: "form-control me-2" %>
+        <%= button_tag :submit, class: "btn btn-outline-primary" do %>
+          <span class="d-flex align-items-center">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </span>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-auto mt-3 mt-md-0">
+      <% if policy(Site.new).new? %>
+        <%= link_to new_site_path, class: "btn btn-primary fw-semibold" do %>
+          <i class="fa-solid fa-plus"></i> New site
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="table-responsive shadow-sm rounded">
+    <table id="sites" class="table table-hover align-middle mb-0">
+      <thead class="table-light text-uppercase">
         <tr>
-          <th>Name</th>
-          <th>Code</th>
-          <th>State</th>
-          <th>County</th>
+          <th><%= sort_link(@query, :name) %></th>
+          <th><%= sort_link(@query, :code) %></th>
+          <th><%= sort_link(@query, :county) %></th>
           <th>Organization</th>
+          <th>State</th>
           <th>Urbanicity</th>
           <th>Setting</th>
           <th>Participants</th>
@@ -22,23 +42,27 @@
       <tbody>
         <% @sites.each do |site| %>
           <tr scope="row">
-            <td><%= link_to site.name, site %></td>
+            <td class="link-primary fw-semibold"><%= link_to site.name, site %></td>
             <td><%= site.code %></td>
-            <td><%= site.state %></td>
             <td><%= site.county %></td>
             <td><%= site.organization.name %></td>
+            <td><%= site.state %></td>
             <td><%= site.urbanicity %></td>
             <td><%= site.setting %></td>
-            <td><%= link_to site.site_participants.size, site_site_participants_path(site) %></td>
-            <td><%= link_to site.sections.size, site_sections_path(site) %></td>
+            <td>
+              <%= link_to site_site_participants_path(site) do %>
+                <%= site.site_participants.size %> <i class="fa-solid fa-people-group"></i>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to site_sections_path(site) do %>
+                <%= site.sections.size %> <i class="fa-solid fa-person-chalkboard"></i> 
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-  <% if policy(Site.new).new? %>
-    <div class="d-flex flex-row-reverse">
-      <%= link_to "New site", new_site_path, class: "btn btn-primary" %>
-    </div>
   <% end %>
 </div>
