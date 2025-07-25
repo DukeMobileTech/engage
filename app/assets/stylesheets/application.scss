@@ -33,6 +33,22 @@ body {
   padding-top: 120px;
 }
 
+/* Hover effect on rows */
+tbody tr:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+/* Remove underline on table header when not hover */
+thead th a {
+  text-decoration: none;
+}
+
+/* Underline table header on hover */
+thead th a:hover {
+  text-decoration: underline;
+}
+
 .progress-bar {
   width: 100%;
   height: 8px;

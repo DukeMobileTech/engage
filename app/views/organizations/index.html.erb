@@ -1,34 +1,56 @@
+<% content_for :title, "Organizations" %>
+
 <div class="mb-5">
   <p style="color: green"><%= notice %></p>
-  <% content_for :title, "Organizations" %>
-
   <h3 class="text-center">Organizations</h3>
 
-  <table id="organizations" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>State</th>
-        <th>Urbanicity</th>
-        <th>Setting</th>
-        <th>Sites</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @organizations.each do |organization| %>
-        <tr scope="row">
-          <td><%= link_to organization.name, organization %></td>
-          <td><%= organization.state %></td>
-          <td><%= organization.urbanicity %></td>
-          <td><%= organization.setting %></td>
-          <td><%= link_to organization.sites.size, organization %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <% if policy(@organizations).new? %>
-    <div class="d-flex flex-row-reverse">
-      <%= link_to "New organization", new_organization_path, class: "btn btn-primary" %>
+  <%= search_form_for @query  do |form| %>
+  <div class="row justify-content-between align-items-center mb-4">
+    <div class="col-md-6">
+      <div class="d-flex">
+        <%= form.search_field :name_or_state_or_urbanicity_or_setting_cont, placeholder: 'Search by name, state, urbanicity, setting ...', class: "form-control me-2" %>
+        <%= button_tag :submit, class: "btn btn-outline-primary" do %>
+          <span class="d-flex align-items-center">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </span>
+        <% end %>
+      </div>
     </div>
+    <div class="col-md-auto mt-3 mt-md-0">
+      <% if policy(@organizations).new? %>
+        <%= link_to new_organization_path, class: "btn btn-primary fw-semibold" do %>
+          <i class="fa-solid fa-plus"></i> New organization
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="table-responsive shadow-sm rounded">
+    <table id="organizations" class="table table-hover align-middle mb-0">
+      <thead class="table-light text-uppercase">
+        <tr>
+          <th><%= sort_link(@query, :name) %></th>
+          <th><%= sort_link(@query, :state) %></th>
+          <th><%= sort_link(@query, :urbanicity) %></th>
+          <th><%= sort_link(@query, :setting) %></th>
+          <th>Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @organizations.each do |organization| %>
+          <tr scope="row">
+            <td class="link-primary fw-semibold"><%= link_to organization.name, organization %></td>
+            <td><%= organization.state %></td>
+            <td><%= organization.urbanicity %></td>
+            <td><%= organization.setting %></td>
+            <td>
+              <%= link_to organization do %>
+                <%= organization.sites.size %> <i class="fa-solid fa-location-dot"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <% end %>
 </div>
