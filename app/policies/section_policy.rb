@@ -4,10 +4,10 @@ class SectionPolicy < AdminPolicy
   end
 
   def update?
-    @user.admin? || @user.facilitator?
+    @user.admin? || @user.facilitator? || @user.observer?
   end
 
   def edit?
-    update? || @user.facilitator?
+    update?
   end
 end

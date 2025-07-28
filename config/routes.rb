@@ -38,6 +38,10 @@ Rails.application.routes.draw do
       get "bulk" => "participants#bulk"
       post "bulk_create" => "participants#bulk_create"
     end
+    member do
+      get "merge" => "participants#merge"
+      post "meld" => "participants#meld"
+    end
   end
   resources :users, only: %i[index show new create edit update] do
     member do
