@@ -1,9 +1,9 @@
 class ParticipantsController < ApplicationController
-  before_action :set_participant, only: %i[ show edit update destroy ]
+  before_action :set_participant, only: %i[ show edit update destroy merge meld]
 
   # GET /participants or /participants.json
   def index
-    @query = Participant.ransack(params[:query])
+    @query = Participant.kept.ransack(params[:query])
     @participants = @query.result(distinct: true)
                           .page(params[:page])
                           .per(params[:per_page] || 25)
@@ -75,6 +75,16 @@ class ParticipantsController < ApplicationController
     else
       redirect_to participants_path
     end
+  end
+
+  def merge
+    @participants = Participant.kept.where.not(id: @participant.id)
+  end
+
+  def meld
+    party = Participant.find(params[:participant_id])
+    @participant.merge_participant(party)
+    redirect_to @participant, notice: "Participant was successfully merged."
   end
 
   private

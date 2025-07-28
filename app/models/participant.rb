@@ -140,6 +140,24 @@ class Participant < ApplicationRecord
     "#{rac} / #{eth}"
   end
 
+  def merge_participant(party)
+    party.site_participants.each do |sp|
+      unless sites.include?(sp.site)
+        sp.participant_id = id
+        sp.save
+      end
+    end
+    party.section_participants.each do |sp|
+      unless sections.include?(sp.section)
+        sp.participant_id = id
+        sp.save
+      end
+    end
+    party.responses.update_all(participant_id: id)
+    party.lesson_attendances.update_all(participant_id: id)
+    party.destroy
+  end
+
   private
 
   def assign_study_id

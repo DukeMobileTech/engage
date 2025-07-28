@@ -9,3 +9,4 @@ pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-n
 pin "@stimulus-components/checkbox-select-all", to: "@stimulus-components--checkbox-select-all.js" # @6.1.0
 pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
+pin "slim-select" # @2.12.1

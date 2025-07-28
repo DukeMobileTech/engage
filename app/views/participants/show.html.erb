@@ -11,8 +11,16 @@
       <%= render "participant", locals: { participant: @participant } %>
     </div>
 
-    <div class="mb-1 text-center">
-      <%= link_to "Edit this participant", edit_participant_path(@participant), class: 'btn btn-primary' %>
+    <div class="card-footer">
+      <div class="m-1 d-flex justify-content-between">
+        <%= link_to "Back to participants", participants_path, class: "btn btn-secondary" %>
+        <% if policy(@participant).destroy? %>
+          <%= link_to "Delete this participant", @participant, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this participant?" }, class: "btn btn-danger" %>
+        <% end %>
+        <% if policy(@participant).edit? %>
+          <%= link_to "Edit this participant", edit_participant_path(@participant), class: 'btn btn-primary' %>
+        <% end %>
+      </div>
     </div>
   </div>
 
