@@ -30,4 +30,8 @@ class SiteParticipant < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ :site, :participant ]
   end
+
+  def site_participant_sections
+    participant.sections.where(site_id: site.id)
+  end
 end

@@ -6,7 +6,7 @@ class SectionsController < ApplicationController
 
   # GET /sections or /sections.json
   def index
-    @sections = @site.sections.kept
+    @sections = @site.sections.kept.includes(:participants)
     authorize @sections
   end
 

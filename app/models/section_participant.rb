@@ -42,7 +42,7 @@ class SectionParticipant < ApplicationRecord
   end
 
   def progress
-    "#{((sitting_attendances.size.to_f / section.lessons.size.to_f) * 100).round} %"
+    ((sitting_attendances.size.to_f / section.lessons.size.to_f) * 100).round
   end
 
   def demographics_response

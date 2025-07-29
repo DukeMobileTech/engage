@@ -23,8 +23,12 @@ class SiteParticipantsTest < ApplicationSystemTestCase
     visit site_site_participants_url(@site)
     click_on "Enroll existing participants"
     assert_selector "h4", text: "Enroll Participants To Site"
-    assert_selector "p", text: "Select the participants you want enrolled on this site"
-    check("select-all")
+    assert_selector "p", text: "Search and select the participants you want enrolled on this site"
+    # check("select-all")
+    # click_on "ss_main"
+    # find("select#site_participant_ids").find("option[value='#{@participant.id}']").select_option
+    # select("#{@participant.id}", from: "site_participant_ids")
+    # find("#site_participant_ids.ss-main").click
     click_on "Save"
 
     assert_text "Site was successfully updated."

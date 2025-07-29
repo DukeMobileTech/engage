@@ -1,59 +1,58 @@
+<% content_for :title, "Site participants" %>
 <p style="color: green"><%= notice %></p>
 <h2 class="text-center"><%= @site.name %></h2>
 
 <div class="row">
   <%= render partial: "sites/sidebar", locals: { site: @site } %>
-
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <% content_for :title, "Site participants" %>
-
     <div class="card main-card">
       <div class="card-header">
         <h4>Site Participants</h4>
       </div>
-
       <div class="card-body">
-      <%= search_form_for @query, url: site_site_participants_path(@site)  do |form| %>
-        <div class="row mb-2">
-          <div class="col-lg-3"></div>
-          <div class="col-lg-4"><%= form.search_field :participant_name_or_participant_study_id_or_participant_category_cont, placeholder: 'Search by name or study id or category', class: "form-control" %></div>
-          <div class="col-lg-2"><%= form.submit class: "btn btn-outline-info" %></div>
-          <div class="col-lg-3"></div>
-        </div>
-        <table id="site-participants" class="table table-striped">
-          <thead>
-            <tr>
-              <th><%= sort_link(@query, :participant_name) %></th>
-              <th><%= sort_link(@query, :participant_study_id, "Study ID") %></th>
-              <th><%= sort_link(@query, :participant_category) %></th>
-              <th>Sex</th>
-              <th>Grade</th>
-              <th>Sections</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% @site_participants.each do |sp| %>
-            <tr>
-              <td><%= link_to sp.participant.name, sp.participant %></td>
-              <td><%= sp.participant.study_id %></td>
-              <td><%= sp.participant.category %></td>
-              <td><%= sp.participant.sex %></td>
-              <td><%= sp.participant.grade %></td>
-              <td>
-                <% sp.participant.sections.each do |section| %>
-                  <span><%= link_to section.name, site_section_path(section.site, section) %></span>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+        <%= search_form_for @query, url: site_site_participants_path(@site)  do |form| %>
+          <div class="row mb-2">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-4"><%= form.search_field :participant_name_or_participant_study_id_or_participant_category_cont, placeholder: 'Search by name or study id or category', class: "form-control" %></div>
+            <div class="col-lg-2"><%= form.submit class: "btn btn-outline-info" %></div>
+            <div class="col-lg-3"></div>
+          </div>
+          <table id="site-participants" class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= sort_link(@query, :participant_name) %></th>
+                <th><%= sort_link(@query, :participant_study_id, "Study ID") %></th>
+                <th><%= sort_link(@query, :participant_category) %></th>
+                <th>Sex</th>
+                <th>Grade</th>
+                <th>Sections</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @site_participants.each do |sp| %>
+              <tr>
+                <td><%= link_to sp.participant.name, sp.participant %></td>
+                <td><%= sp.participant.study_id %></td>
+                <td><%= sp.participant.category %></td>
+                <td><%= sp.participant.sex %></td>
+                <td><%= sp.participant.grade %></td>
+                <td>
+                  <% sp.site_participant_sections.each do |section| %>
+                    <span><%= link_to section.short_name, site_section_path(section.site, section), class: "btn btn-sm btn-outline-info mb-1" %></span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
         <% end %>
-        <div class="d-flex justify-content-between">
-          <%= link_to "Enroll new participants", bulk_participants_path(site_id: @site), class: "btn btn-primary" %>
-          <%= link_to "Enroll existing participants", edit_site_path(@site, enroll: true), class: "btn btn-primary" %>
+        <div class="card-footer">
+          <div class="d-flex justify-content-between align-items-start">
+            <%= link_to "Enroll new participants", bulk_participants_path(site_id: @site), class: "btn btn-primary" %>
+            <%= paginate @site_participants %>
+            <%= link_to "Enroll existing participants", edit_site_path(@site, enroll: true), class: "btn btn-primary" %>
+          </div>
         </div>
-
       </div>
     </div>
   </main>

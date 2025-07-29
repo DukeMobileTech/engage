@@ -11,18 +11,13 @@
     </div>
   <% end %>
 
-  <div>
-    <p class="fw-bold">Select the participants you want enrolled on this site</p>
-    <div class="form-check">
-      <input id="select-all" type="checkbox" data-checkbox-select-all-target="checkboxAll" class="form-check-input" />
-      <span class="form-check-label fw-bold">Select All / Deselect All</span>
-    </div>
-    <%= form.collection_check_boxes :participant_ids, @participants, :id, :enroll_label do |b| %>
-      <div class="form-check">
-        <%= b.check_box data: { checkbox_select_all_target: 'checkbox' }, class: "form-check-input" %>
-        <%= b.label class: "form-check-label" %>
-      </div>
-    <% end %>
+  <div class="mb-3">
+    <p class="fw-bold">Search and select the participants you want enrolled on this site</p>
+    <p class="fw-bold">Delete the ones you want to unenroll</p>
+    <%= form.select :participant_ids,
+      @participants.pluck(:name, :id),
+      { include_blank: true },
+      { multiple: true, data: { controller: 'slim' } } %>
   </div>
 
   <div class="d-flex flex-row-reverse">

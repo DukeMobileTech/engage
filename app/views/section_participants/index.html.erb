@@ -31,8 +31,19 @@
               <td><%= link_to sp.participant.name, participant_path(sp.participant) %></td>
               <td><%= sp.participant.study_id %></td>
               <td><%= sp.participant.category %></td>
-              <td><%= link_to sp.attendance_str, site_section_section_participant_path(@site, @section, sp) %></td>
-              <td><%= sp.demographics_response ? (link_to sanitize(sp.demographics_label), edit_site_section_section_participant_section_participant_response_path(@site, @section, sp, sp.section_participant_response)) : (link_to 'Enter response', new_site_section_section_participant_section_participant_response_path(@site, @section, sp)) %></td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: <%= sp.progress %>%"></div>
+                </div>
+                <%= link_to "#{sp.attendance_str} (#{sp.progress}%)", site_section_section_participant_path(@site, @section, sp) %>
+              </td>
+              <td>
+                <% if sp.demographics_response %>
+                  <span><%= link_to sanitize(sp.demographics_label), edit_site_section_section_participant_section_participant_response_path(@site, @section, sp, sp.section_participant_response), class: "text-success" %></span>
+                <% else %>
+                  <span><%= link_to 'Enter response', new_site_section_section_participant_section_participant_response_path(@site, @section, sp), class: "text-danger" %></span>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>

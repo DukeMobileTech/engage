@@ -354,6 +354,10 @@ class Section < ApplicationRecord
     sheet.add_row [ "Overall Quality", avg_qual ]
   end
 
+  def short_name
+    name.delete_prefix("#{site.name} - ")
+  end
+
   private
     def assign_name
       self.name = "#{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"

@@ -31,8 +31,8 @@ class SitesController < ApplicationController
 
   # GET /sites/1/edit
   def edit
-    @participants = Participant.all
     authorize @site
+    @participants = Participant.kept
   end
 
   # POST /sites or /sites.json

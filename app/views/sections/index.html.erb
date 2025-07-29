@@ -23,7 +23,7 @@
           <tbody>
             <% @sections.each do |section| %>
               <tr>
-                <td><%= link_to section.name, site_section_path(@site, section) %></td>
+                <td><%= link_to section.short_name, site_section_path(@site, section) %></td>
                 <td><%= section.participants.size %></td>
                 <td>
                   <div class="progress-bar">

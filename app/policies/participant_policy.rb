@@ -15,6 +15,10 @@ class ParticipantPolicy < AdminPolicy
     update?
   end
 
+  def enroll?
+    update?
+  end
+
   def bulk?
     create?
   end
