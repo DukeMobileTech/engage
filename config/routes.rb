@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     member do
       get "merge" => "participants#merge"
       post "meld" => "participants#meld"
+      get "enroll" => "participants#enroll"
     end
   end
   resources :users, only: %i[index show new create edit update] do

@@ -29,6 +29,8 @@ class Participant < ApplicationRecord
 
   before_create :assign_study_id
 
+  accepts_nested_attributes_for :sites
+
   def self.ransackable_attributes(auth_object = nil)
     %w[name study_id category] + _ransackers.keys
   end
@@ -155,7 +157,7 @@ class Participant < ApplicationRecord
     end
     party.responses.update_all(participant_id: id)
     party.lesson_attendances.update_all(participant_id: id)
-    party.destroy
+    party.discard
   end
 
   private

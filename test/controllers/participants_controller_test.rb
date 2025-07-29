@@ -40,7 +40,7 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy participant" do
-    assert_difference("Participant.count", -1) do
+    assert_difference("Participant.kept.count", -1) do
       delete participant_url(@participant)
     end
 

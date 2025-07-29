@@ -1,0 +1,36 @@
+<div class="mb-3">
+  <% content_for :title, "Site enrollment" %>
+  <h4 class="text-center">Participant Site Enrollment</h4>
+
+  <%= form_with(model: @participant) do |form| %>
+    <% if @participant.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@participant.errors.count, "error") %> prohibited this participant from being saved:</h2>
+        <ul>
+          <% @participant.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <span><b>Participant: </b> <%= @participant.name %></span>
+    </div>
+    <div class="mb-3">
+      <span><b>Current Sites: </b> <%= @participant.sites.map(&:name).join(", ") %></span>
+    </div>
+    <div class="mb-3">
+      <p>Select other sites to enroll in below</p>
+      <p>Deselecting a current site unenrolls the participant from that site</p>
+      <%= form.select :site_ids,
+       @sites.collect { |s| [ s.name, s.id ] },
+       { include_blank: true },
+       { multiple: true, data: { controller: 'slim' } } %>
+    </div>
+
+    <div class="d-flex flex-row-reverse">
+      <%= form.submit "Save Enrollment", class: 'btn btn-success'%>
+    </div>
+  <% end %>
+</div>
