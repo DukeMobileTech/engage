@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_10_184849) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_161516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -239,6 +239,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_184849) do
     t.boolean "completed", default: false
     t.string "name"
     t.datetime "discarded_at"
+    t.string "lessons_covered", default: [], array: true
     t.index ["discarded_at"], name: "index_sittings_on_discarded_at"
     t.index ["section_id"], name: "index_sittings_on_section_id"
   end

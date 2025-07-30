@@ -21,20 +21,4 @@
       </div>
     </div>
   </div>
-  <div class="card main-card">
-    <div class="card-header">
-      <h4><%= @sitting.name %> Forms</h4>
-    </div>
-    <div class="card-body d-flex justify-content-evenly">
-      <%# <span> %>
-        <%#= link_to "Demographics", questionnaire_responses_path(Questionnaire.demographics, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-      <%# </span> %>
-      <span>
-        <%= link_to "Fidelity Logs", questionnaire_responses_path(Questionnaire.fidelity, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-      </span>
-      <span>
-        <%= link_to "Program Observations", questionnaire_responses_path(Questionnaire.observation, sitting_id: @sitting.id), class: 'btn btn-primary' %>
-      </span>
-    </div>
-  </div>
 </main>

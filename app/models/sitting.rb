@@ -2,14 +2,15 @@
 #
 # Table name: sittings
 #
-#  id           :bigint           not null, primary key
-#  completed    :boolean          default(FALSE)
-#  discarded_at :datetime
-#  done_on      :datetime
-#  name         :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  section_id   :integer          not null
+#  id              :bigint           not null, primary key
+#  completed       :boolean          default(FALSE)
+#  discarded_at    :datetime
+#  done_on         :datetime
+#  lessons_covered :string           default([]), is an Array
+#  name            :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  section_id      :integer          not null
 #
 # Indexes
 #
@@ -58,11 +59,11 @@ class Sitting < ApplicationRecord
   end
 
   def fidelity_log_responses
-    responses.where(questionnaire_id: Questionnaire.fidelity&.id)
+    responses.kept.where(questionnaire_id: Questionnaire.fidelity&.id)
   end
 
   def program_observation_responses
-    responses.where(questionnaire_id: Questionnaire.observation&.id)
+    responses.kept.where(questionnaire_id: Questionnaire.observation&.id)
   end
 
   def status
@@ -73,6 +74,14 @@ class Sitting < ApplicationRecord
     else
       "not-started"
     end
+  end
+
+  def lessons_covered_list
+    section.lessons.where(id: lessons_covered)&.map { |l| l.title }.join(", ")
+  end
+
+  def lessons_covered
+    read_attribute(:lessons_covered).map { |id| id.to_i } # needed to play nice with form collection_check_boxes
   end
 
   private

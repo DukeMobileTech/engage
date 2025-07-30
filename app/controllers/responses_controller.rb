@@ -66,7 +66,7 @@ class ResponsesController < ApplicationController
     authorize @response
     @response.discard
     respond_to do |format|
-      format.html { redirect_to questionnaire_responses_path(@questionnaire), status: :see_other, notice: "Response was successfully discarded." }
+      format.html { redirect_back fallback_location: questionnaire_responses_path(@questionnaire), status: :see_other, notice: "Response was successfully discarded." }
       format.json { head :no_content }
     end
   end

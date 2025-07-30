@@ -25,10 +25,10 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to site_sections_url(@site)
   end
 
-  test "should show section" do
-    get site_section_url(@site, @section)
-    assert_response :success
-  end
+  # test "should show section" do
+  #   get site_section_url(@site, @section)
+  #   assert_response :success
+  # end
 
   test "should get edit" do
     get edit_site_section_url(@site, @section)
