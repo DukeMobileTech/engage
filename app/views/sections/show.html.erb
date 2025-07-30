@@ -31,7 +31,39 @@
       <h4>Program Observations</h4>
     </div>
     <div class="card-body">
-      <%= link_to "View Observations", questionnaire_responses_path(@section.observation_form), class: 'btn btn-primary' %>
+      <div class="table-responsive shadow-sm rounded">
+        <table id="observations" class="table table-hover align-middle mb-0">
+          <thead class="table-light text-uppercase">
+            <tr>
+              <th>Date</th>
+              <th>Session</th>
+              <th>Quality</th>
+              <th>Act. Planned</th>
+              <th>Act. Completed</th>
+              <th>Adherence</th>
+              <th>Discard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @section.observations.each do |obs| %>
+              <% obs_data = @section.sitting_quality_adherence(obs) %>
+              <tr scope="row">
+                <td><%= link_to obs_data[0]&.done_on&.strftime("%F"), questionnaire_response_path(obs.questionnaire_id, obs.id) %></td>
+                <td><%= link_to obs_data[0]&.name, site_section_sitting_path(@site, @section, obs_data[0]) %></td>
+                <td><%= obs_data[1] %></td>
+                <td><%= obs_data[2] %></td>
+                <td><%= obs_data[3] %></td>
+                <td><%= obs_data[4].round %></td>
+                <td>
+                  <% if policy(obs).destroy? %>
+                    <%= link_to "Discard", questionnaire_response_path(obs.questionnaire_id, obs), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to discard this response?" }, class: 'btn btn-sm btn-danger' %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

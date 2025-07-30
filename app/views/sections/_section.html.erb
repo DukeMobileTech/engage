@@ -119,7 +119,7 @@
     <% elsif sitting.status == "in-progress" %>
       <div class="session-card <%= sitting.status %>">
         <div class="session-icon">
-            <i class="fas fa-play-circle"></i>
+          <i class="fa-solid fa-spinner"></i>
         </div>
         <div class="session-number"><%= sitting.name %></div>
         <div class="session-status">In Progress</div>
@@ -139,7 +139,7 @@
     <% elsif sitting.status == "not-started" %>
       <div class="session-card <%= sitting.status %>">
         <div class="session-icon">
-            <i class="fas fa-circle"></i>
+            <i class="fa-solid fa-play"></i>
         </div>
         <div class="session-number"><%= sitting.name %></div>
         <div class="session-status">Not Started</div>

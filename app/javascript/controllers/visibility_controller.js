@@ -9,7 +9,8 @@ export default class extends Controller {
   ];
 
   toggle({ target }) {
-    if (target.dataset.visibilityAnswerNumberValue == '1') {
+    if (target.dataset.visibilityAnswerNumberValue == '1' ||
+      target.dataset.visibilityAnswerNumberValue == '5') {
       this.deliveryModifiedTarget.style.display = 'none';
       this.contentModifiedTarget.style.display = 'none';
       this.notDeliveredTarget.style.display = 'none';

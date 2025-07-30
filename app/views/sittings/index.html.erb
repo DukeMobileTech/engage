@@ -16,6 +16,7 @@
             <th>Date</th>
             <th>Participants</th>
             <th>Entry Completed</th>
+            <th>Lessons Covered</th>
             <th>Facilitators</th>
           </tr>
         </thead>
@@ -27,6 +28,7 @@
               <td><%= sitting.done_on.strftime("%Y-%m-%d") %></td>
               <td><%= sitting.sitting_lessons.map(&:participation).join(", ") %></td>
               <td><%= sitting.completed ? "Yes" : "No" %></td>
+              <td><%= sitting.lessons_covered_list %></td>
               <td><%= sitting.users.map(&:name).join(", ") %></td>
             </tr>
           <% end %>

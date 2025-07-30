@@ -1,52 +1,59 @@
 <%= form_for([@site, @section, @sitting]) do |form| %>
-  <% if sitting.errors.any? %>
+  <% if @sitting.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(sitting.errors.count, "error") %> prohibited this sitting from being saved:</h2>
+      <h2><%= pluralize(@sitting.errors.count, "error") %> prohibited this sitting from being saved:</h2>
       <ul>
-        <% sitting.errors.each do |error| %>
+        <% @sitting.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.select :name, (1..30).map { |i| "Session #{i}" }, {}, { class: "form-select" } %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label "Date Administered", class: "form-label fw-bold" %>
-    <%= form.date_field :done_on, class: "form-control", required: true %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label 'Lessons', class: "form-label fw-bold" %>
-    <%= form.collection_check_boxes(:lesson_ids, @lessons, :id, :title) do |b| %>
-     <div class="form-check">
-        <%= b.check_box(class: "form-check-input") %>
-        <%= b.label(class: "form-check-label") %>
-      </div>
-    <% end %>
-  </div>
-
-  <% unless @sitting.new_record? %>
+  <% if params[:close_out] %>
     <div class="mb-3">
       <%= form.check_box :completed, class: "form-check-input" %>
       <%= form.label :completed, "Entry Completed?", class: "form-label fw-bold" %>
     </div>
-  <% end %>
+    <div class="mb-3">
+      <%= form.label "Lessons covered in session", class: "form-label fw-bold" %>
+      <%= form.collection_check_boxes(:lessons_covered, @section.curriculum.lessons, :id, :title) do |b| %>
+        <div class="form-check">
+          <%= b.check_box class: 'form-check-input' %>
+          <%= b.label class: 'form-check-label' %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="mb-3">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.select :name, (1..30).map { |i| "Session #{i}" }, {}, { class: "form-select" } %>
+    </div>
 
-  <div class="mb-3">
-    <%= form.label 'Facilitators', class: "form-label fw-bold" %>
-    <%= form.collection_check_boxes(:user_ids, @facilitators, :id, :name) do |b| %>
+    <div class="mb-3">
+      <%= form.label "Date Administered", class: "form-label fw-bold" %>
+      <%= form.date_field :done_on, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label 'Lessons', class: "form-label fw-bold" %>
+      <%= form.collection_check_boxes(:lesson_ids, @lessons, :id, :title) do |b| %>
       <div class="form-check">
-        <%= b.check_box(class: "form-check-input") %>
-        <%= b.label(class: "form-check-label") %>
-      </div>
-    <% end %>
-  </div>
+          <%= b.check_box(class: "form-check-input") %>
+          <%= b.label(class: "form-check-label") %>
+        </div>
+      <% end %>
+    </div>
 
+    <div class="mb-3">
+      <%= form.label 'Facilitators', class: "form-label fw-bold" %>
+      <%= form.collection_check_boxes(:user_ids, @facilitators, :id, :name) do |b| %>
+        <div class="form-check">
+          <%= b.check_box(class: "form-check-input") %>
+          <%= b.label(class: "form-check-label") %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <div class="d-flex flex-row-reverse">
     <%= form.submit 'Save', class: 'btn btn-success' %>
   </div>

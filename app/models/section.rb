@@ -162,7 +162,7 @@ class Section < ApplicationRecord
   end
 
   def observations
-    Response.where(questionnaire_id: observation_form&.id, sitting_id: sittings.kept.pluck(:id))
+    Response.kept.where(questionnaire_id: observation_form&.id, sitting_id: sittings.kept.pluck(:id)).order(created_at: :desc)
   end
 
   def quality_question
