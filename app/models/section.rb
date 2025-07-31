@@ -46,6 +46,14 @@ class Section < ApplicationRecord
 
   scope :completed, -> { where(completed: true) }
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name] + _ransackers.keys
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
+
   def completed_sittings
     sittings.kept.where(completed: true)
   end

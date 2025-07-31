@@ -10,3 +10,5 @@ pin "@stimulus-components/checkbox-select-all", to: "@stimulus-components--check
 pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
 pin "slim-select" # @2.12.1
+pin "stimulus-autocomplete", to: "stimulus-autocomplete.js" # @3.1.0
+pin "custom_autocomplete_controller", to: "controllers/custom_autocomplete_controller.js"

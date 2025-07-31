@@ -60,5 +60,6 @@ class User < ApplicationRecord
 
     def remove_redundant_roles
       user_roles.where(role: Role.find_by(name: "viewer")).destroy_all if user_roles.count > 1
+      user_roles.where.not(role: Role.find_by(name: "admin")).destroy_all if admin?
     end
 end

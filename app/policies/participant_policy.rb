@@ -28,14 +28,18 @@ class ParticipantPolicy < AdminPolicy
   end
 
   def merge?
-    create?
+    @user.admin?
   end
 
   def meld?
-    create?
+    @user.admin?
   end
 
   def destroy?
     @user.admin?
+  end
+
+  def autocomplete?
+    create?
   end
 end

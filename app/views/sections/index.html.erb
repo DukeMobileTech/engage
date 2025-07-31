@@ -10,10 +10,17 @@
         <h4>Site Sections</h4>
       </div>
       <div class="card-body">
+        <%= search_form_for @query, url: site_sections_path(@site) do |form| %>
+        <div class="row m-1">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-4"><%= form.search_field :name_cont, placeholder: 'Search by name', class: "form-control" %></div>
+          <div class="col-lg-2"><%= form.submit class: "btn btn-outline-info" %></div>
+          <div class="col-lg-3"></div>
+        </div>
         <table id="sections" class="table table-striped">
           <thead>
             <tr>
-              <th>Program Name</th>
+              <th><%= sort_link(@query, :name) %></th>
               <th>Participants</th>
               <th>Progress</th>
               <th>Attendance</th>
@@ -51,6 +58,7 @@
             <% end %>
           </tbody>
         </table>
+        <% end %>
       </div>
       <div class="card-footer">
         <% if policy(Section.new).new? %>

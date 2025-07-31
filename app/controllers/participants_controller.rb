@@ -13,6 +13,12 @@ class ParticipantsController < ApplicationController
     authorize @participants
   end
 
+  def autocomplete
+    @participants = Participant.kept.where("name ILIKE ?", "%#{params[:q]}%")
+    authorize @participants
+    render json: @participants.map { |p| { id: p.id, name: p.name } }
+  end
+
   # GET /participants/1 or /participants/1.json
   def show
     authorize @participant

@@ -6,7 +6,8 @@ class SectionsController < ApplicationController
 
   # GET /sections or /sections.json
   def index
-    @sections = @site.sections.kept.includes(:participants)
+    @query = @site.sections.kept.ransack(params[:query])
+    @sections = @query.result(distinct: true).order("name ASC")
     authorize @sections
   end
 

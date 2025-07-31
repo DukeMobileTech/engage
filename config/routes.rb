@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     collection do
       get "bulk" => "participants#bulk"
       post "bulk_create" => "participants#bulk_create"
+      get "autocomplete" => "participants#autocomplete"
     end
     member do
       get "merge" => "participants#merge"
