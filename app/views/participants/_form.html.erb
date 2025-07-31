@@ -11,22 +11,31 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control", placeholder: "Please enter the name of the participant" %>
-  </div>
+  <div class="row">
+    <div class="col-md-8" data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_participants_path(format: :turbo_stream) %>">
+      <div class="mb-3">
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, class: "form-control", placeholder: "Please enter the name of the participant", "data-autocomplete-target": 'input' %>
+        <%= form.hidden_field :participant_id, "data-autocomplete-target": 'results', class: 'autocomplete' %>
+      </div>
 
-  <div class="mb-3">
-    <%= form.label :study_id, class: "form-label" unless @participant.new_record? %>
-    <%= form.text_field :study_id, class: "form-control" unless @participant.new_record? %>
-  </div>
+      <div class="mb-3">
+        <%= form.label :study_id, class: "form-label" unless @participant.new_record? %>
+        <%= form.text_field :study_id, class: "form-control" unless @participant.new_record? %>
+      </div>
 
-  <div class="mb-3">
-    <%= form.label :category, class: "form-label" %>
-    <%= form.select :category, PARTICIPANT_TYPES, {}, { class: "form-select" } %>
-  </div>
+      <div class="mb-3">
+        <%= form.label :category, class: "form-label" %>
+        <%= form.select :category, PARTICIPANT_TYPES, {}, { class: "form-select" } %>
+      </div>
 
-  <div class="d-flex flex-row-reverse">
-    <%= form.submit class: 'btn btn-success'%>
+      <div class="d-flex flex-row-reverse">
+        <%= form.submit class: 'btn btn-success'%>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5 class="text-center">Potential Duplicates</h5>
+      <div id="autocomplete-results"></div>
+    </div>
   </div>
 <% end %>

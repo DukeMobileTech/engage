@@ -446,3 +446,21 @@ thead th a:hover {
 .no-link-style:focus {
   text-decoration: underline;
 }
+
+#autocomplete-results {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+#autocomplete-results ul {
+  list-style-type: none;
+}
+
+.autocomplete-results li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.autocomplete-results li:hover {
+  background-color: #ddd;
+}
