@@ -37,6 +37,10 @@ class SectionParticipant < ApplicationRecord
     lesson_attendances.where(sitting_lesson_id: section.sitting_lessons.joins(:sitting).merge(Sitting.kept).pluck(:id)).where(present: true)
   end
 
+  def average_attendance
+    ((sitting_attendances.size / section.sitting_lessons.size.to_f) * 100).round(2)
+  end
+
   def attendance_str
     "#{sitting_attendances.size} out of #{section.lessons.size}"
   end

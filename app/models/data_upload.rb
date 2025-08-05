@@ -147,25 +147,12 @@ class DataUpload < ApplicationRecord
                 ]
       row += yspr_row
       # rest
-      attendance_list = section.participants.map { |p| p.average_attendance(section) }
-      avg_att = attendance_list.sum / attendance_list.size if attendance_list.size.positive?
-      avg_att = 0 if attendance_list.size.zero?
-      part_75_or_more = attendance_list.select { |a| a >= 75 }.size
-      sessions_planned = section.sittings.size
-      sessions_completed = section.sittings.where(completed: true).size
+      sessions_planned = section.sittings.kept.size
+      sessions_completed = section.completed_sittings.size
       sessions_observed = section.observations&.size || 0
-      adh_list = []
-      qual_list = []
-      section.observations.each do |obs|
-        _si, quality, _ac, _cc, adh = section.sitting_quality_adherence(obs)
-        adh_list << adh
-        qual_list << quality&.to_i
-      end
-      avg_adh = (adh_list.sum / adh_list.size).round if adh_list.size.positive?
-      avg_adh = 0 if adh_list.size.zero?
-      avg_qual = (qual_list.sum / qual_list.size).round if qual_list.size.positive?
-      avg_qual = 0 if qual_list.size.zero?
-      row += [ avg_att, part_75_or_more, sessions_planned, sessions_completed, sessions_observed, avg_adh, avg_qual ]
+      avg_adh, avg_qual = section.average_adherence_and_quality
+      row += [ section.average_attendance, section.participants_meeting_target_attendance.size,
+        sessions_planned, sessions_completed, sessions_observed, avg_adh, avg_qual ]
       # full row
       rows << row
     end
@@ -175,6 +162,6 @@ class DataUpload < ApplicationRecord
   # sections to include are those that have been completed and whose end_dates
   # are within the date range reporting_period_start and reporting_period_end
   def sections
-    Section.completed.where(end_date: reporting_period_start..reporting_period_end)
+    Section.kept.completed.where(end_date: reporting_period_start..reporting_period_end)
   end
 end
