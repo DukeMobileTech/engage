@@ -326,6 +326,10 @@ class Section < ApplicationRecord
     completed_sittings.size.positive? ? (sum / completed_sittings.size).round(2) : 0
   end
 
+  def participants_meeting_target_attendance
+    section_participants.select { |sp| sp.average_attendance >= 75 }
+  end
+
   def add_reporting_data_dosage_sheet(sheet)
     attendance_list = participants.map { |p| p.average_attendance(self) }
     sheet.add_row [ "Dosage", "" ]
@@ -334,7 +338,7 @@ class Section < ApplicationRecord
     sheet.add_row []
   end
 
-  def add_reporting_data_fidelity_sheet(sheet)
+  def average_adherence_and_quality
     adh_list = []
     qual_list = []
     observations.each do |obs|
@@ -342,16 +346,19 @@ class Section < ApplicationRecord
       adh_list << adh
       qual_list << quality&.to_i
     end
-    avg_adh = (adh_list.sum / adh_list.size).round if adh_list.size.positive?
-    avg_adh = 0 if adh_list.size.zero?
-    avg_qual = (qual_list.sum / qual_list.size).round if qual_list.size.positive?
-    avg_qual = 0 if qual_list.size.zero?
+    avg_adh = adh_list.size.positive? ? (adh_list.sum / adh_list.size).round : 0
+    avg_qual = qual_list.size.positive? ? (qual_list.sum / qual_list.size).round : 0
+    [ avg_adh, avg_qual ]
+  end
+
+  def add_reporting_data_fidelity_sheet(sheet)
+    avg_adh, avg_qual = average_adherence_and_quality
 
     sheet.add_row [ "Fidelity" ]
     sheet.add_row []
     sheet.add_row [ "Sessions" ]
     sheet.add_row [ "Sessions Planned", sittings.kept.size ]
-    sheet.add_row [ "Sessions Completed", sittings.kept.where(completed: true).size ]
+    sheet.add_row [ "Sessions Completed", completed_sittings.size ]
     sheet.add_row []
     sheet.add_row [ "Observed Fidelity" ]
     sheet.add_row [ "How many classes were observed?", observations&.size || 0 ]
