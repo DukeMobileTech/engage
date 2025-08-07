@@ -92,6 +92,6 @@ class SectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def section_params
-      params.expect(section: [ :name, :start_date, :end_date, :curriculum_id, :site_id, :completed, participant_ids: [] ])
+      params.expect(section: [ :name, :start_date, :end_date, :curriculum_id, :site_id, :completed, :reported, participant_ids: [] ])
     end
 end

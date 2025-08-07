@@ -163,5 +163,7 @@ class DataUpload < ApplicationRecord
   # are within the date range reporting_period_start and reporting_period_end
   def sections
     Section.kept.completed.where(end_date: reporting_period_start..reporting_period_end)
+                          .where(reported: true)
+                          .includes(:site, :curriculum, :section_participants, :participants, :sittings)
   end
 end
