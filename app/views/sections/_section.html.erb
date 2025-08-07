@@ -4,7 +4,7 @@
     <div class="info-value"><%= @site.users.map(&:name).join(", ") %></div>
   </div>
   <div class="info-item">
-    <div class="info-label">Program Duration</div>
+    <div class="info-label">Duration</div>
     <div class="info-value">
       <%= @section.start_date.strftime("%B %e, %Y") %> - <%= @section.end_date.strftime("%B %e, %Y") %>
     </div>
@@ -12,6 +12,10 @@
   <div class="info-item">
     <div class="info-label">Curriculum</div>
     <div class="info-value"><%= @section.curriculum.title %></div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Reported</div>
+    <div class="info-value"><%= @section.reported ? "Yes" : "No" %></div>
   </div>
   <div class="info-item">
     <div class="info-label">Entry Status</div>
@@ -107,7 +111,7 @@
         </div>
         <div class="session-number"><%= sitting.name %></div>
         <div class="session-status">Completed</div>
-        <div class="session-details">Lesson <%= sitting.lessons.map {|lesson| lesson.title.split().last}.join(", ") %></div>
+        <div class="session-details"><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
         <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
         <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
         <% if sitting.program_observation_responses.any? %>
@@ -123,7 +127,7 @@
         </div>
         <div class="session-number"><%= sitting.name %></div>
         <div class="session-status">In Progress</div>
-        <div class="session-details">Lesson <%= sitting.lessons.map {|lesson| lesson.title.split().last}.join(", ") %></div>
+        <div class="session-details"><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
         <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
         <% if sitting.fidelity_log_responses.any? %>
           <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
@@ -143,7 +147,7 @@
         </div>
         <div class="session-number"><%= sitting.name %></div>
         <div class="session-status">Not Started</div>
-        <div>Lesson <%= sitting.lessons.map {|lesson| lesson.title.split().last}.join(", ") %></div>
+        <div><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
       </div>
     <% end %>
   <% end %>

@@ -7,6 +7,7 @@
 #  discarded_at  :datetime
 #  end_date      :date
 #  name          :string
+#  reported      :boolean          default(TRUE)
 #  start_date    :date
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
