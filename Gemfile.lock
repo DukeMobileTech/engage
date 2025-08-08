@@ -401,6 +401,12 @@ GEM
       websocket (~> 1.0)
     sendgrid-ruby (6.7.0)
       ruby_http_client (~> 3.4)
+    sentry-rails (5.26.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.26.0)
+    sentry-ruby (5.26.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     solid_cable (3.0.11)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -410,12 +416,6 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_errors (0.7.0)
-      actionpack (>= 7.0)
-      actionview (>= 7.0)
-      activerecord (>= 7.0)
-      activesupport (>= 7.0)
-      railties (>= 7.0)
     solid_queue (1.2.1)
       activejob (>= 7.1)
       activerecord (>= 7.1)
@@ -508,9 +508,10 @@ DEPENDENCIES
   rubocop-rails-omakase
   selenium-webdriver
   sendgrid-ruby (~> 6.7.0)
+  sentry-rails (~> 5.26)
+  sentry-ruby (~> 5.26)
   solid_cable
   solid_cache
-  solid_errors (~> 0.7.0)
   solid_queue
   stimulus-rails
   thruster

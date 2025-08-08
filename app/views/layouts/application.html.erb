@@ -20,6 +20,7 @@
     <%= favicon_link_tag asset_path("favicon.ico") %>
     <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css", rel: "stylesheet", crossorigin: "anonymous" %>
     <%= stylesheet_link_tag "https://unpkg.com/slim-select@latest/dist/slimselect.css", rel: "stylesheet", crossorigin: "anonymous" %>
+    <%= Sentry.get_trace_propagation_meta.html_safe %>
   </head>
 
   <body>
