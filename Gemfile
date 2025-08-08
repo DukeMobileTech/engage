@@ -86,4 +86,6 @@ gem "kaminari", "~> 1.2"
 
 gem "discard", "~> 1.4"
 
-gem "solid_errors", "~> 0.7.0"
+gem "sentry-ruby", "~> 5.26"
+
+gem "sentry-rails", "~> 5.26"

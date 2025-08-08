@@ -33,10 +33,6 @@ development:
     <<: *primary_development
     database: engage_development_queue
     migrations_paths: db/queue_migrate
-  # errors:
-  #   <<: *primary_development
-  #   database: engage_development_errors
-  #   migrations_paths: db/errors_migrate
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
@@ -71,10 +67,6 @@ test:
   primary: &primary_test
     <<: *default
     database: engage_test
-  # errors:
-  #   <<: *primary_test
-  #   database: engage_test_errors
-  #   migrations_paths: db/errors_migrate
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -114,7 +106,3 @@ production:
     <<: *primary_production
     database: engage_production_cable
     migrations_paths: db/cable_migrate
-  errors:
-    <<: *primary_production
-    database: engage_production_errors
-    migrations_paths: db/errors_migrate

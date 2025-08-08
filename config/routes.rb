@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :organizations
   mount MissionControl::Jobs::Engine, at: "/jobs"
-  mount SolidErrors::Engine, at: "/solid_errors"
   resources :data_uploads do
     member do
       post "generate_report" => "data_uploads#generate_report"
