@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="row">
-    <div class="col-md-8" data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_participants_path(format: :turbo_stream) %>">
+    <div class="col-md-8" data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_participants_path %>">
       <div class="mb-3">
         <%= form.label :name, class: "form-label" %>
         <%= form.text_field :name, class: "form-control", placeholder: "Please enter the name of the participant", "data-autocomplete-target": 'input' %>

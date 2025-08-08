@@ -1,7 +1,9 @@
-<div class="participant row border-bottom pb-2 mb-2">
+<div class="participant row border-bottom pb-2 mb-2"
+     data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_participants_path %>">
   <div class="col-lg-5">
     <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
+    <%= form.text_field :name, class: "form-control", "data-autocomplete-target": 'input' %>
+    <%= form.hidden_field :id, "data-autocomplete-target": 'results', class: 'autocomplete' %>
   </div>
 
   <div class="col-lg-5">
