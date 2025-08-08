@@ -189,8 +189,7 @@ class Section < ApplicationRecord
   def sitting_quality_adherence(obs)
     activities_planned = activities_planned_question&.question_answer(obs)&.to_i
     activities_completed = activities_completed_question&.question_answer(obs)&.to_i
-    adh = 0 if activities_planned.zero?
-    adh = (activities_completed / activities_planned.to_f) * 100 if activities_planned.positive?
+    adh = activities_planned&.positive? ? (activities_completed.to_f / activities_planned.to_f) * 100 : 0
     qual = quality_question&.question_answer(obs)
     [ obs.sitting, qual, activities_planned, activities_completed, adh ]
   end

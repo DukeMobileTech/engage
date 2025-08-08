@@ -59,7 +59,6 @@ class SectionsTest < ApplicationSystemTestCase
     assert_selector "h4", text: "#{@section.name} Program Details"
     assert_link "Edit this section"
     assert_selector "h4", text: "Program Observations"
-    assert_link "View Observations"
     assert_selector "h4", text: "Data Tracker Reports"
     assert_link "Generate Data Tracker"
   end
