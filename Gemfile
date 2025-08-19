@@ -45,7 +45,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # xlsx spreadsheet generation
-gem "caxlsx", "~> 4.2"
+gem "caxlsx", "~> 4.3"
 
 
 # Use pg as the database for Active Record
