@@ -1,0 +1,63 @@
+<%= form_with(model: [@questionnaire, response]) do |form| %>
+  <% if response.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(response.errors.count, "error") %> prohibited this response from being saved:</h2>
+
+      <ul>
+        <% response.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id, value: Current.user.id %>
+
+  <%= form.fields_for :answers do |response| %>
+    <% @questionnaire.questions.each do |question| %>
+      <div class="mb-3">
+        <h5>
+          <%= question.number %> ) <%= question.identifier %>
+          <%= content_tag :abbr, '*', title: 'Required' if question.required %>
+        <h5>
+
+        <p class="ms-1"><%= question.text %></p>
+
+        <% case question.question_type %>
+        <% when 'single_choice' %>
+          <div data-controller="radio">
+            <% question.answers.each do |answer| %>
+              <p class="m-3 form-check">
+                <%= response.radio_button question.id, answer.id, { required: question.required, class: "form-check-input" } %>
+                <span class="form-check-label"><%= response.label question.id, answer.text, value: answer.id %></span>
+              </p>
+            <% end %>
+            <button type="button" class="btn btn-secondary" data-action="click->radio#clear">Clear Selection</button>
+          </div>
+        <% when 'multiple_choice' %>
+          <% question.answers.each do |answer| %>
+            <p class="m-3 form-check">
+              <%= response.check_box question.id, { multiple: true, class: "form-check-input" }, answer.id %>
+              <span class="form-check-label"><%= response.label question.id, answer.text, value: answer.id %></span>
+            </p>
+          <% end %>
+        <% when 'long_answer' %>
+          <%= response.text_field question.id, required: question.required, class: "form-control" %>
+        <% when 'text' %>
+          <%= response.text_area question.id, required: question.required, class: "form-control" %>
+        <% when 'number_answer' %>
+          <%= response.number_field question.id, required: question.required, class: "form-control" %>
+        <% when 'date_answer' %>
+          <%= response.date_field question.id, required: question.required, class: "form-control" %>
+        <% when 'time_answer' %>
+          <%= response.time_field question.id, required: question.required, class: "form-control" %>
+        <% end %>
+      </div>
+      <hr>
+    <% end %>
+  <% end %>
+
+  <div class="d-flex flex-row-reverse">
+    <%= form.submit class: "btn btn-success" %>
+  </div>
+<% end %>

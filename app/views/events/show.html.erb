@@ -1,0 +1,16 @@
+<% content_for :title, "TEACH Event" %>
+
+<div class="mb-5">
+  <h2 class="text-center"><%= @questionnaire.title.titleize %></h2>
+
+  <% @questionnaire.questions.each do |question| %>
+    <div class="mb-3">
+      <h4>
+        <%= question.number %> ) <%= question.identifier %>
+      </h4>
+      <div class="ms-2">
+        <%= sanitize question.text %> - <span><strong><em><%= question.question_answer(@event) %></em></strong></span>
+      </div>
+    </div>
+  <% end %>
+</div>

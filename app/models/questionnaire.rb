@@ -51,4 +51,8 @@ class Questionnaire < ApplicationRecord
   def demographics?
     title == "demographics"
   end
+
+  def event?
+    title == "Community Engagement Tracking"
+  end
 end
