@@ -28,7 +28,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy, inverse_of: :question
   accepts_nested_attributes_for :answers, allow_destroy: true
 
-  enum :question_type, { long_answer: 0, single_choice: 1, multiple_choice: 2, number_answer: 3, text: 4 }
+  enum :question_type, { long_answer: 0, single_choice: 1, multiple_choice: 2, number_answer: 3, text: 4, date_answer: 5, time_answer: 6 }
 
   def self.question_type_enum
     question_types.keys.map { |k| [ k.titleize, k ] }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Engage" %></title>
+    <title><%= content_for(:title) || "ENC-HEAL TEACH" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -37,6 +37,7 @@
               <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Sites", sites_path, class: "btn #{'btn-info' if ["sites", "sections", "site_participants", "section_participants", "sittings", "lesson_attendances", "section_participant_responses"].include?(params[:controller])} #{'btn-outline-info nav-link px-2' unless ["sites", "sections", "site_participants", "section_participants", "sittings", "lesson_attendances", "section_participant_responses"].include?(params[:controller])}" %></li>
               <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Participants", participants_path, class: "btn #{'btn-info' if params[:controller] == 'participants'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'participants'}" %></li>
               <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Forms", questionnaires_path, class: "btn #{'btn-info' if ["questionnaires", "responses"].include?(params[:controller])} #{'btn-outline-info nav-link px-2' unless ["questionnaires", "responses"].include?(params[:controller])}" %></li>
+              <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Events", events_path, class: "btn #{'btn-info' if params[:controller] == 'events'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'events'}" %></li>
               <% if Current.user&.admin? %>
                 <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Exports", data_uploads_path, class: "btn #{'btn-info' if params[:controller] == 'data_uploads'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'data_uploads'}" %></li>
                 <li class="nav-item me-2 mb-2 mb-lg-0"><%= link_to "Curriculums", curriculums_path, class: "btn #{'btn-info' if params[:controller] == 'curriculums'} #{'btn-outline-info nav-link px-2' unless params[:controller] == 'curriculums'}" %></li>

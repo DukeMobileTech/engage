@@ -521,56 +521,131 @@
 # [ "5.1 Review", "5.2  Possible Future", "5.3 Transition and Charge 5" ].each do |name|
 #   pp8l5.activities.find_or_create_by!(name: name)
 # end
-# Hip Teens Activities
-hta = Curriculum.find_or_create_by!(title: "Hip Teens Activities")
-htal1 = hta.lessons.find_or_create_by!(title: "Lesson 1 Introduction and Rules of the group")
-[ "1. Intro of Group Members", "2. Group Orientation",
-"3.	Values Stack", "4.	Building Motivation: Group Member Concerns/Questions about HIV",
-"5.	HIV/AIDS; The Facts ", "6.	Card Swap",
-"7.	Define Assertive Communication & Introduce Role-plays to Practice Behavioral Skills",
-"8.	Wrap Up" ].each do |name|
-  htal1.activities.find_or_create_by!(name: name)
-end
-htal2 = hta.lessons.find_or_create_by!(title: "Lesson 2 Menu of Healthy Sexual Choices and Trigger Board")
-[ "1.	Review, Risk Continuum and Perception of HIV Risk",
-"2.	Risk Sensitization (Safer vs Less Safe Behaviors)",
-"3.	Develop Menu of Healthy Choices",
-"4.	Where are you on the HIP Teen Ruler",
-"5.	Pros and Cons of Condom Use",
-"6.	Review Assertive Statements using video clip",
-"7.	Wrap up" ].each do |name|
-  htal2.activities.find_or_create_by!(name: name)
-end
-htal3 = hta.lessons.find_or_create_by!(title: "Lesson 3 Trigger Board and How to use Condoms")
-[ "1.	Review", "2.	Trigger Board", "3.	Step-by Step instructions for condom use",
-"4.	Condom line up", "5.	What is a Good Goal", "6.	Video Clips- Using assertive statements",
-"7.	Wrap up" ].each do |name|
-  htal3.activities.find_or_create_by!(name: name)
-end
-htal4 = hta.lessons.find_or_create_by!(title: "Lesson 4")
-[ "1.	Review", "2. Assertive Statement training", "3.	Video Clips",
-"4.	Millionaire Game", "5.	HIPTeen Ruler Game", "6.	Wrap up" ].each do |name|
-  htal4.activities.find_or_create_by!(name: name)
-end
-# Hip Teens Activities 3-month reunion
-hta3 = Curriculum.find_or_create_by!(title: "Hip Teens 3-month Reunion")
-hta3l1 = hta3.lessons.find_or_create_by!(title: "Lesson 1")
-[ "1.	Intro, group guidelines, and getting reacquainted",
-"2.	Review of goals; Progress and challenges, triggers and assertiveness",
-"3.	Strengthening assertiveness and Skills for early intervention; Video clips and Role playing",
-"4.	Steps of condom use",
-"5.	Motivation Enhancement with the HIPTeens Ruler",
-"6.	Wrap up" ].each do |name|
-  hta3l1.activities.find_or_create_by!(name: name)
-end
-# Hip Teens Activities 6-month reunion
-hta4 = Curriculum.find_or_create_by!(title: "Hip Teens 6-month Reunion")
-hta4l1 = hta4.lessons.find_or_create_by!(title: "Lesson 1")
-[ "1.	Intro, Group guidelines, and getting reacquainted",
-"2.	Review of goals; Progress and challenges, triggers and assertiveness",
-"3.	Strengthening assertiveness and Skills for early intervention; Video clips and Role playing",
-"4.	Steps of condom use",
-"5.	Motivation Enhancement with the HIPTeens Ruler",
-"6.	Wrap up" ].each do |name|
-  hta4l1.activities.find_or_create_by!(name: name)
-end
+# # Hip Teens Activities
+# hta = Curriculum.find_or_create_by!(title: "Hip Teens Activities")
+# htal1 = hta.lessons.find_or_create_by!(title: "Lesson 1 Introduction and Rules of the group")
+# [ "1. Intro of Group Members", "2. Group Orientation",
+# "3.	Values Stack", "4.	Building Motivation: Group Member Concerns/Questions about HIV",
+# "5.	HIV/AIDS; The Facts ", "6.	Card Swap",
+# "7.	Define Assertive Communication & Introduce Role-plays to Practice Behavioral Skills",
+# "8.	Wrap Up" ].each do |name|
+#   htal1.activities.find_or_create_by!(name: name)
+# end
+# htal2 = hta.lessons.find_or_create_by!(title: "Lesson 2 Menu of Healthy Sexual Choices and Trigger Board")
+# [ "1.	Review, Risk Continuum and Perception of HIV Risk",
+# "2.	Risk Sensitization (Safer vs Less Safe Behaviors)",
+# "3.	Develop Menu of Healthy Choices",
+# "4.	Where are you on the HIP Teen Ruler",
+# "5.	Pros and Cons of Condom Use",
+# "6.	Review Assertive Statements using video clip",
+# "7.	Wrap up" ].each do |name|
+#   htal2.activities.find_or_create_by!(name: name)
+# end
+# htal3 = hta.lessons.find_or_create_by!(title: "Lesson 3 Trigger Board and How to use Condoms")
+# [ "1.	Review", "2.	Trigger Board", "3.	Step-by Step instructions for condom use",
+# "4.	Condom line up", "5.	What is a Good Goal", "6.	Video Clips- Using assertive statements",
+# "7.	Wrap up" ].each do |name|
+#   htal3.activities.find_or_create_by!(name: name)
+# end
+# htal4 = hta.lessons.find_or_create_by!(title: "Lesson 4")
+# [ "1.	Review", "2. Assertive Statement training", "3.	Video Clips",
+# "4.	Millionaire Game", "5.	HIPTeen Ruler Game", "6.	Wrap up" ].each do |name|
+#   htal4.activities.find_or_create_by!(name: name)
+# end
+# # Hip Teens Activities 3-month reunion
+# hta3 = Curriculum.find_or_create_by!(title: "Hip Teens 3-month Reunion")
+# hta3l1 = hta3.lessons.find_or_create_by!(title: "Lesson 1")
+# [ "1.	Intro, group guidelines, and getting reacquainted",
+# "2.	Review of goals; Progress and challenges, triggers and assertiveness",
+# "3.	Strengthening assertiveness and Skills for early intervention; Video clips and Role playing",
+# "4.	Steps of condom use",
+# "5.	Motivation Enhancement with the HIPTeens Ruler",
+# "6.	Wrap up" ].each do |name|
+#   hta3l1.activities.find_or_create_by!(name: name)
+# end
+# # Hip Teens Activities 6-month reunion
+# hta4 = Curriculum.find_or_create_by!(title: "Hip Teens 6-month Reunion")
+# hta4l1 = hta4.lessons.find_or_create_by!(title: "Lesson 1")
+# [ "1.	Intro, Group guidelines, and getting reacquainted",
+# "2.	Review of goals; Progress and challenges, triggers and assertiveness",
+# "3.	Strengthening assertiveness and Skills for early intervention; Video clips and Role playing",
+# "4.	Steps of condom use",
+# "5.	Motivation Enhancement with the HIPTeens Ruler",
+# "6.	Wrap up" ].each do |name|
+#   hta4l1.activities.find_or_create_by!(name: name)
+# end
+
+# ENC-HEAL Community Engagement Tracking questionnaire
+cet = Questionnaire.find_by(title: "Community Engagement Tracking")
+cet ||= Questionnaire.create!(title: "Community Engagement Tracking")
+# name
+cet_q1 = cet.questions.find_or_create_by(identifier: "name")
+cet_q1.update(number: 1, question_type: :long_answer, required: false, text: "Event Name:")
+# date
+cet_q2 = cet.questions.find_or_create_by(identifier: "date")
+cet_q2.update(number: 2, question_type: :date_answer, required: false, text: "Event Date:")
+# time
+cet_q3 = cet.questions.find_or_create_by(identifier: "time")
+cet_q3.update(number: 3, question_type: :time_answer, required: false, text: "Event Time:")
+# organization
+cet_q4 = cet.questions.find_or_create_by(identifier: "organization")
+cet_q4.update(number: 4, question_type: :long_answer, required: false, text: "Host Organization Name:")
+# event_type
+cet_q5 = cet.questions.find_or_create_by(identifier: "event-type")
+cet_q5.update(number: 5, question_type: :single_choice, required: false, text: "Type of Event:")
+cet_q5.answers.find_or_create_by(text: "Tabled for ENC-HEAL").update(number: 1, text: "Tabled for ENC-HEAL")
+cet_q5.answers.find_or_create_by(text: "Presented on ENC-HEAL to group").update(number: 2, text: "Presented on ENC-HEAL to group")
+cet_q5.answers.find_or_create_by(text: "Parent Engagement").update(number: 3, text: "Parent Engagement")
+cet_q5.answers.find_or_create_by(text: "Other").update(number: 4, text: "Other")
+# settings
+cet_q6 = cet.questions.find_or_create_by(identifier: "setting")
+cet_q6.update(number: 6, question_type: :single_choice, required: false, text: "Setting(s):")
+cet_q6.answers.find_or_create_by(text: "JCPC").update(number: 1, text: "JCPC")
+cet_q6.answers.find_or_create_by(text: "School").update(number: 2, text: "School")
+cet_q6.answers.find_or_create_by(text: "Community Setting").update(number: 3, text: "Community Setting")
+cet_q6.answers.find_or_create_by(text: "Foster Care").update(number: 4, text: "Foster Care")
+cet_q6.answers.find_or_create_by(text: "Other").update(number: 5, text: "Other")
+# counties
+cet_q7 = cet.questions.find_or_create_by(identifier: "counties")
+cet_q7.update(number: 7, question_type: :single_choice, required: false, text: "County(ies) Represented Serves:")
+cet_q7.answers.find_or_create_by(text: "Pitt").update(number: 1, text: "Pitt")
+cet_q7.answers.find_or_create_by(text: "Martin").update(number: 2, text: "Martin")
+cet_q7.answers.find_or_create_by(text: "Edgecombe").update(number: 3, text: "Edgecombe")
+cet_q7.answers.find_or_create_by(text: "Nash").update(number: 4, text: "Nash")
+cet_q7.answers.find_or_create_by(text: "Halifax").update(number: 5, text: "Halifax")
+cet_q7.answers.find_or_create_by(text: "Craven").update(number: 6, text: "Craven")
+cet_q7.answers.find_or_create_by(text: "Hertford").update(number: 7, text: "Hertford")
+cet_q7.answers.find_or_create_by(text: "Other").update(number: 8, text: "Other")
+# team members
+cet_q8 = cet.questions.find_or_create_by(identifier: "team-members")
+cet_q8.update(number: 8, question_type: :long_answer, required: false, text: "ENC-HEAL Team Members Present: ")
+# partners
+cet_q9 = cet.questions.find_or_create_by(identifier: "partners")
+cet_q9.update(number: 9, question_type: :long_answer, required: false, text: "ENC-HEAL Partners Present: ")
+# individuals
+cet_q10 = cet.questions.find_or_create_by(identifier: "youth-individuals-attendance")
+cet_q10.update(number: 10, question_type: :number_answer, required: false, text: "Number of Youth Individuals in Attendance: ")
+cet_q11 = cet.questions.find_or_create_by(identifier: "youth-individuals-invited")
+cet_q11.update(number: 11, question_type: :number_answer, required: false, text: "Number of Youth Individuals received project information: ")
+cet_q12 = cet.questions.find_or_create_by(identifier: "caregivers-attendance")
+cet_q12.update(number: 12, question_type: :number_answer, required: false, text: "Number of Caregivers (such as parents, guardians, foster parents of youth, etc) in Attendance: ")
+cet_q13 = cet.questions.find_or_create_by(identifier: "caregivers-invited")
+cet_q13.update(number: 13, question_type: :number_answer, required: false, text: "Number of Caregivers (such as parents, guardians, foster parents of youth, etc) received project information: ")
+cet_q14 = cet.questions.find_or_create_by(identifier: "youth-serving-professionals-attendance")
+cet_q14.update(number: 14, question_type: :number_answer, required: false, text: "Number of Youth-serving professionals (teachers, educators, social workers, clinical providers, other healthcare workers, juvenile justice officers, etc) in Attendance: ")
+cet_q15 = cet.questions.find_or_create_by(identifier: "youth-serving-professionals-invited")
+cet_q15.update(number: 15, question_type: :number_answer, required: false, text: "Number of Youth-serving professionals (teachers, educators, social workers, clinical providers, other healthcare workers, juvenile justice officers, etc) received project information: ")
+cet_q16 = cet.questions.find_or_create_by(identifier: "community-members-attendance")
+cet_q16.update(number: 16, question_type: :number_answer, required: false, text: "Number of Community members (such as faith leaders, business leaders, and any other members of the community) in Attendance: ")
+cet_q17 = cet.questions.find_or_create_by(identifier: "community-members-invited")
+cet_q17.update(number: 17, question_type: :number_answer, required: false, text: "Number of Community members (such as faith leaders, business leaders, and any other members of the community) received project information: ")
+cet_q18 = cet.questions.find_or_create_by(identifier: "other-individuals-attendance")
+cet_q18.update(number: 18, question_type: :number_answer, required: false, text: "Number of Other individuals in Attendance: ")
+cet_q19 = cet.questions.find_or_create_by(identifier: "other-individuals-invited")
+cet_q19.update(number: 19, question_type: :number_answer, required: false, text: "Number of Other individuals received project information: ")
+# notes
+cet_q20 = cet.questions.find_or_create_by(identifier: "notes")
+cet_q20.update(number: 20, question_type: :text, required: false, text: "Notes from Event")
+# other important information
+cet_q21 = cet.questions.find_or_create_by(identifier: "other-important-information")
+cet_q21.update(number: 21, question_type: :text, required: false, text: "Other Important Information")

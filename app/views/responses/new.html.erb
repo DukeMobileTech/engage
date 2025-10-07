@@ -1,3 +1,5 @@
+<% content_for :title, "TEACH new response" %>
+
 <div class="mb-3">
   <h3 class="text-center">
     New <%= @questionnaire.title.titleize %>
@@ -11,6 +13,8 @@
     <%= render "fidelity", response: @response %>
   <% elsif @questionnaire.observation? %>
     <%= render "observation", response: @response %>
+  <% elsif @questionnaire.event? %>
+    <%= render "event", response: @response %>
   <% else %>
     <%= render "form", response: @response %>
   <% end %>

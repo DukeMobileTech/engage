@@ -1,0 +1,30 @@
+<% content_for :title, "Events" %>
+
+<div class="mb-5">
+  <h3 class="text-center">Events</h3>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Done On</th>
+        <th>Entered By</th>
+        <th>Discard</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr>
+          <td><%= link_to event.id, event_path(event) %></td>
+          <td><%= event.created_at %></td>
+          <td><%= event.user.name %></td>
+          <td><%= link_to 'Discard', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="d-flex flex-row-reverse">
+    <%= link_to "New event", new_questionnaire_response_path(@questionnaire), class: 'btn btn-primary' %>
+  </div>
+</div>
+
