@@ -21,9 +21,9 @@ one:
   name: My Organization
   state: NC
   urbanicity: Urban
-  setting: In School
+  setting: In-school
 two:
   name: My Other Organization
   state: SC
   urbanicity: Rural
-  setting: Community Based
+  setting: Other out-of-school time/community
