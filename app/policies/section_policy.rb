@@ -10,4 +10,8 @@ class SectionPolicy < AdminPolicy
   def edit?
     update?
   end
+
+  def fidelity_logs?
+    show?
+  end
 end

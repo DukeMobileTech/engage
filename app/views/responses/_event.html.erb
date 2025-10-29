@@ -50,7 +50,13 @@
         <% when 'date_answer' %>
           <%= response.date_field question.id, required: question.required, class: "form-control" %>
         <% when 'time_answer' %>
-          <%= response.time_field question.id, required: question.required, class: "form-control" %>
+          <% raw = (response.object&.[](question.id) rescue response.object[question.id.to_s]) %>
+          <% start_val, end_val = raw.to_s.split('-').map(&:strip) %>
+          <div class="d-flex gap-2 align-items-center">
+            <input type="time" name="response[answers][<%= question.id %>][start_time]" value="<%= start_val %>" class="form-control form-control-sm" aria-label="Start time">
+            <span class="mx-1">-</span>
+            <input type="time" name="response[answers][<%= question.id %>][end_time]" value="<%= end_val %>" class="form-control form-control-sm" aria-label="End time">
+          </div>
         <% end %>
       </div>
       <hr>
