@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :events
+  resources :events, only: %i[index show destroy] do
+    collection do
+      get "download" => "events#download"
+    end
+  end
   resources :organizations
   mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :data_uploads do
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
       end
       member do
         post "data_tracker" => "sections#data_tracker"
+        get "fidelity_logs" => "sections#fidelity_logs"
       end
     end
   end

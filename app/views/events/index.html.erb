@@ -2,7 +2,13 @@
 
 <div class="mb-5">
   <h3 class="text-center">Events</h3>
-
+  <% if policy(@events).download? %>
+  <div class="d-flex flex-row-reverse mb-3">
+    <%= link_to download_events_path, class: "btn btn-primary" do %>
+      <i class="fa-solid fa-file-arrow-down"></i> Events CSV
+    <% end %>
+  </div>
+  <% end %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -18,13 +24,21 @@
           <td><%= link_to event.id, event_path(event) %></td>
           <td><%= event.created_at %></td>
           <td><%= event.user.name %></td>
-          <td><%= link_to 'Discard', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+            <% if policy(event).destroy? %>
+              <%= link_to 'Discard', event_path(event), data: { turbo_method: :delete,  turbo_confirm: 'Are you sure you want to discard this event?' }, class: 'btn btn-sm btn-danger' %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <div class="d-flex flex-row-reverse">
-    <%= link_to "New event", new_questionnaire_response_path(@questionnaire), class: 'btn btn-primary' %>
-  </div>
+  <% if policy(Response.new).create? %>
+    <div class="d-flex flex-row-reverse">
+      <%= link_to new_questionnaire_response_path(@questionnaire), class: "btn btn-primary fw-semibold" do %>
+        <i class="fa-solid fa-plus"></i> New event
+      <% end %>
+    </div>
+  <% end %>
 </div>
 

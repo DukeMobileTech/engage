@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   before_action :set_site
   before_action :set_curriculums
-  before_action :set_section, only: %i[ show edit update destroy data_tracker ]
+  before_action :set_section, only: %i[ show edit update destroy data_tracker fidelity_logs ]
   after_action :verify_authorized
 
   # GET /sections or /sections.json
@@ -24,7 +24,8 @@ class SectionsController < ApplicationController
 
   # GET /sections/1/edit
   def edit
-    @participants = @site.participants if params[:enrollment]
+    @participants = @site.participants + @section.participants if params[:enrollment]
+    @participants = @participants.uniq if @participants
     authorize @section
   end
 
@@ -74,6 +75,16 @@ class SectionsController < ApplicationController
     authorize @section
     DataTrackerReportJob.perform_later(@section)
     redirect_to site_section_path(@site, @section)
+  end
+
+  def fidelity_logs
+    authorize @section
+    # @questionnaire = Questionnaire.fidelity
+    # tempfile = Tempfile.new([ "#{@questionnaire.title.parameterize}", ".csv" ])
+    # tempfile.write(Response.to_csv(@questionnaire.id))
+    # tempfile.rewind
+
+    # send_file tempfile.path, filename: "#{@questionnaire.title.parameterize}.csv", type: "text/csv"
   end
 
   private

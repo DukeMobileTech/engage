@@ -94,4 +94,22 @@ class Response < ApplicationRecord
   def demographics?
     questionnaire&.demographics?
   end
+
+  def self.to_csv(questionnaire_id)
+    all = where(questionnaire_id: questionnaire_id).kept.order(created_at: :desc)
+    questionnaire = Questionnaire.find(questionnaire_id)
+    question_identifiers = questionnaire.questions.pluck(:identifier)
+    attributes = [ "id", "created_at", "updated_at", "participant_id", "user_id", "sitting_id", "questionnaire_id" ]
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes + question_identifiers
+
+      all.each do |response|
+        csv << attributes.map { |attr| response.send(attr) } + question_identifiers.map do |identifier|
+           question = questionnaire.questions.find_by(identifier: identifier)
+           question.question_answer(response)
+        end
+      end
+    end
+  end
 end

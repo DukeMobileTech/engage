@@ -1,5 +1,6 @@
 class ResponsesController < ApplicationController
   before_action :set_questionnaire, except: :show
+  before_action :normalize_time_answers, only: %i[ create ]
   after_action :verify_authorized
 
   # GET /responses or /responses.json
@@ -79,5 +80,18 @@ class ResponsesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def response_params
       params.require(:response).permit(:questionnaire_id, :participant_id, :sitting_id, :user_id, :section_participant_id, :section_participant_response_id, answers: {})
+    end
+
+    def normalize_time_answers
+      answers = params.dig(:response, :answers)
+      return unless answers.is_a?(Hash)
+
+      answers.transform_values! do |v|
+        if v.is_a?(Hash) && (v["start_time"].present? || v["end_time"].present?)
+          [ v["start_time"].to_s.strip, v["end_time"].to_s.strip ].reject(&:blank?).join(" - ")
+        else
+          v
+        end
+      end
     end
 end

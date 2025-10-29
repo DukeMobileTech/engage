@@ -25,6 +25,7 @@
               <th>Progress</th>
               <th>Attendance</th>
               <th>Entry Completed</th>
+              <th>Fidelity Logs</th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +53,11 @@
                     <span class="badge bg-success">Yes</span>
                   <% else %>
                     <span class="badge bg-danger">No</span>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to fidelity_logs_site_section_path(@site, section), class: "btn btn-outline-primary" do %>
+                    <i class="fa-solid fa-file-lines"></i> Logs
                   <% end %>
                 </td>
               </tr>

@@ -24,4 +24,8 @@ class ResponsePolicy < AdminPolicy
   def destroy?
     @user.admin? || @record.user == @user
   end
+
+  def download?
+    @user.admin?
+  end
 end
