@@ -8,6 +8,7 @@
   <thead>
     <tr>
       <th>Title</th>
+      <th>Program Model</th>
       <th>Lessons</th>
       <th>Sites</th>
       <th>Sections</th>
@@ -17,6 +18,7 @@
     <% @curriculums.each do |curriculum| %>
       <tr>
         <td><%= link_to curriculum.title, curriculum %></td>
+        <td><%= curriculum.program_model %></td>
         <td><%= link_to curriculum.lessons.count, curriculum %></td>
         <td><%= curriculum.sites.count %></td>
         <td><%= curriculum.sections.count %></td>

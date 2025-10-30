@@ -4,6 +4,7 @@
     <thead class="card-header">
       <tr>
         <th>Title</th>
+        <th>Program Model</th>
         <th>Activities</th>
         <th>Duration</th>
         <th>Content</th>
@@ -13,6 +14,7 @@
       <% @curriculum.lessons.each do |lesson| %>
       <tr>
         <td><%= lesson.title %></td>
+        <td><%= @curriculum.program_model %></td>
         <td>
           <% lesson.activities.each do |activity| %>
             <div><%= activity.name %></div>
