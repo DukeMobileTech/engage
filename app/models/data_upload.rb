@@ -62,7 +62,7 @@ class DataUpload < ApplicationRecord
   def report_data
     rows = []
     sections.each do |section|
-      row = [ GRANT_NUMBER, section.site.organization.name, section.curriculum.title, section.name, section.site.state, section.site.urbanicity, section.site.setting ]
+      row = [ GRANT_NUMBER, section.site.organization.name, section.curriculum.program_model, section.name, section.site.state, section.site.urbanicity, section.site.setting ]
       # Youth Counts
       youth = section.section_participants.where(participant_id: section.participants.where(category: "Youth").pluck(:id))
       sexes = youth.map { |p| p.sex }

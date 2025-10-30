@@ -16,6 +16,11 @@
     <%= form.text_field :title, class: "form-control" %>
   </div>
 
+  <div class="mb-3">
+    <%= form.label :program_model, class: "form-label" %>
+    <%= form.text_field :program_model, class: "form-control" %>
+  </div>
+
   <template data-nested-form-target="template">
     <%= form.fields_for :lessons, Lesson.new, child_index: 'NEW_RECORD' do |lesson_fields| %>
       <%= render "lesson_form", form: lesson_fields %>

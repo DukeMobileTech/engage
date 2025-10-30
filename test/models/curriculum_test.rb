@@ -2,10 +2,11 @@
 #
 # Table name: curriculums
 #
-#  id         :bigint           not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :bigint           not null, primary key
+#  program_model :string
+#  title         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 require "test_helper"
 
