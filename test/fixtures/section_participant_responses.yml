@@ -16,7 +16,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (response_id => responses.id)
-#  fk_rails_...  (section_participant_id => section_participants.id)
+#  fk_rails_...  (section_participant_id => section_participants.id) ON DELETE => cascade
 #
 one:
   response: one
