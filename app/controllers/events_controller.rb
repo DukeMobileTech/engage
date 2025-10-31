@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     tempfile.write(Response.to_csv(@questionnaire.id))
     tempfile.rewind
 
-    send_file tempfile.path, filename: "#{@questionnaire.title.parameterize}.csv", type: "text/csv"
+    send_file tempfile.path, filename: "community-engagement-tracking-#{Date.current.strftime('%Y-%m-%d')}.csv", type: "text/csv"
   end
 
   private

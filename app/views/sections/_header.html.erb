@@ -1,12 +1,17 @@
 <div class="card main-card">
-  <div class="text-center">
-    <span class="fw-light">Site Name:</span>
-    <span class="fw-bold"><%= link_to @site.name, site_sections_path(@site) %></span>
+  <div class="row ms-2 mt-2 mb-2">
+    <span class="col-4 fw-semibold">Site Name</span>
+    <span class="col-8 fw-bold"><%= link_to @site.name, site_sections_path(@site) %></span>
   </div>
 
-  <div class="text-center">
-    <span class="fw-light">Section Name:</span>
-    <span class="fw-bold"><%= link_to @section.name, site_section_path(@site, @section) %></span>
+  <div class="row ms-2 mb-2">
+    <span class="col-4 fw-semibold">Section Name</span>
+    <span class="col-8 fw-bold"><%= link_to @section.name, site_section_path(@site, @section) %></span>
+  </div>
+
+  <div class="row ms-2 mb-2">
+    <span class="col-4 fw-semibold">Curriculum</span>
+    <span class="col-8 fw-bold"><%= link_to @section.curriculum.title, curriculum_path(@section.curriculum) %></span>
   </div>
 
   <div class="d-flex justify-content-evenly m-2">

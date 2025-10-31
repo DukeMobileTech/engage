@@ -2,17 +2,18 @@
 #
 # Table name: sections
 #
-#  id            :bigint           not null, primary key
-#  completed     :boolean          default(FALSE)
-#  discarded_at  :datetime
-#  end_date      :date
-#  name          :string
-#  reported      :boolean          default(TRUE)
-#  start_date    :date
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  curriculum_id :integer          not null
-#  site_id       :integer          not null
+#  id              :bigint           not null, primary key
+#  completed       :boolean          default(FALSE)
+#  discarded_at    :datetime
+#  end_date        :date
+#  lessons_covered :integer          default(1), not null
+#  name            :string
+#  reported        :boolean          default(TRUE)
+#  start_date      :date
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  curriculum_id   :integer          not null
+#  site_id         :integer          not null
 #
 # Indexes
 #
@@ -55,21 +56,25 @@ class Section < ApplicationRecord
     []
   end
 
+  def facilitators
+    sittings.map(&:users).flatten.uniq
+  end
+
   def completed_sittings
     sittings.kept.where(completed: true)
   end
 
   def progress_label
-    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count} lessons entered"
+    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons_covered} lessons entered"
   end
 
   def progress_percentage
-    return 0 if lessons.count.zero?
-    (completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count.to_f / lessons.count * 100).round(2)
+    return 0 if lessons_covered.zero?
+    (completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count.to_f / lessons_covered * 100).round(2)
   end
 
   def progress_simple
-    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons.count}"
+    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons_covered}"
   end
 
   def progress_radius
@@ -98,9 +103,9 @@ class Section < ApplicationRecord
 
   def lesson_progress_status
     lessons_done = completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count
-    if lessons_done >= 0.67 * lessons.count
+    if lessons_done >= 0.67 * lessons_covered
       "final"
-    elsif lessons_done > 0.33 * lessons.count
+    elsif lessons_done > 0.33 * lessons_covered
       "middle"
     else
       "first"

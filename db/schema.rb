@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_30_152402) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_30_201236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -188,6 +188,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_30_152402) do
     t.boolean "completed", default: false
     t.datetime "discarded_at"
     t.boolean "reported", default: true
+    t.integer "lessons_covered", default: 1, null: false
     t.index ["curriculum_id"], name: "index_sections_on_curriculum_id"
     t.index ["discarded_at"], name: "index_sections_on_discarded_at"
     t.index ["site_id"], name: "index_sections_on_site_id"
