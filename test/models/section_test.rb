@@ -2,17 +2,18 @@
 #
 # Table name: sections
 #
-#  id            :bigint           not null, primary key
-#  completed     :boolean          default(FALSE)
-#  discarded_at  :datetime
-#  end_date      :date
-#  name          :string
-#  reported      :boolean          default(TRUE)
-#  start_date    :date
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  curriculum_id :integer          not null
-#  site_id       :integer          not null
+#  id              :bigint           not null, primary key
+#  completed       :boolean          default(FALSE)
+#  discarded_at    :datetime
+#  end_date        :date
+#  lessons_covered :integer          default(1), not null
+#  name            :string
+#  reported        :boolean          default(TRUE)
+#  start_date      :date
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  curriculum_id   :integer          not null
+#  site_id         :integer          not null
 #
 # Indexes
 #

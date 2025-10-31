@@ -1,17 +1,11 @@
 <div class="info-grid">
   <div class="info-item">
     <div class="info-label">Facilitators</div>
-    <div class="info-value"><%= @site.users.map(&:name).join(", ") %></div>
+    <div class="info-value"><%= @section.facilitators.map(&:name).join(", ") %></div>
   </div>
   <div class="info-item">
-    <div class="info-label">Duration</div>
-    <div class="info-value">
-      <%= @section.start_date.strftime("%B %e, %Y") %> - <%= @section.end_date.strftime("%B %e, %Y") %>
-    </div>
-  </div>
-  <div class="info-item">
-    <div class="info-label">Curriculum</div>
-    <div class="info-value"><%= @section.curriculum.title %></div>
+    <div class="info-label">Lessons Covered</div>
+    <div class="info-value"><%= @section.lessons_covered %></div>
   </div>
   <div class="info-item">
     <div class="info-label">Reported</div>
