@@ -48,3 +48,8 @@ three:
   participant: one
   sitting: one
   user: one
+
+four:
+  questionnaire: four
+  answers: { one: one, two: two }
+  user: admin

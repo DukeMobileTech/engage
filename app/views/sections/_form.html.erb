@@ -31,6 +31,11 @@
     <%= form.collection_select :curriculum_id, @curriculums, :id, :title, { prompt: true }, { class: "form-select" } %>
   </div>
 
+  <div class="mb-3">
+    <%= form.label "Number of lessons covered", class: "form-label" %>
+    <%= form.number_field :lessons_covered, class: "form-control", min: 1 %>
+  </div>
+
   <div class="mb-3 form-check">
     <%= form.check_box :reported, class: "form-check-input" %>
     <%= form.label :reported, "Include in export reports", class: "form-check-label" %>

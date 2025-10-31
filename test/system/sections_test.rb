@@ -51,8 +51,9 @@ class SectionsTest < ApplicationSystemTestCase
 
   test "visiting the show section" do
     visit site_section_url(@site, @section)
-    assert_selector "div", text: "Site Name: #{@site.name}"
-    assert_selector "div", text: "Section Name: #{@section.name}"
+    assert_selector "span", text: "Site Name"
+    assert_selector "span", text: "Section Name"
+    assert_selector "span", text: "Curriculum"
     assert_link "Details"
     assert_link "Section Participants"
     assert_link "Sessions"
