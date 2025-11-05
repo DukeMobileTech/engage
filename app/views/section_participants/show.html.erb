@@ -12,6 +12,7 @@
           <tr>
             <th>Section</th>
             <th>Session</th>
+            <th>Lesson</th>
             <th>Date</th>
           </tr>
         </thead>
@@ -20,6 +21,7 @@
           <tr>
             <td><%= @section.name %></td>
             <td><%= attendance.sitting_lesson.sitting.name %></td>
+            <td><%= attendance.sitting_lesson.lesson.title %></td>
             <td><%= attendance.sitting_lesson.sitting.done_on.strftime("%F %H:%M %p") %></td>
           </tr>
           <% end %>
