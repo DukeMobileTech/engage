@@ -34,7 +34,17 @@ class SectionParticipant < ApplicationRecord
   end
 
   def sitting_attendances
-    lesson_attendances.where(sitting_lesson_id: section.sitting_lessons.joins(:sitting).merge(Sitting.kept).pluck(:id).uniq).where(present: true)
+    # sitting_lesson ids for kept sittings
+    sitting_lesson_ids = section.sitting_lessons.joins(:sitting).merge(Sitting.kept).pluck(:id)
+    return lesson_attendances.none if sitting_lesson_ids.empty?
+
+    # Return one attendance per lesson (avoid double-counting lessons that appear in multiple sittings).
+    # Uses Postgres DISTINCT ON to pick a single LessonAttendance per sitting_lesson.lesson_id.
+    lesson_attendances
+      .joins(:sitting_lesson)
+      .where(sitting_lesson_id: sitting_lesson_ids, present: true)
+      .select("DISTINCT ON (sitting_lessons.lesson_id) lesson_attendances.*")
+      .order("sitting_lessons.lesson_id, lesson_attendances.created_at DESC")
   end
 
   def average_attendance
