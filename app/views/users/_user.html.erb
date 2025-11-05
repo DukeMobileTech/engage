@@ -1,9 +1,22 @@
 <div>
   <p><b>Name</b>: <%= @user.name %></p>
   <p><b>Email</b>: <%= @user.email_address %></p>
-  <p><b>Active</b>: <%= @user.active? ? "Yes" : "No" %></p>
-  <p><b>Roles</b>: <%= @user.roles.pluck(:name).join(", ") %></p>
+  <p><b>Active</b>: 
+              <% if @user.active? %>
+                <span class="badge bg-success">Yes</span>
+              <% else %>
+                <span class="badge bg-danger">No</span>
+              <% end %>
+  </p>
+  <p><b>Roles</b>: <% @user.roles.each do |role| %>
+                    <span class="badge bg-warning text-dark ms-1"><%= role.name.capitalize %></span>
+                  <% end %></p>
   <% unless @user.admin? %>
-    <p><b>Sites</b>: <%= @user.sites.pluck(:name).join(", ") %></p>
+    <p>
+      <b>Sites</b>:
+      <% @user.sites.kept.each do |site| %>
+        <span><%= link_to site.name, site, class: "btn btn-sm btn-outline-info mb-1" %> </span>
+      <% end %>
+    </p>
   <% end %>
 </div>
