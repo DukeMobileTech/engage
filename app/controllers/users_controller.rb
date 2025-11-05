@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update invite ]
+  before_action :set_user, only: %i[ show edit update invite profile ]
   after_action :verify_authorized
 
   def index
@@ -65,6 +65,10 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, alert: "User is not active, cannot send invite." }
       end
     end
+  end
+
+  def profile
+    authorize @user
   end
 
   private

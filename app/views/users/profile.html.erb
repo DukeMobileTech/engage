@@ -1,0 +1,29 @@
+<% content_for :title, "User Details" %>
+<p style="color: green"><%= notice %></p>
+<p style="color: red"><%= alert %></p>
+
+<div class="card main-card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between">
+      <h4><%= @user.name %></h4>
+      <span>
+        <% if authenticated? %>
+          <%= link_to "Sign Out", session_path, "data-turbo-method": :delete, class: "btn btn-danger" %>
+        <% end %>
+      </span>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h5 class="mb-2"><u>My Details</u></h5>
+    <%= render "user", locals: { users: @user } %>
+  </div>
+
+  <div class="card-footer">
+    <div class="m-1">
+      <%= link_to root_path, class: 'btn btn-secondary' do %>
+        <i class="fa-solid fa-arrow-left"></i> Back
+      <% end %>
+    </div>
+  </div>
+</div>
