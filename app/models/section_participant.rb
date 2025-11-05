@@ -48,7 +48,7 @@ class SectionParticipant < ApplicationRecord
   end
 
   def average_attendance
-    ((sitting_attendances.size / section.sitting_lessons.size.to_f) * 100).round(2)
+    ((sitting_attendances.size / section.lessons_covered.to_f) * 100).round(2)
   end
 
   def attendance_str

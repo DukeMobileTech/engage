@@ -37,6 +37,7 @@ class SessionsTest < ApplicationSystemTestCase
 
     assert_selector "h3", text: "My Sites"
 
+    visit profile_user_path(@user)
     click_on "Sign Out"
 
     assert_selector "h1", text: "Please sign in"
