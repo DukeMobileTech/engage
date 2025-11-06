@@ -101,6 +101,17 @@ class Section < ApplicationRecord
     end
   end
 
+  def target_attendance_progress_status
+    avg = participants_meeting_target_attendance_proportion
+    if avg >= 80
+      "good"
+    elsif avg < 50
+      "poor"
+    else
+      "warning"
+    end
+  end
+
   def lesson_progress_status
     lessons_done = completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count
     if lessons_done >= 0.67 * lessons_covered
@@ -333,6 +344,13 @@ class Section < ApplicationRecord
 
   def participants_meeting_target_attendance
     section_participants.select { |sp| sp.average_attendance >= 75 }
+  end
+
+  def participants_meeting_target_attendance_proportion
+    total = section_participants.size
+    return 0 if total.zero?
+    meeting_target = participants_meeting_target_attendance.size
+    ((meeting_target.to_f / total.to_f) * 100).round(2)
   end
 
   def add_reporting_data_dosage_sheet(sheet)

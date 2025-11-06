@@ -8,8 +8,8 @@
     <div class="info-value"><%= @section.lessons_covered %></div>
   </div>
   <div class="info-item">
-    <div class="info-label">Reported</div>
-    <div class="info-value"><%= @section.reported ? "Yes" : "No" %></div>
+    <div class="info-label">Participants Enrolled</div>
+    <div class="info-value"><%= @section.section_participants.size %></div>
   </div>
   <div class="info-item">
     <div class="info-label">Entry Status</div>
@@ -26,10 +26,37 @@
 <div class="progress-section <%= @section.lesson_progress_status %>">
   <h3 class="mb-3">Overall Progress</h3>
   <div class="row align-items-center">
-    <div class="col-md-6 text-center">
+    <div class="col-md-4 text-center">
+      <div class="attendance-stats">
+        <div class="attendance-item">
+          <div class="attendance-details">
+            <div class="attendance-label">Attendance Milestone Tracker</div>
+            <% current = @section.participants_meeting_target_attendance_proportion %>
+            <div class="attendance-value <%= @section.target_attendance_progress_status %>"><%= current %></div>
+            <% if current >= 80 %>
+              <div class="attendance-status good">Above Target (80%)</div>
+            <% elsif current < 50 %>
+              <div class="attendance-status poor">Below Target (80%)</div>
+            <% else %>
+              <div class="attendance-status warning">Below Target (80%)</div>
+            <% end %>
+          </div>
+        </div>
+        <div class="attendance-breakdown">
+          <div class="attendance-bar">
+            <div class="attendance-fill" style="width: <%= current %>%"></div>
+          </div>
+          <div class="attendance-text">
+            <span>Target: 80%</span>
+            <span>Current: <%= current %>%</span>
+          </div>
+        </div>
+      </div>
+      <div class="attendance-footer">All Curriculum Lessons</div>
+    </div>
+    <div class="col-md-4 text-center">
       <div class="lesson-stats">
         <div class="attendance-label">Lessons Progress</div>
-
         <div class="progress-circle">
           <svg class="progress-ring" width="120" height="120">
             <circle class="progress-ring-bg" cx="60" cy="60" r="<%= @section.progress_radius %>"></circle>
@@ -43,7 +70,7 @@
         <p class="mb-0"><%= "#{@section.progress_label} (#{@section.progress_percentage}%)" %></p>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4 text-center">
       <div class="attendance-stats">
         <div class="attendance-item">
           <div class="attendance-icon">
@@ -71,6 +98,7 @@
           </div>
         </div>
       </div>
+      <div class="attendance-footer">Only Implemented Lessons</div>
     </div>
   </div>
 </div>
