@@ -498,7 +498,7 @@ DEPENDENCIES
   bootswatch!
   brakeman
   capybara
-  caxlsx (~> 4.2)
+  caxlsx (~> 4.4)
   csv
   dartsass-rails
   debug
