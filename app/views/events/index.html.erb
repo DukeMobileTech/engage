@@ -13,7 +13,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Done On</th>
+        <th>Name</th>
+        <th>Date</th>
         <th>Entered By</th>
         <th>Discard</th>
       </tr>
@@ -22,7 +23,8 @@
       <% @events.each do |event| %>
         <tr>
           <td><%= link_to event.id, event_path(event) %></td>
-          <td><%= event.created_at %></td>
+          <td><%= event.attribute("name") %></td>
+          <td><%= event.attribute("date") %></td>
           <td><%= event.user.name %></td>
           <td>
             <% if policy(event).destroy? %>

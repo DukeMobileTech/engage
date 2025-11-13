@@ -56,15 +56,15 @@ class Participant < ApplicationRecord
   end
 
   def average_attendance(section)
-    att = sitting_attendances(section).size
-    sit = section.sittings.size
+    att = unique_lesson_attendances(section).size
+    sit = section.lessons_covered
     return 0 if att == 0 || sit == 0
 
     (att.to_f / sit.to_f).round * 100
   end
 
-  def sitting_attendances(section)
-    section_participant(section)&.sitting_attendances
+  def unique_lesson_attendances(section)
+    section_participant(section)&.unique_lesson_attendances
   end
 
   def attendance_str(section)

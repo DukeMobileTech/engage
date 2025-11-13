@@ -14,15 +14,17 @@
             <th>Session</th>
             <th>Lesson</th>
             <th>Date</th>
+            <th>Present</th>
           </tr>
         </thead>
         <tbody>
-          <% @section_participant.sitting_attendances.each do |attendance| %>
+          <% @section_participant.section_lesson_attendances.each do |attendance| %>
           <tr>
             <td><%= @section.name %></td>
             <td><%= attendance.sitting_lesson.sitting.name %></td>
             <td><%= attendance.sitting_lesson.lesson.title %></td>
             <td><%= attendance.sitting_lesson.sitting.done_on.strftime("%F %H:%M %p") %></td>
+            <td><%= attendance.present ? "Yes" : "No" %></td>
           </tr>
           <% end %>
         </tbody>

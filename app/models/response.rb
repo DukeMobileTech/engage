@@ -95,6 +95,15 @@ class Response < ApplicationRecord
     questionnaire&.demographics?
   end
 
+  def attribute(identifier)
+    questionnaire = Questionnaire.find_by(id: questionnaire_id)
+    return nil unless questionnaire
+    question = questionnaire.questions.find_by(identifier: identifier)
+    return nil unless question
+
+    answers[question.id.to_s]
+  end
+
   def self.to_csv(questionnaire_id)
     all = where(questionnaire_id: questionnaire_id).kept.order(created_at: :desc)
     questionnaire = Questionnaire.find(questionnaire_id)

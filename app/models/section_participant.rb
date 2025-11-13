@@ -33,13 +33,15 @@ class SectionParticipant < ApplicationRecord
     [ :participant ]
   end
 
-  def sitting_attendances
-    # sitting_lesson ids for kept sittings
-    sitting_lesson_ids = section.sitting_lessons.joins(:sitting).merge(Sitting.kept).pluck(:id)
+  def section_lesson_attendances
+    lesson_attendances.joins(:sitting_lesson).where(sitting_lessons: { sitting_id: section.sittings.kept.pluck(:id) }).order("sitting_lessons.sitting_id ASC, sitting_lessons.lesson_id ASC")
+  end
+
+  def unique_lesson_attendances
+    completed_sittings_ids = section.sittings.kept.where(completed: true).pluck(:id)
+    sitting_lesson_ids = section.sitting_lessons.where(sitting_id: completed_sittings_ids).pluck(:id)
     return lesson_attendances.none if sitting_lesson_ids.empty?
 
-    # Return one attendance per lesson (avoid double-counting lessons that appear in multiple sittings).
-    # Uses Postgres DISTINCT ON to pick a single LessonAttendance per sitting_lesson.lesson_id.
     lesson_attendances
       .joins(:sitting_lesson)
       .where(sitting_lesson_id: sitting_lesson_ids, present: true)
@@ -48,15 +50,22 @@ class SectionParticipant < ApplicationRecord
   end
 
   def average_attendance
-    ((sitting_attendances.size / section.lessons_covered.to_f) * 100).round(2)
+    ((unique_lesson_attendances.size / section.lessons_covered.to_f) * 100).round(2)
   end
 
   def attendance_str
-    "#{sitting_attendances.size} out of #{section.lessons_covered}"
+    "#{unique_lesson_attendances.size} out of #{section.lessons_covered}"
   end
 
   def progress
-    ((sitting_attendances.size.to_f / section.lessons_covered.to_f) * 100).round
+    average_attendance
+  end
+
+  def cumulative_average_attendance
+    completed_sittings_ids = section.sittings.kept.where(completed: true).pluck(:id)
+    completed_lesson_count = section.sitting_lessons.where(sitting_id: completed_sittings_ids).pluck(:lesson_id).uniq.size
+    return 0 if completed_lesson_count.zero?
+    ((unique_lesson_attendances.size / completed_lesson_count.to_f) * 100).round(2)
   end
 
   def demographics_response

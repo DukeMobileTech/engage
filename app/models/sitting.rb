@@ -42,8 +42,7 @@ class Sitting < ApplicationRecord
   end
 
   def average_attendance
-    return 0 if present_participants.empty?
-    ((present_participants.size.to_f / lesson_attendances.size) * 100).round(2)
+    sitting_lessons.map { |sl| sl.attendance_percentage }.sum / sitting_lessons.size.to_f.round(2)
   end
 
   def demographic_responses

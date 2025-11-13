@@ -29,11 +29,25 @@ class SittingLesson < ApplicationRecord
     "#{lesson.title} on #{sitting.done_on.strftime("%F %H:%M %p")}"
   end
 
+  def enrolled_participants_lesson_attendances
+    lesson_attendances.where(participant_id: section_participants.pluck(:participant_id))
+  end
+
+  def section_participants
+    sitting.section.section_participants
+  end
+
   def present_participants
-    lesson_attendances.where(present: true)
+    lesson_attendances.where(present: true).where(participant_id: section_participants.pluck(:participant_id))
   end
 
   def participation
-    "#{present_participants.count} out of #{sitting.section.section_participants.count }"
+    "#{present_participants.count} out of #{section_participants.count }"
+  end
+
+  def attendance_percentage
+    return 0.0 if section_participants.count.zero?
+
+    ((present_participants.count.to_f / section_participants.count.to_f) * 100).round(2)
   end
 end

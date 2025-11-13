@@ -91,7 +91,7 @@ class Section < ApplicationRecord
   end
 
   def average_attendance_status
-    avg = average_attendance
+    avg = completed_sittings_average_attendance
     if avg >= 75
       "good"
     elsif avg < 50
@@ -338,8 +338,13 @@ class Section < ApplicationRecord
   end
 
   def average_attendance
-    sum = completed_sittings.map { |sitting| sitting.average_attendance }.sum
-    completed_sittings.size.positive? ? (sum / completed_sittings.size).round(2) : 0
+    return 0 if section_participants.empty?
+    (section_participants.map { |sp| sp.average_attendance }.sum / section_participants.size.to_f).round(2)
+  end
+
+  def completed_sittings_average_attendance
+    return 0 if section_participants.empty?
+    (section_participants.map { |sp| sp.cumulative_average_attendance }.sum / section_participants.size.to_f).round(2)
   end
 
   def participants_meeting_target_attendance

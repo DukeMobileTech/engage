@@ -77,11 +77,12 @@
             <i class="fas fa-users"></i>
           </div>
           <div class="attendance-details">
-            <div class="attendance-label">Average Attendance</div>
-            <div class="attendance-value <%= @section.average_attendance_status %>"><%= @section.average_attendance %></div>
-            <% if @section.average_attendance >= 75 %>
+            <div class="attendance-label">Average Participation</div>
+            <% avg = @section.completed_sittings_average_attendance %>
+            <div class="attendance-value <%= @section.average_attendance_status %>"><%= avg %></div>
+            <% if avg >= 75 %>
               <div class="attendance-status good">Above Target (75%)</div>
-            <% elsif @section.average_attendance < 50 %>
+            <% elsif avg < 50 %>
               <div class="attendance-status poor">Below Target (75%)</div>
             <% else %>
               <div class="attendance-status warning">Below Target (75%)</div>
@@ -90,11 +91,11 @@
         </div>
         <div class="attendance-breakdown">
           <div class="attendance-bar">
-            <div class="attendance-fill" style="width: <%= @section.average_attendance %>%"></div>
+            <div class="attendance-fill" style="width: <%= avg %>%"></div>
           </div>
           <div class="attendance-text">
             <span>Target: 75%</span>
-            <span>Current: <%= @section.average_attendance %>%</span>
+            <span>Current: <%= avg %>%</span>
           </div>
         </div>
       </div>

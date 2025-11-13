@@ -3,12 +3,12 @@ class SittingLessonsController < ApplicationController
 
   # GET /sitting_lessons/1
   def show
-    @lesson_attendances = @sitting_lesson.lesson_attendances.includes(:participant).order("participants.name")
+    @lesson_attendances = @sitting_lesson.enrolled_participants_lesson_attendances.includes(:participant).order("participants.name")
   end
 
   # GET /sitting_lessons/1/edit
   def edit
-    @lesson_attendances = @sitting_lesson.lesson_attendances.includes(:participant).order("participants.name")
+    @lesson_attendances = @sitting_lesson.enrolled_participants_lesson_attendances.includes(:participant).order("participants.name")
     @participants = @sitting.section.participants.order(:name)
   end
 
