@@ -374,8 +374,8 @@ class Section < ApplicationRecord
       adh_list << adh
       qual_list << quality&.to_i
     end
-    avg_adh = adh_list.size.positive? ? (adh_list.sum / adh_list.size).round : 0
-    avg_qual = qual_list.size.positive? ? (qual_list.sum / qual_list.size).round : 0
+    avg_adh = adh_list.size.positive? ? (adh_list.sum / adh_list.size).round : ""
+    avg_qual = qual_list.size.positive? ? (qual_list.sum / qual_list.size).round : ""
     [ avg_adh, avg_qual ]
   end
 
