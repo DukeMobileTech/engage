@@ -2,7 +2,7 @@ class ResponsePolicy < AdminPolicy
   def create?
     if @record.observation?
       @user.admin? || @user.observer?
-    elsif @record.fidelity? || @record.demographics?
+    elsif @record.fidelity? || @record.demographics? || @record.event?
       @user.admin? || @user.facilitator? || @user.observer?
     else
       @user.admin?

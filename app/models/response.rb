@@ -95,6 +95,10 @@ class Response < ApplicationRecord
     questionnaire&.demographics?
   end
 
+  def event?
+    questionnaire&.event?
+  end
+
   def attribute(identifier)
     questionnaire = Questionnaire.find_by(id: questionnaire_id)
     return nil unless questionnaire

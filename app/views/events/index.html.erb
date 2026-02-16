@@ -35,7 +35,7 @@
       <% end %>
     </tbody>
   </table>
-  <% if policy(Response.new).create? %>
+  <% if policy(@questionnaire.responses.new).create? %>
     <div class="d-flex flex-row-reverse">
       <%= link_to new_questionnaire_response_path(@questionnaire), class: "btn btn-primary fw-semibold" do %>
         <i class="fa-solid fa-plus"></i> New event
@@ -43,4 +43,3 @@
     </div>
   <% end %>
 </div>
-
