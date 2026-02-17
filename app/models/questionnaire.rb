@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: questionnaires
+# Database name: primary
 #
 #  id         :bigint           not null, primary key
 #  title      :string

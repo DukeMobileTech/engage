@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: participants
+# Database name: primary
 #
 #  id           :bigint           not null, primary key
 #  category     :string           default("Youth")

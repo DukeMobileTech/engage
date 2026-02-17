@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: sittings
+# Database name: primary
 #
 #  id              :bigint           not null, primary key
 #  completed       :boolean          default(FALSE)

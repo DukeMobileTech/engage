@@ -2,6 +2,7 @@
 # == Schema Information
 #
 # Table name: site_participants
+# Database name: primary
 #
 #  id             :bigint           not null, primary key
 #  created_at     :datetime         not null

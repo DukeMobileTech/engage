@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: responses
+# Database name: primary
 #
 #  id               :bigint           not null, primary key
 #  answers          :json

@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: answers
+# Database name: primary
 #
 #  id          :bigint           not null, primary key
 #  label       :string

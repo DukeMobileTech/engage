@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: lesson_attendances
+# Database name: primary
 #
 #  id                :bigint           not null, primary key
 #  present           :boolean          default(FALSE)

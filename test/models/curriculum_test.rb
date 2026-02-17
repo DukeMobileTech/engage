@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: curriculums
+# Database name: primary
 #
 #  id            :bigint           not null, primary key
 #  program_model :string
