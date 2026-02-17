@@ -15,13 +15,15 @@
       <% @questionnaires.each do |questionnaire| %>
         <tr scope="row">
           <td><%= link_to questionnaire.title.titleize, questionnaire %></td>
-          <td><%= link_to questionnaire.responses.size, questionnaire_responses_path(questionnaire) %></td>
+          <td>
+            <% if questionnaire.event? %>
+              <%= link_to questionnaire.responses.size, events_path %>
+            <% else %>
+              <%= link_to questionnaire.responses.size, questionnaire_responses_path(questionnaire) %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
-  <div class="d-flex flex-row-reverse">
-    <%= link_to "New questionnaire", new_questionnaire_path, class: "btn btn-primary" %>
-  </div>
 </div>
