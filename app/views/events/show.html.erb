@@ -5,7 +5,7 @@
 
   <% if policy(@events).download? %>
   <div class="d-flex flex-row-reverse mb-3">
-    <%= link_to download_events_path, class: "btn btn-primary" do %>
+    <%= link_to download_event_path(@questionnaire), class: "btn btn-primary" do %>
       <i class="fa-solid fa-file-arrow-down"></i> Events CSV
     <% end %>
   </div>

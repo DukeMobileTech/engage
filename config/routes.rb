@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :events, only: %i[index show destroy] do
-    collection do
+    member do
       get "download" => "events#download"
     end
   end

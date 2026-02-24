@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   def download
     @events = @questionnaire.responses.kept
     authorize @events
-    filename = "community-engagement-tracking-#{Date.current.strftime('%Y-%m-%d')}.csv"
+    filename = "#{@questionnaire.title.parameterize}-#{Date.current.strftime('%Y-%m-%d')}.csv"
     tempfile = Tempfile.new filename
     tempfile.write(Response.to_csv(@questionnaire.id))
     tempfile.rewind
