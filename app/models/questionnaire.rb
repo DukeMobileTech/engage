@@ -41,6 +41,10 @@ class Questionnaire < ApplicationRecord
     find_by(title: "demographics")
   end
 
+  def self.events
+    where(title: [ "Community Engagement Tracking", "Training Tracking Form", "Partner Engagement Tracking Form" ])
+  end
+
   def observation?
     title == "program observation"
   end
@@ -54,6 +58,18 @@ class Questionnaire < ApplicationRecord
   end
 
   def event?
+    title == "Community Engagement Tracking" || title == "Training Tracking Form" || title == "Partner Engagement Tracking Form"
+  end
+
+  def community_event?
     title == "Community Engagement Tracking"
+  end
+
+  def training_event?
+    title == "Training Tracking Form"
+  end
+
+  def partner_event?
+    title == "Partner Engagement Tracking Form"
   end
 end

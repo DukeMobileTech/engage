@@ -1,19 +1,17 @@
 class EventsController < ApplicationController
-  before_action :set_questionnaire
-  after_action :verify_authorized
+  before_action :set_questionnaire, except: :index
+  after_action :verify_authorized, except: [ :index, :show ]
 
   def index
-    @events = @questionnaire.responses.kept.order(created_at: :desc)
-    authorize @events
+    @questionnaires = Questionnaire.events.includes(:responses).order(:title)
   end
 
   def show
-    @event = @questionnaire.responses.kept.find(params[:id])
-    authorize @event
+    @events = @questionnaire.responses.kept.order(created_at: :desc)
   end
 
   def destroy
-    @event = @questionnaire.responses.kept.find(params[:id])
+    @event = @questionnaire.responses.kept.find(params[:response_id])
     authorize @event
     @event.discard
     respond_to do |format|
@@ -36,6 +34,6 @@ class EventsController < ApplicationController
   private
 
   def set_questionnaire
-    @questionnaire = Questionnaire.find_by(title: "Community Engagement Tracking")
+    @questionnaire = Questionnaire.find(params[:id])
   end
 end

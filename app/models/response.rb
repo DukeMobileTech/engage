@@ -100,6 +100,26 @@ class Response < ApplicationRecord
     questionnaire&.event?
   end
 
+  def name_identifier
+    if questionnaire&.community_event?
+      "name"
+    elsif questionnaire&.training_event?
+      "training_title"
+    elsif questionnaire&.partner_event?
+      "partner_name"
+    end
+  end
+
+  def date_identifier
+    if questionnaire&.community_event?
+      "date"
+    elsif questionnaire&.training_event?
+      "training_date"
+    elsif questionnaire&.partner_event?
+      "partner_last_outreach_date"
+    end
+  end
+
   def attribute(identifier)
     questionnaire = Questionnaire.find_by(id: questionnaire_id)
     return nil unless questionnaire

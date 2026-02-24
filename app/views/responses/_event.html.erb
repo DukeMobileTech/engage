@@ -16,12 +16,12 @@
   <%= form.fields_for :answers do |response| %>
     <% @questionnaire.questions.each do |question| %>
       <div class="mb-3">
-        <h5>
-          <%= question.number %> ) <%= question.identifier %>
+        <strong>
+          <%= question.number %> )
           <%= content_tag :abbr, '*', title: 'Required' if question.required %>
-        <h5>
+        </strong>
 
-        <p class="ms-1"><%= question.text %></p>
+        <span class="ms-1"><%= question.text %></span>
 
         <% case question.question_type %>
         <% when 'single_choice' %>
