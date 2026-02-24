@@ -8,6 +8,8 @@
       <tr>
         <th>Type of Event</th>
         <th>Number of Events</th>
+        <th>Download Events</th>
+        <th>Add New Event</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +18,20 @@
           <td><%= link_to questionnaire.title.titleize, questionnaire %></td>
           <td>
             <%= link_to questionnaire.responses.kept.size, event_path(questionnaire) %>
+          </td>
+          <td>
+            <% if policy(questionnaire.responses).download? %>
+              <%= link_to download_event_path(questionnaire), class: "btn btn-info" do %>
+                <i class="fa-solid fa-file-arrow-down"></i> Events CSV
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% if policy(questionnaire.responses.new).create? %>
+              <%= link_to new_questionnaire_response_path(questionnaire), class: "btn btn-success" do %>
+                <i class="fa-solid fa-plus"></i> New Event
+              <% end %>
+            <% end %>
           </td>
         </tr>
       <% end %>

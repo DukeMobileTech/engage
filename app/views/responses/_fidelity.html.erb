@@ -16,7 +16,7 @@
 
   <%= form.fields_for :answers do |response| %>
     <% @activities.each do |activity| %>
-      <div data-controller='visibility'>
+      <div data-controller="visibility">
         <div class="mb-3">
           <h5>
             <%= activity.name %>
@@ -67,7 +67,7 @@
         <h5>
           <%= question.number %> ) <%= question.identifier %>
           <%= content_tag :abbr, '*', title: 'Required' if question.required %>
-        <h5>
+        </h5>
 
         <p class="ms-1"><%= question.text %></p>
 
