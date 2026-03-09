@@ -1,3 +1,4 @@
+<div class="main-card">
 <% if @questionnaire.demographics? %>
   <%= render 'demo_index' %>
 <% elsif @questionnaire.fidelity? %>
@@ -5,3 +6,4 @@
 <% elsif @questionnaire.observation? %>
   <%= render 'obs_index' %>
 <% end %>
+</div>

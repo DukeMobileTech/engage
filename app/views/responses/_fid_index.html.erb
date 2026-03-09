@@ -1,38 +1,48 @@
-<div class="mb-5">
-  <h3 class="text-center"><%= @questionnaire.title.titleize %> Responses</h3>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Site</th>
-        <th>Section</th>
-        <th>Session</th>
-        <th>Done On</th>
-        <th>Facilitators</th>
-        <th>Entered By</th>
-        <th>Discard</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @responses.each do |response| %>
-        <tr scope="row">
-          <% site = response.sitting&.section&.site %>
-          <% section = response.sitting&.section %>
-          <td><%= site ? (link_to site&.name, site_path(site)) : '' %></td>
-          <td><%= site && section ? (link_to section&.short_name, site_section_path(site, section)) : '' %></td>
-          <td><%= response.sitting ? (link_to response.sitting&.name, site_section_sitting_path(response.sitting.site, response.sitting.section, response.sitting)) : '' %></td>
-          <td><%= link_to response.created_at.strftime("%F"), questionnaire_response_path(response.questionnaire, response) %></td>
-          <td><%= response.facilitators.map { |f| f.name }.join(", ") %></td>
-          <td><%= response.user.name if response.user %></td>
-          <td>
-            <% if policy(response).destroy? %>
-              <%= link_to "Discard", questionnaire_response_path(response.questionnaire, response), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to discard this response?" }, class: 'btn btn-sm btn-danger' %>
-            <% end %>
-          </td>
+<div class="card-header d-flex justify-content-between align-items-center">
+  <h3 class="card-title mb-0"><%= @questionnaire.title.titleize %> Responses</h3>
+</div>
+
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Site</th>
+          <th>Section</th>
+          <th>Session</th>
+          <th>Done On</th>
+          <th>Facilitators</th>
+          <th>Entered By</th>
+          <th>Discard</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <div class="d-flex flex-row-reverse">
+      </thead>
+      <tbody>
+        <% @responses.each do |response| %>
+          <tr scope="row">
+            <% site = response.sitting&.section&.site %>
+            <% section = response.sitting&.section %>
+            <td><%= site ? (link_to site&.name, site_path(site)) : '' %></td>
+            <td><%= site && section ? (link_to section&.short_name, site_section_path(site, section)) : '' %></td>
+            <td><%= response.sitting ? (link_to response.sitting&.name, site_section_sitting_path(response.sitting.site, response.sitting.section, response.sitting)) : '' %></td>
+            <td><%= link_to response.created_at.strftime("%F"), questionnaire_response_path(response.questionnaire, response) %></td>
+            <td><%= response.facilitators.map { |f| f.name }.join(", ") %></td>
+            <td><%= response.user.name if response.user %></td>
+            <td>
+              <% if policy(response).destroy? %>
+                <%= link_to questionnaire_response_path(response.questionnaire, response), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to discard this response?" }, class: 'btn btn-sm btn-danger' do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card-footer">
+  <div class="d-flex flex-row-reverse m-1">
     <% if @sitting && policy(@questionnaire.responses.new).new? %>
       <%= link_to "New response", new_questionnaire_response_path(@questionnaire, sitting_id: @sitting.id), class: 'btn btn-primary' %>
     <% end %>
