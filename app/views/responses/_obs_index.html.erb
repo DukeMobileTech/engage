@@ -3,6 +3,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Site</th>
         <th>Section</th>
         <th>Session</th>
         <th>Done On</th>
@@ -14,7 +15,10 @@
     <tbody>
       <% @responses.each do |response| %>
         <tr scope="row">
-          <td><%= response&.sitting&.section&.name %></td>
+          <% site = response.sitting&.section&.site %>
+          <% section = response.sitting&.section %>
+          <td><%= site ? (link_to site&.name, site_path(site)) : '' %></td>
+          <td><%= site && section ? (link_to section&.short_name, site_section_path(site, section)) : '' %></td>
           <td><%= response.sitting ? (link_to response.sitting&.name, site_section_sitting_path(response.sitting.site, response.sitting.section, response.sitting)) : '' %></td>
           <td><%= link_to response.created_at.strftime("%F"), questionnaire_response_path(response.questionnaire, response) %></td>
           <td><%= response.observer&.name if response.observer %></td>

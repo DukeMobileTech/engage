@@ -191,6 +191,10 @@ class Section < ApplicationRecord
     Response.kept.where(questionnaire_id: observation_form&.id, sitting_id: sittings.kept.pluck(:id)).order(created_at: :desc)
   end
 
+  def fidelity_logs
+    Response.kept.where(questionnaire_id: Questionnaire.fidelity&.id, sitting_id: sittings.kept.pluck(:id)).order(created_at: :desc)
+  end
+
   def quality_question
     observation_form.questions.find_by(identifier: "quality")
   end
@@ -399,7 +403,10 @@ class Section < ApplicationRecord
   end
 
   def short_name
-    name.delete_prefix("#{site.name} - ")
+    prefix = site.name
+    sname = name.delete_prefix(prefix).strip if prefix.present? && name.start_with?(prefix)
+    sname = sname.delete_prefix("-").strip if sname.present? && sname.start_with?("-")
+    sname || name
   end
 
   private

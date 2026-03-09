@@ -79,12 +79,7 @@ class SectionsController < ApplicationController
 
   def fidelity_logs
     authorize @section
-    # @questionnaire = Questionnaire.fidelity
-    # tempfile = Tempfile.new([ "#{@questionnaire.title.parameterize}", ".csv" ])
-    # tempfile.write(Response.to_csv(@questionnaire.id))
-    # tempfile.rewind
-
-    # send_file tempfile.path, filename: "#{@questionnaire.title.parameterize}.csv", type: "text/csv"
+    @fidelity_logs = @section.fidelity_logs
   end
 
   private

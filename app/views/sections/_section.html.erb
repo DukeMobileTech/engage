@@ -136,7 +136,11 @@
         <div class="session-status">Completed</div>
         <div class="session-details"><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
         <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
-        <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
+        <% if sitting.fidelity_log_responses.any? %>
+          <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
+        <% else %>
+          <div class="session-details">Fidelity <i class="fa-solid fa-xmark"></i></div>
+        <% end %>
         <% if sitting.program_observation_responses.any? %>
           <div class="session-details">Observation <i class="fa-solid fa-check"></i></div>
         <% else %>
