@@ -144,21 +144,28 @@ class Participant < ApplicationRecord
   end
 
   def merge_participant(party)
-    party.site_participants.each do |sp|
-      unless sites.include?(sp.site)
-        sp.participant_id = id
-        sp.save
+    transaction do
+      current_site_ids = site_participants.pluck(:site_id)
+      party.site_participants.find_each do |sp|
+        sp.update!(participant_id: id) unless current_site_ids.include?(sp.site_id)
       end
-    end
-    party.section_participants.each do |sp|
-      unless sections.include?(sp.section)
-        sp.participant_id = id
-        sp.save
+
+      current_section_ids = section_participants.pluck(:section_id)
+      party.section_participants.find_each do |sp|
+        if current_section_ids.include?(sp.section_id)
+          # If current participant already has this section, optionally migrate sub-data then remove old link
+          existing_sp = section_participants.find_by(section_id: sp.section_id)
+          sp.section_participant_response&.update!(section_participant: existing_sp) if existing_sp
+          sp.destroy!
+        else
+          sp.update!(participant_id: id)
+        end
       end
+
+      party.responses.update_all(participant_id: id)
+      party.lesson_attendances.update_all(participant_id: id)
+      party.destroy!
     end
-    party.responses.update_all(participant_id: id)
-    party.lesson_attendances.update_all(participant_id: id)
-    party.discard
   end
 
   private
