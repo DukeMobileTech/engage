@@ -173,7 +173,7 @@ class Participant < ApplicationRecord
     extra = %w[sites sections]
     CSV.generate do |csv|
       csv << attributes + extra
-      all.find_each do |participant|
+      all.kept.find_each do |participant|
         csv << attributes.map { |attr| participant.send(attr) } + [ participant.sites.map(&:name).join(", "), participant.sections.map(&:name).join(", ") ]
       end
     end

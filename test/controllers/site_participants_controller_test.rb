@@ -11,4 +11,15 @@ class SiteParticipantsControllerTest < ActionDispatch::IntegrationTest
     get site_site_participants_url(@site)
     assert_response :success
   end
+
+  test "should only include kept participants in index" do
+    participants(:two).discard
+
+    get site_site_participants_url(@site)
+    assert_response :success
+
+    site_participants = assigns(:site_participants)
+    assert_equal 1, site_participants.size
+    assert_equal participants(:one).id, site_participants.first.participant_id
+  end
 end

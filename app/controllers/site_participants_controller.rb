@@ -2,7 +2,7 @@ class SiteParticipantsController < ApplicationController
   # GET /site_participants or /site_participants.json
   def index
     @site = Site.find(params.expect(:site_id))
-    @query = @site.site_participants.joins(:participant).ransack(params[:query])
+    @query = @site.site_participants.joins(:participant).merge(Participant.kept).ransack(params[:query])
     @site_participants = @query.result(distinct: true)
                                .page(params[:page])
                                .per(params[:per_page] || 20)
