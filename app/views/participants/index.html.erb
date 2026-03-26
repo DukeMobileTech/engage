@@ -9,7 +9,13 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-4"><%= form.search_field :name_or_study_id_or_category_cont, placeholder: 'Search by name or study id or category', class: "form-control" %></div>
       <div class="col-lg-2"><%= form.submit class: "btn btn-outline-info" %></div>
-      <div class="col-lg-3"></div>
+      <div class="col-lg-3">
+        <% if policy(@participants).export? %>
+          <%= link_to export_participants_path, class: "btn btn-info" do %>
+            <i class="fa-solid fa-file-arrow-down"></i> Export CSV
+          <% end %>
+        <% end %>
+      </div>
     </div>
     <table class="table table-striped">
       <thead>
@@ -40,7 +46,7 @@
       </tbody>
     </table>
   <% end %>
-  
+
   <p class="text-center"><strong>Total Participants: <%= @participants.total_count %></strong></p>
   <%= paginate @participants %>
 

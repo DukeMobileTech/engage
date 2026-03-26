@@ -42,4 +42,8 @@ class ParticipantPolicy < AdminPolicy
   def autocomplete?
     create?
   end
+
+  def export?
+    create?
+  end
 end

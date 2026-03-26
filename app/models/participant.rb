@@ -168,6 +168,17 @@ class Participant < ApplicationRecord
     end
   end
 
+  def self.to_csv
+    attributes = %w[id study_id name category sex]
+    extra = %w[sites sections]
+    CSV.generate do |csv|
+      csv << attributes + extra
+      all.find_each do |participant|
+        csv << attributes.map { |attr| participant.send(attr) } + [ participant.sites.map(&:name).join(", "), participant.sections.map(&:name).join(", ") ]
+      end
+    end
+  end
+
   private
 
   def assign_study_id

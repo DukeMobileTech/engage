@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get "bulk" => "participants#bulk"
       post "bulk_create" => "participants#bulk_create"
       get "autocomplete" => "participants#autocomplete"
+      get "export" => "participants#export"
     end
     member do
       get "merge" => "participants#merge"
