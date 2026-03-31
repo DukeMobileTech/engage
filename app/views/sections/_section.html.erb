@@ -1,20 +1,30 @@
 <div class="info-grid">
   <div class="info-item">
     <div class="info-label">Facilitators</div>
-    <div class="info-value"><%= @section.facilitators.map(&:name).join(", ") %></div>
+    <div class="info-value"><%= section.facilitators.map(&:name).join(", ") %></div>
   </div>
   <div class="info-item">
     <div class="info-label">Lessons Covered</div>
-    <div class="info-value"><%= @section.lessons_covered %></div>
+    <div class="info-value"><%= section.lessons_covered %></div>
   </div>
   <div class="info-item">
     <div class="info-label">Participants Enrolled</div>
-    <div class="info-value"><%= @section.section_participants.size %></div>
+    <div class="info-value"><%= section.section_participants.size %></div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Demographics Entered</div>
+    <div class="info-value">
+      <% if section.section_participant_responses.size >= section.section_participants.size %>
+        <span class="entry-status entry-complete"><%= "#{section.section_participant_responses.size} / #{section.section_participants.size} entered" %></span>
+      <% else %>
+        <span class="entry-status entry-incomplete"><%= "#{section.section_participant_responses.size} / #{section.section_participants.size} entered" %></span>
+      <% end %>
+    </div>
   </div>
   <div class="info-item">
     <div class="info-label">Entry Status</div>
     <div class="info-value">
-      <% if @section.completed %>
+      <% if section.completed %>
         <span class="entry-status entry-complete">Complete</span>
       <% else %>
         <span class="entry-status entry-incomplete">Incomplete</span>
@@ -23,7 +33,7 @@
   </div>
 </div>
 
-<div class="progress-section <%= @section.lesson_progress_status %>">
+<div class="progress-section <%= section.lesson_progress_status %>">
   <h3 class="mb-3">Overall Progress</h3>
   <div class="row align-items-center">
     <div class="col-md-4 text-center">
@@ -31,8 +41,8 @@
         <div class="attendance-item">
           <div class="attendance-details">
             <div class="attendance-label">Attendance Milestone Tracker</div>
-            <% current = @section.participants_meeting_target_attendance_proportion %>
-            <div class="attendance-value <%= @section.target_attendance_progress_status %>"><%= current %></div>
+            <% current = section.participants_meeting_target_attendance_proportion %>
+            <div class="attendance-value <%= section.target_attendance_progress_status %>"><%= current %></div>
             <% if current >= 80 %>
               <div class="attendance-status good">Above Target (80%)</div>
             <% elsif current < 50 %>
@@ -59,15 +69,15 @@
         <div class="attendance-label">Lessons Progress</div>
         <div class="progress-circle">
           <svg class="progress-ring" width="120" height="120">
-            <circle class="progress-ring-bg" cx="60" cy="60" r="<%= @section.progress_radius %>"></circle>
-            <circle class="progress-ring-fill" cx="60" cy="60" r="<%= @section.progress_radius %>" 
-              stroke-dasharray="<%= @section.progress_circumference %>"
-              stroke-dashoffset="<%= @section.progress_offset %>">
+            <circle class="progress-ring-bg" cx="60" cy="60" r="<%= section.progress_radius %>"></circle>
+            <circle class="progress-ring-fill" cx="60" cy="60" r="<%= section.progress_radius %>" 
+              stroke-dasharray="<%= section.progress_circumference %>"
+              stroke-dashoffset="<%= section.progress_offset %>">
             </circle>
           </svg>
-          <div class="progress-text"><%= @section.progress_simple %></div>
+          <div class="progress-text"><%= section.progress_simple %></div>
         </div>
-        <p class="mb-0"><%= "#{@section.progress_label} (#{@section.progress_percentage}%)" %></p>
+        <p class="mb-0"><%= "#{section.progress_label} (#{section.progress_percentage}%)" %></p>
       </div>
     </div>
     <div class="col-md-4 text-center">
@@ -78,8 +88,8 @@
           </div>
           <div class="attendance-details">
             <div class="attendance-label">Average Participation</div>
-            <% avg = @section.completed_sittings_average_attendance %>
-            <div class="attendance-value <%= @section.average_attendance_status %>"><%= avg %></div>
+            <% avg = section.completed_sittings_average_attendance %>
+            <div class="attendance-value <%= section.average_attendance_status %>"><%= avg %></div>
             <% if avg >= 75 %>
               <div class="attendance-status good">Above Target (75%)</div>
             <% elsif avg < 50 %>
@@ -105,78 +115,86 @@
 </div>
 
 <h3 class="sessions-title">
-    <i class="fas fa-calendar-alt"></i>
-    Session Progress
+  <i class="fas fa-calendar-alt"></i>
+  Session Progress
 </h3>
 
 <div class="legend">
   <div class="legend-item">
-      <div class="legend-color legend-completed"></div>
-      <span>Completed</span>
+    <div class="legend-color legend-completed"></div>
+    <span>Completed</span>
   </div>
   <div class="legend-item">
-      <div class="legend-color legend-progress"></div>
-      <span>In Progress</span>
+    <div class="legend-color legend-progress"></div>
+    <span>In Progress</span>
   </div>
   <div class="legend-item">
-      <div class="legend-color legend-not-started"></div>
-      <span>Not Started</span>
+    <div class="legend-color legend-not-started"></div>
+    <span>Not Started</span>
   </div>
 </div>
 
 <div class="sessions-grid">
-  <% @section.sittings.kept.order(:done_on).each do |sitting| %>
-  <%= link_to site_section_sitting_path(@site, @section, sitting), class: "no-link-style" do %>
-    <% if sitting.status == "completed" %>
-      <div class="session-card <%= sitting.status %>">
-        <div class="session-icon">
+  <% section.sittings.kept.order(:done_on).each do |sitting| %>
+    <%= link_to site_section_sitting_path(site, section, sitting), class: "no-link-style" do %>
+      <% if sitting.status == "completed" %>
+        <div class="session-card <%= sitting.status %>">
+          <div class="session-icon">
             <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="session-number"><%= sitting.name %></div>
+          <div class="session-status">Completed</div>
+          <div class="session-details"><%= sitting.lessons_label %></div>
+          <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
+          <div class="session-details">
+            <% if sitting.fidelity_log_responses.any? %>
+              Fidelity <i class="fa-solid fa-check"></i>
+            <% else %>
+              Fidelity <i class="fa-solid fa-xmark"></i>
+            <% end %>
+          </div>
+          <div class="session-details">
+            <% if sitting.program_observation_responses.any? %>
+              Observation <i class="fa-solid fa-check"></i>
+            <% else %>
+              Observation <i class="fa-solid fa-xmark"></i>
+            <% end %>
+          </div>
         </div>
-        <div class="session-number"><%= sitting.name %></div>
-        <div class="session-status">Completed</div>
-        <div class="session-details"><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
-        <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
-        <% if sitting.fidelity_log_responses.any? %>
-          <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
-        <% else %>
-          <div class="session-details">Fidelity <i class="fa-solid fa-xmark"></i></div>
-        <% end %>
-        <% if sitting.program_observation_responses.any? %>
-          <div class="session-details">Observation <i class="fa-solid fa-check"></i></div>
-        <% else %>
-          <div class="session-details">Observation <i class="fa-solid fa-xmark"></i></div>
-        <% end %>
-      </div>
-    <% elsif sitting.status == "in-progress" %>
-      <div class="session-card <%= sitting.status %>">
-        <div class="session-icon">
-          <i class="fa-solid fa-spinner"></i>
+      <% elsif sitting.status == "in-progress" %>
+        <div class="session-card <%= sitting.status %>">
+          <div class="session-icon">
+            <i class="fa-solid fa-spinner"></i>
+          </div>
+          <div class="session-number"><%= sitting.name %></div>
+          <div class="session-status">In Progress</div>
+          <div class="session-details"><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
+          <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
+          <div class="session-details">
+            <% if sitting.fidelity_log_responses.any? %>
+              Fidelity <i class="fa-solid fa-check"></i>
+            <% else %>
+              Fidelity <i class="fa-solid fa-xmark"></i>
+            <% end %>
+          </div>
+          <div class="session-details">
+            <% if sitting.program_observation_responses.any? %>
+              Observation <i class="fa-solid fa-check"></i>
+            <% else %>
+              Observation <i class="fa-solid fa-xmark"></i>
+            <% end %>
+          </div>
         </div>
-        <div class="session-number"><%= sitting.name %></div>
-        <div class="session-status">In Progress</div>
-        <div class="session-details"><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
-        <div class="session-details">Avg. Att. <%= sitting.average_attendance %>%</div>
-        <% if sitting.fidelity_log_responses.any? %>
-          <div class="session-details">Fidelity <i class="fa-solid fa-check"></i></div>
-        <% else %>
-          <div class="session-details">Fidelity <i class="fa-solid fa-xmark"></i></div>
-        <% end %>
-        <% if sitting.program_observation_responses.any? %>
-          <div class="session-details">Observation <i class="fa-solid fa-check"></i></div>
-        <% else %>
-          <div class="session-details">Observation <i class="fa-solid fa-xmark"></i></div>
-        <% end %>
-      </div>
-    <% elsif sitting.status == "not-started" %>
-      <div class="session-card <%= sitting.status %>">
-        <div class="session-icon">
+      <% elsif sitting.status == "not-started" %>
+        <div class="session-card <%= sitting.status %>">
+          <div class="session-icon">
             <i class="fa-solid fa-play"></i>
+          </div>
+          <div class="session-number"><%= sitting.name %></div>
+          <div class="session-status">Not Started</div>
+          <div><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
         </div>
-        <div class="session-number"><%= sitting.name %></div>
-        <div class="session-status">Not Started</div>
-        <div><%= sitting.lessons.map {|lesson| lesson.title.truncate(15)}.join(", ") %></div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
   <% end %>
 </div>

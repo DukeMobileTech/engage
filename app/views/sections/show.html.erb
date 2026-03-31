@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body p-4">
-      <%= render "section", locals: { section: @section } %>
+      <%= render partial: "section", locals: { site: @site, section: @section } %>
     </div>
 
     <div class="card-footer">

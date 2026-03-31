@@ -43,7 +43,7 @@ class Sitting < ApplicationRecord
   end
 
   def average_attendance
-    sitting_lessons.map { |sl| sl.attendance_percentage }.sum / sitting_lessons.size.to_f.round(2)
+    (sitting_lessons.map { |sl| sl.attendance_percentage }.sum / sitting_lessons.size.to_f).round(2)
   end
 
   def demographic_responses
@@ -52,6 +52,16 @@ class Sitting < ApplicationRecord
 
   def title
     "#{lessons.map(&:title).join(", ")} sitting on #{done_on.strftime("%F %H:%M %p")}"
+  end
+
+  def lessons_label
+    if lessons.size == 1
+      lessons.first.title
+    elsif lessons.size > 1
+      "Lessons #{lessons.map { |l| l.title[/\d+/].to_i }.sort.join(", ")}"
+    else
+      "No lessons"
+    end
   end
 
   def label

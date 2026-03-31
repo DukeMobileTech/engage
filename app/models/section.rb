@@ -66,7 +66,7 @@ class Section < ApplicationRecord
   end
 
   def progress_label
-    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons_covered} lessons entered"
+    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons_covered} lessons"
   end
 
   def progress_percentage
