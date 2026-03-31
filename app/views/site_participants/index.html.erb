@@ -25,6 +25,7 @@
             <th>Sex</th>
             <th>Grade</th>
             <th>Sections</th>
+            <th>Unenroll</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +41,7 @@
                 <span><%= link_to section.short_name, site_section_path(section.site, section), class: "btn btn-sm btn-outline-info mb-1" %></span>
               <% end %>
             </td>
+            <td><%= link_to "Unenroll", site_site_participant_path(@site, sp), data: { turbo_method: :delete,  turbo_confirm: "Are you sure you want to unenroll this participant?" }, class: "btn btn-sm btn-outline-danger" %></td>
           </tr>
         <% end %>
         </tbody>

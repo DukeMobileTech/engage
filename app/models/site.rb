@@ -26,6 +26,7 @@ class Site < ApplicationRecord
   has_many :sections, dependent: :destroy
   has_many :user_sites, dependent: :destroy
   has_many :users, through: :user_sites
+  has_many :section_participants, through: :sections
 
   validates :name, presence: true
   before_create :assign_code

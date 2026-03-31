@@ -10,4 +10,16 @@ class SiteParticipantsController < ApplicationController
                                .includes(participant: :sections)
                                .order("participants.name ASC")
   end
+
+  # DELETE /site_participants/1 or /site_participants/1.json
+  def destroy
+    @site = Site.find(params.expect(:site_id))
+    @site_participant = @site.site_participants.find(params.expect(:id))
+    @site_participant.destroy
+
+    respond_to do |format|
+      format.html { redirect_to site_site_participants_path(@site), status: :see_other, notice: "Participant was successfully unenrolled." }
+      format.json { head :no_content }
+    end
+  end
 end

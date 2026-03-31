@@ -17,6 +17,17 @@ class SectionParticipantsController < ApplicationController
     @section_participant = @section_participants.find(params.expect(:id))
   end
 
+  # DELETE /section_participants/1 or /section_participants/1.json
+  def destroy
+    @section_participant = @section.section_participants.find(params.expect(:id))
+    @section_participant.destroy
+
+    respond_to do |format|
+      format.html { redirect_to site_section_section_participants_path(@site, @section), status: :see_other, notice: "Participant was successfully unenrolled." }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_site

@@ -20,9 +20,9 @@ Rails.application.routes.draw do
     resources :lessons
   end
   resources :sites do
-    resources :site_participants, only: :index
+    resources :site_participants, only: %i[index destroy]
     resources :sections do
-      resources :section_participants, only: %i[index show] do
+      resources :section_participants, only: %i[index show destroy] do
         resources :section_participant_responses, only: %i[new create edit update]
       end
       resources :sittings do

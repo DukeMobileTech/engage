@@ -24,6 +24,8 @@ class SiteParticipant < ApplicationRecord
   belongs_to :site
   belongs_to :participant
 
+  before_destroy :remove_from_site_sections
+
   def self.ransackable_attributes(auth_object = nil)
     %w[site_id participant_id] + _ransackers.keys
   end
@@ -35,4 +37,11 @@ class SiteParticipant < ApplicationRecord
   def site_participant_sections
     participant.sections.where(site_id: site.id)
   end
+
+  private
+
+   def remove_from_site_sections
+     section_participants = site.section_participants.where(participant_id: participant_id)
+     section_participants.each(&:destroy)
+   end
 end
