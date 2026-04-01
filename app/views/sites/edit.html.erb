@@ -1,30 +1,24 @@
+<% content_for :title, "Editing site" %>
+
 <p style="color: green"><%= notice %></p>
 <h2 class="text-center"><%= @site.name %></h2>
 
-<div class="row">
-  <%= render partial: "sidebar", locals: { site: @site } %>
+<%= render partial: "sidebar", locals: { site: @site } %>
 
-  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
-    <% content_for :title, "Editing site" %>
-    <div class="card main-card">
-      <% if params[:enroll] %>
-        <div class="card-header">
-          <h4>Enroll Participants To Site</h4>
-        </div>
-        <div class="card-body">
-          <%= render "enroll", site: @site %>
-        </div>
-      <% else %>
-        <div class="card-header">
-          <h4>Editing Site</h4>
-        </div>
-        <div class="card-body">
-          <%= render "form", site: @site %>
-        </div>
-      <% end %>
-      <div class="m-1">
-        <%= link_to "Show this site", @site, class: 'btn btn-primary' %>
-      </div>
+<div class="card main-card">
+  <% if params[:enroll] %>
+    <div class="card-header">
+      <h4>Enroll Participants To Site</h4>
     </div>
-  </main>
+    <div class="card-body">
+      <%= render "enroll", site: @site %>
+    </div>
+  <% else %>
+    <div class="card-header">
+      <h4>Editing Site</h4>
+    </div>
+    <div class="card-body">
+      <%= render "form", site: @site %>
+    </div>
+  <% end %>
 </div>

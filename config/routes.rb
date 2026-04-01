@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   resources :sites do
     resources :site_participants, only: %i[index destroy]
+    resources :user_sites, only: :index
     resources :sections do
       resources :section_participants, only: %i[index show destroy] do
         resources :section_participant_responses, only: %i[new create edit update]

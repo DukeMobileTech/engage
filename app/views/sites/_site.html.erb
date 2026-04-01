@@ -1,36 +1,97 @@
-<div>
-  <p>
-    <strong>Name:</strong>
-    <%= @site.name %>
-  </p>
+<div class="row">
+  <!-- Key Metrics Row -->
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="fa-solid fa-people-group fa-2x text-info mb-3" style="color: #667eea;"></i>
+        <h6 class="card-title text-muted mb-1">Participants</h6>
+        <div style="font-size: 2rem; font-weight: 700; color: #212529;">
+          <%= link_to site.participants.size, site_site_participants_path(site), class: "no-underline" %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p>
-    <strong>County:</strong>
-    <%= @site.county %>
-  </p>
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="fa-solid fa-person-chalkboard fa-2x text-success mb-3" style="color: #667eea;"></i>
+        <h6 class="card-title text-muted mb-1">Sections</h6>
+        <div style="font-size: 2rem; font-weight: 700; color: #212529;">
+          <%= link_to site.sections.kept.size, site_sections_path(site), class: "no-underline" %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p>
-    <strong>Code:</strong>
-    <%= @site.code %>
-  </p>
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="fa-solid fa-user-tie fa-2x text-warning mb-3" style="color: #667eea;"></i>
+        <h6 class="card-title text-muted mb-1">Facilitators</h6>
+        <div style="font-size: 1.5rem; font-weight: 700; color: #212529;">
+          <%= link_to site.users.size, site_user_sites_path(site), class: "no-underline" %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p>
-    <strong>Organization:</strong>
-    <%= link_to @site.organization.name, @site.organization %>
-  </p>
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="fa-solid fa-building fa-2x text-danger mb-3" style="color: #667eea;"></i>
+        <h6 class="card-title text-muted mb-1">Organization</h6>
+        <div style="font-size: 0.95rem; font-weight: 600; color: #212529;">
+          <%= link_to site.organization.name, site.organization, class: "no-underline" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <p>
-    <strong>Participants:</strong>
-    <%= link_to @site.participants.size, site_site_participants_path(@site) %>
-  </p>
+<!-- Details Row -->
+<div class="row">
+  <div class="col-12 mb-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="row">
+          <!-- Column 1: Site Information -->
+          <div class="col-md-4 mb-md-0 mb-3 border-md-end">
+            <div class="mb-3">
+              <span class="text-muted small text-uppercase">Site Name</span>
+              <div class="fw-semibold"><%= site.name %></div>
+            </div>
+            <div class="mb-3">
+              <span class="text-muted small text-uppercase">Site Code</span>
+              <div class="fw-semibold"><%= site.code %></div>
+            </div>
+          </div>
 
-  <p>
-    <strong>Sections:</strong>
-    <%= link_to @site.sections.kept.size, site_sections_path(@site) %>
-  </p>
+          <!-- Column 2: Location Details -->
+          <div class="col-md-4 mb-md-0 mb-3 border-md-end ps-md-4 pe-md-2">
+            <div>
+              <span class="text-muted small text-uppercase">County</span>
+              <div class="fw-semibold"><%= site.county %></div>
+            </div>
+            <div class="mb-3">
+              <span class="text-muted small text-uppercase">State</span>
+              <div class="fw-semibold"><%= site.state %></div>
+            </div>
+          </div>
 
-  <p>
-    <strong>Facilitators:</strong>
-    <%= @site.users.map(&:name).join(", ") %>
-  </p>
+          <!-- Column 3: Urbanicity & Setting -->
+          <div class="col-md-4 ps-md-4">
+            <div class="mb-3">
+              <span class="text-muted small text-uppercase">Urbanicity</span>
+              <div class="fw-semibold"><%= site.urbanicity %></div>
+            </div>
+            <div>
+              <span class="text-muted small text-uppercase">Setting</span>
+              <div class="fw-semibold"><%= site.setting %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
