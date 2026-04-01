@@ -7,8 +7,16 @@ class SectionsController < ApplicationController
   # GET /sections or /sections.json
   def index
     @query = @site.sections.kept.ransack(params[:query])
-    @sections = @query.result(distinct: true).order("completed ASC").order("created_at DESC")
-    authorize @sections
+    filtered_sections = @query.result(distinct: true).order("name ASC")
+
+    # Categorize filtered sections
+    today = Date.today
+    @needs_attention = filtered_sections.select { |s| s.end_date < today && !s.completed? }
+    @currently_implementing = filtered_sections.select { |s| s.start_date <= today && s.end_date >= today }
+    @previously_implemented = filtered_sections.select { |s| s.end_date < today && s.completed? }
+    @yet_to_start = filtered_sections.select { |s| s.start_date > today }
+
+    authorize filtered_sections
   end
 
   # GET /sections/1 or /sections/1.json
