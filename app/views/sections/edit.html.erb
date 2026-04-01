@@ -1,29 +1,29 @@
 <%= render partial: "header", locals: {site: @site, section: @section } %>
-<main class="mb-5">
-  <p style="color: green"><%= notice %></p>
+<p style="color: green"><%= notice %></p>
+<div class="card main-card">
   <% if params[:enrollment] %>
-    <div class="card main-card">
-      <% content_for :title, "Participant enrollment" %>
-      <div class="card-header">
-        <h4>Enrolling participants to section</h4>
-      </div>
-      <div class="card-body">
-        <%= render "enrollment", site: @site, section: @section %>
-      </div>
-    </div>
-  <% else %>
-    <div class="card main-card">
-      <% content_for :title, "Editing section" %>
-      <div class="card-header">
-        <h4><%= @site.name %></h4>
-      </div>
-      <div class="card-body">
-        <%= render "form", site: @site, section: @section %>
-      </div>
 
-      <div class="m-1">
-        <%= link_to "Show this section", site_section_path(@site, @section), class: "btn btn-primary" %>
-      </div>
+    <% content_for :title, "Participant enrollment" %>
+    <div class="card-header">
+      <h4>Enrolling participants to section</h4>
     </div>
+    <div class="card-body">
+      <%= render "enrollment", site: @site, section: @section %>
+    </div>
+
+  <% else %>
+
+    <% content_for :title, "Editing section" %>
+    <div class="card-header">
+      <h4><%= @site.name %></h4>
+    </div>
+    <div class="card-body">
+      <%= render "form", site: @site, section: @section %>
+    </div>
+
+    <div class="m-1">
+      <%= link_to "Show this section", site_section_path(@site, @section), class: "btn btn-primary" %>
+    </div>
+
   <% end %>
-</main>
+</div>
