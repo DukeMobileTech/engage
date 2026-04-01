@@ -42,7 +42,7 @@
       <tbody>
         <% @sites.each do |site| %>
           <tr scope="row">
-            <td class="link-primary fw-semibold"><%= link_to site.name, site %></td>
+            <td class="fw-semibold"><%= link_to site.name, site %></td>
             <td><%= site.code %></td>
             <td><%= site.county %></td>
             <td><%= site.organization.name %></td>

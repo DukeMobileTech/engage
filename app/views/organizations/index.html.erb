@@ -38,7 +38,7 @@
       <tbody>
         <% @organizations.each do |organization| %>
           <tr scope="row">
-            <td class="link-primary fw-semibold"><%= link_to organization.name, organization %></td>
+            <td class="fw-semibold"><%= link_to organization.name, organization %></td>
             <td><%= organization.state %></td>
             <td><%= organization.urbanicity %></td>
             <td><%= organization.setting %></td>
