@@ -26,27 +26,27 @@
             </tr>
           </thead>
           <tbody>
-            <% @user_sites.each do |us| %>
+            <% @users.each do |user| %>
             <tr scope="row">
-              <td class="link-primary fw-semibold"><%= link_to us.user.name, us.user %></td>
-              <td><%= us.user.email_address %></td>
+              <td class="link-primary fw-semibold"><%= link_to user.name, user %></td>
+              <td><%= user.email_address %></td>
               <td>
-                <% if us.user.active? %>
+                <% if user.active? %>
                 <span class="badge bg-success">Yes</span>
                 <% else %>
                 <span class="badge bg-danger">No</span>
                 <% end %>
               </td>
               <td>
-                <% us.user.roles.each do |role| %>
+                <% user.roles.each do |role| %>
                 <span><%= role.name %> </span>
                 <% end %>
               </td>
               <td>
-                <% unless us.user.admin? %>
-                <% us.user.sites.kept.each do |site| %>
+                <% unless user.admin? %>
+                  <% user.sites.kept.each do |site| %>
                     <span><%= link_to site.name, site, class: "btn btn-sm btn-outline-info mb-1" %> </span>
-                <% end %>
+                  <% end %>
                 <% end %>
               </td>
             </tr>

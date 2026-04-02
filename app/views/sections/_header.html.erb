@@ -1,22 +1,36 @@
-<div class="card main-card">
-  <div class="row ms-2 mt-2 mb-2">
-    <span class="col-4 fw-semibold">Site Name</span>
-    <span class="col-8 fw-bold"><%= link_to site.name, site_sections_path(site) %></span>
-  </div>
+<!-- Breadcrumb Navigation -->
+<nav aria-label="Breadcrumb" class="mb-3">
+  <ol class="breadcrumb mb-0">
+    <li class="breadcrumb-item"><%= link_to site.organization.name, organization_path(site.organization) %></li>
+    <li class="breadcrumb-item"><%= link_to site.name, site_sections_path(site) %></li>
+    <li class="breadcrumb-item active"><%= link_to section.curriculum.title, curriculum_path(section.curriculum) %></li>
+  </ol>
+</nav>
 
-  <div class="row ms-2 mb-2">
-    <span class="col-4 fw-semibold">Section Name</span>
-    <span class="col-8 fw-bold"><%= link_to section.name, site_section_path(site, section) %></span>
-  </div>
+<!-- Section Header -->
+<div class="mb-4">
+  <h3 class="mb-1"><%= section.name %></h3>
+  <p class="text-muted mb-3">
+    <i class="fa-solid fa-calendar me-2"></i>
+    <%= section.start_date.strftime("%b %d, %Y") %> – <%= section.end_date.strftime("%b %d, %Y") %>
+  </p>
 
-  <div class="row ms-2 mb-2">
-    <span class="col-4 fw-semibold">Curriculum</span>
-    <span class="col-8 fw-bold"><%= link_to section.curriculum.title, curriculum_path(section.curriculum) %></span>
-  </div>
-
-  <div class="d-flex justify-content-evenly m-2">
-    <%= link_to "Details", site_section_path(site, section), class: "btn btn-primary" %>
-    <%= link_to "Section Participants", site_section_section_participants_path(site, section), class: "btn btn-primary" %>
-    <%= link_to "Sessions", site_section_sittings_path(site, section), class: "btn btn-primary" %>
-  </div>
+  <!-- Tab Navigation -->
+  <ul class="nav nav-tabs border-bottom">
+    <li class="nav-item">
+      <%= link_to site_section_path(site, section), class: "nav-link #{params[:action] == 'show' || params[:action].nil? ? 'active' : ''}" do %>
+        <i class="fa-solid fa-home me-2"></i> Home
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to site_section_section_participants_path(site, section), class: "nav-link #{params[:controller].include?('section_participants') ? 'active' : ''}" do %>
+        <i class="fa-solid fa-users me-2"></i> Participants
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to site_section_sittings_path(site, section), class: "nav-link #{params[:controller].include?('sittings') ? 'active' : ''}" do %>
+        <i class="fa-solid fa-clock me-2"></i> Sessions
+      <% end %>
+    </li>
+  </ul>
 </div>

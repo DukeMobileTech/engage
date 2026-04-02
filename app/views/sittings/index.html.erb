@@ -1,11 +1,12 @@
+<% content_for :title, "Sessions" %>
+
 <%= render partial: "sections/header", locals: {site: @site, section: @section } %>
 
 <main class="mb-5">
   <p style="color: green"><%= notice %></p>
   <div class="card main-card">
     <div class="card-header">
-      <% content_for :title, "Sessions" %>
-      <h4>Sessions Administered For <%= @section.name %></h4>
+      <h4>Sessions Administered</h4>
     </div>
     <div class="card-body">
       <table class="table table-striped">
@@ -24,7 +25,7 @@
           <% @sittings.each do |sitting| %>
             <tr>
               <td><%= link_to sitting.name, site_section_sitting_path(@site, @section, sitting) %></td>
-              <td><%= sitting.lessons.map(&:title).join(", ")  %></td>
+              <td><%= sitting.lessons.map(&:title).join(", ") %></td>
               <td><%= sitting.done_on.strftime("%Y-%m-%d") %></td>
               <td><%= sitting.sitting_lessons.map(&:participation).join(", ") %></td>
               <td><%= sitting.completed ? "Yes" : "No" %></td>

@@ -51,6 +51,10 @@ class Site < ApplicationRecord
     Role.where(name: [ "admin", "observer" ]).map(&:users).flatten.uniq
   end
 
+  def site_users
+    (users.where(user_sites: { site_id: id }) + sections.map { |s| s.facilitators }.flatten.uniq).uniq
+  end
+
   private
     def assign_code
       self.code = "#{self.name[0..2]}-#{self.county[0..2]}-#{Random.alphanumeric(3)}".upcase

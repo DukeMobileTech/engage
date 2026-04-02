@@ -1,11 +1,12 @@
 <% content_for :title, "Section participants" %>
+
 <%= render partial: "sections/header", locals: {site: @site, section: @section } %>
 
 <main class="mb-5">
   <p style="color: green"><%= notice %></p>
   <div class="card main-card">
     <div class="card-header">
-      <h4>Participants Enrolled In <%= @section.name %></h4>
+      <h4>Participants Enrolled</h4>
     </div>
     <div class="card-body">
       <%= search_form_for @query, url: site_section_section_participants_path(@site)  do |form| %>

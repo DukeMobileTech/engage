@@ -2,7 +2,7 @@ class UserSitesController < ApplicationController
   before_action :set_site
 
   def index
-    @user_sites = @site.user_sites.includes(:user)
+    @users = @site.site_users
   end
 
   private

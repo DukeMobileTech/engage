@@ -25,7 +25,7 @@ class DataUpload < ApplicationRecord
       end
     end
     reports.attach(io: File.open(tempfile.path),
-                   filename: "#{name} Data Upload (#{DateTime.now.strftime("%F %H:%M %p")}).csv",
+                   filename: "#{name} Data Export (#{DateTime.now.strftime("%F %H:%M %p")}).csv",
                    content_type: "text/csv")
   end
 

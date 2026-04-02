@@ -44,12 +44,12 @@
         </div>
       </div>
 
-      <!-- Currently Implementing -->
+      <!-- Ongoing -->
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingImplementing">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImplementing" aria-expanded="true" aria-controls="collapseImplementing">
             <i class="fa-solid fa-play-circle text-info me-2"></i>
-            <strong>Currently Implementing</strong>
+            <strong>Ongoing</strong>
             <span class="badge bg-info ms-2"><%= @currently_implementing.count %></span>
           </button>
         </h2>
@@ -60,34 +60,34 @@
         </div>
       </div>
 
-      <!-- Previously Implemented -->
+      <!-- Upcoming -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFuture">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFuture" aria-expanded="false" aria-controls="collapseFuture">
+            <i class="fa-solid fa-clock text-warning me-2"></i>
+            <strong>Upcoming</strong>
+            <span class="badge bg-warning ms-2"><%= @yet_to_start.count %></span>
+          </button>
+        </h2>
+        <div id="collapseFuture" class="accordion-collapse collapse show" aria-labelledby="headingFuture" data-bs-parent="#sectionsAccordion">
+          <div class="accordion-body p-0">
+            <%= render "sections_table", sections: @yet_to_start, site: @site %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Completed -->
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingCompleted">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompleted" aria-expanded="false" aria-controls="collapseCompleted">
             <i class="fa-solid fa-check-circle text-success me-2"></i>
-            <strong>Previously Implemented</strong>
+            <strong>Completed</strong>
             <span class="badge bg-success ms-2"><%= @previously_implemented.count %></span>
           </button>
         </h2>
         <div id="collapseCompleted" class="accordion-collapse collapse" aria-labelledby="headingCompleted" data-bs-parent="#sectionsAccordion">
           <div class="accordion-body p-0">
             <%= render "sections_table", sections: @previously_implemented, site: @site %>
-          </div>
-        </div>
-      </div>
-
-      <!-- Yet to Start -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFuture">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFuture" aria-expanded="false" aria-controls="collapseFuture">
-            <i class="fa-solid fa-clock text-warning me-2"></i>
-            <strong>Yet to Start</strong>
-            <span class="badge bg-warning ms-2"><%= @yet_to_start.count %></span>
-          </button>
-        </h2>
-        <div id="collapseFuture" class="accordion-collapse collapse" aria-labelledby="headingFuture" data-bs-parent="#sectionsAccordion">
-          <div class="accordion-body p-0">
-            <%= render "sections_table", sections: @yet_to_start, site: @site %>
           </div>
         </div>
       </div>
