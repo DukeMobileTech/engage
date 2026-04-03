@@ -1,18 +1,19 @@
 Rails.application.routes.draw do
+  mount MissionControl::Jobs::Engine, at: "/jobs"
+  resources :organizations
+  resource :session, only: %i[new create destroy]
+  resources :passwords, param: :token
+  resources :sections, only: :index, controller: "admin_sections"
   resources :events, only: %i[index show destroy] do
     member do
       get "download" => "events#download"
     end
   end
-  resources :organizations
-  mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :data_uploads do
     member do
       post "generate_report" => "data_uploads#generate_report"
     end
   end
-  resource :session, only: %i[new create destroy]
-  resources :passwords, param: :token
   resources :questionnaires do
     resources :responses, only: %i[index show new create destroy]
   end

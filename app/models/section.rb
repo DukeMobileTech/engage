@@ -61,12 +61,29 @@ class Section < ApplicationRecord
     sittings.map(&:users).flatten.uniq
   end
 
+  def demographics_progress_percentage
+    (section_participant_responses.size.to_f / section_participants.size.to_f * 100).round(2)
+  end
+
+  def demographics_progress_label
+    "#{section_participant_responses.size}/#{section_participants.size} entered"
+  end
+
+  def fidelity_progress_label
+    "#{fidelity_logs.size}/#{sittings.kept.size} logged"
+  end
+
+  def fidelity_progress_percentage
+    return 0 if sittings.kept.size.zero?
+    (fidelity_logs.size.to_f / sittings.kept.size.to_f * 100).round(2)
+  end
+
   def completed_sittings
     sittings.kept.where(completed: true)
   end
 
   def progress_label
-    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count} / #{lessons_covered} lessons"
+    "#{completed_sittings.map(&:sitting_lessons).flatten.pluck(:lesson_id).uniq.count}/#{lessons_covered} covered"
   end
 
   def progress_percentage

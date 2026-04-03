@@ -46,6 +46,7 @@
                   <i class="fa-solid fa-gears"></i> Admin
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                  <li><%= link_to "Sections", sections_path, class: "dropdown-item #{is_nav_active?('sections') ? 'active' : ''}" %></li>
                   <li><%= link_to "Exports", data_uploads_path, class: "dropdown-item #{is_nav_active?('data_uploads') ? 'active' : ''}" %></li>
                   <li><%= link_to "Curriculums", curriculums_path, class: "dropdown-item #{is_nav_active?('curriculums') ? 'active' : ''}" %></li>
                   <li><%= link_to "Users", users_path, class: "dropdown-item #{is_nav_active?('users') ? 'active' : ''}" %></li>

@@ -3,24 +3,37 @@
     <table class="table table-hover align-middle mb-0">
       <thead class="table-light">
         <tr>
-          <th>Name</th>
-          <th>Participants</th>
+          <th>Site</th>
+          <th>Section</th>
+          <th>Demographics</th>
           <th>Lessons</th>
+          <th>Fidelity</th>
           <th>Attendance</th>
           <th>Completed</th>
-          <th>Fidelity</th>
         </tr>
       </thead>
       <tbody>
         <% sections.each do |section| %>
           <tr>
-            <td class="fw-semibold"><%= link_to section.short_name, site_section_path(site, section) %></td>
-            <td><%= section.participants.size %></td>
+            <td class="fw-semibold"><%= link_to section.site.name, site_path(section.site) %></td>
+            <td class="fw-semibold"><%= link_to section.short_name, site_section_path(section.site, section) %></td>
+            <td>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= section.demographics_progress_percentage %>%"></div>
+              </div>
+              <small><%= link_to section.demographics_progress_label, site_section_section_participants_path(section.site, section) %></small>
+            </td>
             <td>
               <div class="progress-bar">
                 <div class="progress-fill" style="width: <%= section.progress_percentage %>%"></div>
               </div>
-              <small><%= section.progress_label %> (<%= section.progress_percentage %>%)</small>
+              <small><%= link_to section.progress_label, site_section_sittings_path(section.site, section) %></small>
+            </td>
+            <td>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= section.fidelity_progress_percentage %>%"></div>
+              </div>
+              <small><%= link_to section.fidelity_progress_label, fidelity_logs_site_section_path(section.site, section) %></small>
             </td>
             <td>
               <% if section.average_attendance >= 75.0 %>
@@ -36,11 +49,6 @@
                 <span class="badge bg-success">Yes</span>
               <% else %>
                 <span class="badge bg-danger">No</span>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to fidelity_logs_site_section_path(site, section), class: "btn btn-sm btn-outline-primary" do %>
-                <i class="fa-solid fa-file-lines"></i> Logs
               <% end %>
             </td>
           </tr>

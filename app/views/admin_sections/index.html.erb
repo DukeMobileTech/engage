@@ -1,0 +1,93 @@
+<% content_for :title, "Admin Sections" %>
+
+<div class="card main-card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="text-center">Sections</h2>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= search_form_for @query, url: sections_path do |form| %>
+    <div class="row mb-4">
+      <div class="col-lg-5">
+        <%= form.search_field :name_cont, placeholder: 'Search by section name', class: "form-control" %>
+      </div>
+      <div class="col-lg-2">
+        <%= form.submit "Search", class: "btn btn-outline-info" %>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="accordion" id="sectionsAccordion">
+      <!-- Needs Attention -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingAttention">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttention" aria-expanded="false" aria-controls="collapseAttention">
+            <i class="fa-solid fa-exclamation-circle text-danger me-2"></i>
+            <strong>Needs Attention</strong>
+            <span class="badge bg-danger ms-2"><%= @needs_attention.count %></span>
+          </button>
+        </h2>
+        <div id="collapseAttention" class="accordion-collapse collapse" aria-labelledby="headingAttention" data-bs-parent="#sectionsAccordion">
+          <div class="accordion-body p-0">
+            <%= render "sections_table", sections: @needs_attention %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ongoing -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingImplementing">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImplementing" aria-expanded="true" aria-controls="collapseImplementing">
+            <i class="fa-solid fa-play-circle text-info me-2"></i>
+            <strong>Ongoing</strong>
+            <span class="badge bg-info ms-2"><%= @currently_implementing.count %></span>
+          </button>
+        </h2>
+        <div id="collapseImplementing" class="accordion-collapse collapse show" aria-labelledby="headingImplementing" data-bs-parent="#sectionsAccordion">
+          <div class="accordion-body p-0">
+            <%= render "sections_table", sections: @currently_implementing %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFuture">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFuture" aria-expanded="false" aria-controls="collapseFuture">
+            <i class="fa-solid fa-clock text-warning me-2"></i>
+            <strong>Upcoming</strong>
+            <span class="badge bg-warning ms-2"><%= @yet_to_start.count %></span>
+          </button>
+        </h2>
+        <div id="collapseFuture" class="accordion-collapse collapse show" aria-labelledby="headingFuture" data-bs-parent="#sectionsAccordion">
+          <div class="accordion-body p-0">
+            <%= render "sections_table", sections: @yet_to_start %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Completed -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingCompleted">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompleted" aria-expanded="false" aria-controls="collapseCompleted">
+            <i class="fa-solid fa-check-circle text-success me-2"></i>
+            <strong>Completed</strong>
+            <span class="badge bg-success ms-2"><%= @previously_implemented.count %></span>
+          </button>
+        </h2>
+        <div id="collapseCompleted" class="accordion-collapse collapse" aria-labelledby="headingCompleted" data-bs-parent="#sectionsAccordion">
+          <div class="accordion-body p-0">
+            <%= render "sections_table", sections: @previously_implemented %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if [@needs_attention, @currently_implementing, @previously_implemented, @yet_to_start].all?(&:empty?) %>
+      <div class="alert alert-info mt-4" role="alert">
+        <i class="fa-solid fa-circle-info me-2"></i> No sections found.
+      </div>
+    <% end %>
+  </div>
+</div>
