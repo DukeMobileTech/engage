@@ -3,7 +3,7 @@ class DataUploadsController < ApplicationController
 
   # GET /data_uploads or /data_uploads.json
   def index
-    @data_uploads = DataUpload.all
+    @data_uploads = DataUpload.all.order(reporting_period_end: :desc, reporting_period_start: :desc)
   end
 
   # GET /data_uploads/1 or /data_uploads/1.json

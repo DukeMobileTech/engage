@@ -2,25 +2,47 @@
 
 <div class="mb-5">
   <p style="color: green"><%= notice %></p>
-  <h3 class="text-center">Section Data Exports</h3>
+  <h3 class="text-center mb-4">Section Data Exports</h3>
 
   <div class="row">
-    <table class="table table-striped">
-      <thead>
+    <table class="table table-hover">
+      <thead class="table-light">
         <tr>
           <th>Name</th>
           <th>Reporting Period</th>
-          <th>Site Included</th>
           <th>Sections</th>
+          <th>Site</th>
         </tr>
       </thead>
       <tbody>
         <% @data_uploads.each do |upload| %>
-          <tr scope="row">
-            <td><%= link_to upload.name, upload %></td>
-            <td><%= upload.reporting_period_start %> - <%= upload.reporting_period_end %></td>
-            <td><%= upload.include_site ? "Yes" : "No" %></td>
-            <td><%= upload.sections.map(&:name).join(", ") %></td>
+          <tr scope="row" style="cursor: pointer;" onclick="window.location='<%= j(data_upload_path(upload)) %>'">
+            <td>
+              <strong><%= upload.name %></strong>
+            </td>
+            <td>
+              <small class="text-muted">
+                <%= upload.reporting_period_start.strftime('%b %d, %Y') %> - <%= upload.reporting_period_end.strftime('%b %d, %Y') %>
+              </small>
+            </td>
+            <td>
+              <span class="badge bg-primary"><%= upload.sections.count %></span>
+              <div style="margin-top: 0.5rem;">
+                <% upload.sections.first(3).each do |section| %>
+                  <span class="badge bg-light text-dark" style="font-size: 0.75rem; margin-right: 0.25rem;">
+                    <%= section.short_name %>
+                  </span>
+                <% end %>
+                <% if upload.sections.count > 3 %>
+                  <span class="badge bg-secondary" style="font-size: 0.75rem;">
+                    +<%= upload.sections.count - 3 %> more
+                  </span>
+                <% end %>
+              </div>
+            </td>
+            <td>
+              <%= upload.include_site ? "✓" : "–" %>
+            </td>
           </tr>
         <% end %>
       </tbody>

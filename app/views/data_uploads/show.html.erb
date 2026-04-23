@@ -1,10 +1,35 @@
 <div class="mb-5">
   <p style="color: green"><%= notice %></p>
   <h2 class="text-center"><%= @data_upload.name %></h2>
-  <div>
-    <p><b>Reporting Period:</b> <%= @data_upload.reporting_period_start %> - <%= @data_upload.reporting_period_end %></p>
-    <p><b>Sections:</b> <%= @data_upload.sections.map(&:name).join(", ") %></p>
-    <p><b>Site Included:</b> <%= @data_upload.include_site ? "Yes" : "No" %></p>
+
+  <div class="card border-0 bg-light mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-2"><b>Reporting Period:</b></p>
+          <p class="ms-3"><%= @data_upload.reporting_period_start %> to <%= @data_upload.reporting_period_end %></p>
+        </div>
+        <div class="col-md-6">
+          <p class="mb-2"><b>Site Included:</b></p>
+          <p class="ms-3"><%= @data_upload.include_site ? "✓ Yes" : "✗ No" %></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div>
+        <p class="mb-3">
+          <b>Sections (<span class="badge bg-primary"><%= @data_upload.sections.count %></span>)</b>
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <% @data_upload.sections.each do |section| %>
+            <span class="badge bg-info" style="font-size: 0.75rem; padding: 0.5rem 0.5rem;">
+              <%= section.name %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="card main-card">
     <div class="card-header">
