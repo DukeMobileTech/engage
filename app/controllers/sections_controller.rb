@@ -11,9 +11,9 @@ class SectionsController < ApplicationController
 
     # Categorize filtered sections
     today = Date.today
-    @needs_attention = filtered_sections.select { |s| s.end_date < today && !s.completed? }
+    @needs_attention = filtered_sections.select { |s| s.end_date < today && !s.completed? }.sort_by(&:end_date).reverse
     @currently_implementing = filtered_sections.select { |s| s.start_date <= today && s.end_date >= today }
-    @previously_implemented = filtered_sections.select { |s| s.end_date < today && s.completed? }
+    @previously_implemented = filtered_sections.select { |s| s.end_date < today && s.completed? }.sort_by(&:end_date).reverse
     @yet_to_start = filtered_sections.select { |s| s.start_date > today }
 
     authorize filtered_sections
@@ -106,6 +106,6 @@ class SectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def section_params
-      params.expect(section: [ :name, :start_date, :end_date, :curriculum_id, :site_id, :completed, :reported, :lessons_covered, participant_ids: [] ])
+      params.expect(section: [ :name, :start_date, :end_date, :curriculum_id, :site_id, :completed, :reported, :lessons_covered, :period, participant_ids: [] ])
     end
 end

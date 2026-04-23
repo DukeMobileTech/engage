@@ -33,8 +33,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarId">
             <ul class="navbar-nav me-auto">
-              <li class="nav-item"><%= link_to "Organizations", organizations_path, class: "nav-link #{is_nav_active?('organizations')}" %></li>
-              <li class="nav-item"><%= link_to "Sites", sites_path, class: "nav-link #{is_nav_active?("sites", "sections", "site_participants", "section_participants", "sittings", "lesson_attendances", "section_participant_responses")}" %></li>
+              <li class="nav-item"><%= link_to "Sites", sites_path, class: "nav-link #{is_nav_active?("organizations", "sites", "sections", "site_participants", "section_participants", "sittings", "lesson_attendances", "section_participant_responses", "admin_sections")}" %></li>
               <li class="nav-item"><%= link_to "Participants", participants_path, class: "nav-link #{is_nav_active?('participants')}" %></li>
               <li class="nav-item"><%= link_to "Forms", questionnaires_path, class: "nav-link #{is_nav_active?('questionnaires', 'responses')}" %></li>
               <li class="nav-item"><%= link_to "Events", events_path, class: "nav-link #{is_nav_active?('events')}" %></li>
@@ -46,6 +45,7 @@
                   <i class="fa-solid fa-gears"></i> Admin
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                  <li><%= link_to "Organizations", organizations_path, class: "dropdown-item #{is_nav_active?('organizations') ? 'active' : ''}" %></li>
                   <li><%= link_to "Sections", sections_path, class: "dropdown-item #{is_nav_active?('sections') ? 'active' : ''}" %></li>
                   <li><%= link_to "Exports", data_uploads_path, class: "dropdown-item #{is_nav_active?('data_uploads') ? 'active' : ''}" %></li>
                   <li><%= link_to "Curriculums", curriculums_path, class: "dropdown-item #{is_nav_active?('curriculums') ? 'active' : ''}" %></li>

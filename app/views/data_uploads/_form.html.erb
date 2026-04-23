@@ -26,6 +26,11 @@
     <%= form.date_field :reporting_period_end, class: "form-control" %>
   </div>
 
+  <div class="mb-3 form-check">
+    <%= form.check_box :include_site, class: "form-check-input" %>
+    <%= form.label :include_site, "Include site name in the export", class: "form-check-label" %>
+  </div>
+
   <div class="d-flex flex-row-reverse">
     <%= form.submit "Save", class: 'btn btn-success' %>
   </div>

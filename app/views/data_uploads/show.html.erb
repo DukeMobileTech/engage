@@ -2,8 +2,9 @@
   <p style="color: green"><%= notice %></p>
   <h2 class="text-center"><%= @data_upload.name %></h2>
   <div>
-    <p><b>Reporting Period:</b> <%= "#{@data_upload.reporting_period_start} - #{@data_upload.reporting_period_end}" %></p>
+    <p><b>Reporting Period:</b> <%= @data_upload.reporting_period_start %> - <%= @data_upload.reporting_period_end %></p>
     <p><b>Sections:</b> <%= @data_upload.sections.map(&:name).join(", ") %></p>
+    <p><b>Site Included:</b> <%= @data_upload.include_site ? "Yes" : "No" %></p>
   </div>
   <div class="card main-card">
     <div class="card-header">

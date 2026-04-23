@@ -9,6 +9,7 @@
 #  end_date        :date
 #  lessons_covered :integer          default(1), not null
 #  name            :string
+#  period          :string
 #  reported        :boolean          default(TRUE)
 #  start_date      :date
 #  created_at      :datetime         not null

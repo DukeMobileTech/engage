@@ -4,6 +4,7 @@
 # Database name: primary
 #
 #  id                     :bigint           not null, primary key
+#  include_site           :boolean          default(FALSE)
 #  name                   :string
 #  reporting_period_end   :date
 #  reporting_period_start :date

@@ -4,6 +4,7 @@
 # Database name: primary
 #
 #  id                     :bigint           not null, primary key
+#  include_site           :boolean          default(FALSE)
 #  name                   :string
 #  reporting_period_end   :date
 #  reporting_period_start :date
@@ -30,7 +31,7 @@ class DataUpload < ApplicationRecord
   end
 
   def report_header
-    %w[GrantNumber IOName	ProgramModel SectionName State	Urbanicity	Setting
+    header = %w[GrantNumber IOName	ProgramModel SectionName State	Urbanicity	Setting
     YouthParticipantCt	SexMaleCt	SexFemaleCt	SexNotReportedCt
     RaceNatAmerHispanicCt	RaceNatAmerNonHispanicCt	RaceNatAmerNotReportedCt
     RaceAsianHispanicCt	RaceAsianNonHispanicCt	RaceAsianNotReportedCt
@@ -58,6 +59,8 @@ class DataUpload < ApplicationRecord
     ProfessionalRaceMultipleNonHispanicCt	ProfessionalRaceMultipleNotReportedCt	ProfessionalRaceNotReportedHispanicCt
     ProfessionalRaceNotReportedNonHispanicCt	ProfessionalRaceNotReportedNotReportedCt	ParticipantAttendPct
     Participant75Ct	SessionsPlannedCt	SessionsCompletedCt	SessionsObservedCt	AdherencePct	QualityOverallPt]
+    header << "SiteName" if include_site
+    header
   end
 
   def report_data
@@ -154,6 +157,7 @@ class DataUpload < ApplicationRecord
       avg_adh, avg_qual = section.average_adherence_and_quality
       row += [ section.average_attendance, section.participants_meeting_target_attendance.size,
         sessions_planned, sessions_completed, sessions_observed, avg_adh, avg_qual ]
+      row << section.site.name if include_site
       # full row
       rows << row
     end

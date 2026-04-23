@@ -10,6 +10,7 @@
         <tr>
           <th>Name</th>
           <th>Reporting Period</th>
+          <th>Site Included</th>
           <th>Sections</th>
         </tr>
       </thead>
@@ -17,7 +18,8 @@
         <% @data_uploads.each do |upload| %>
           <tr scope="row">
             <td><%= link_to upload.name, upload %></td>
-            <td><%= "#{upload.reporting_period_start} - #{upload.reporting_period_end}" %></td>
+            <td><%= upload.reporting_period_start %> - <%= upload.reporting_period_end %></td>
+            <td><%= upload.include_site ? "Yes" : "No" %></td>
             <td><%= upload.sections.map(&:name).join(", ") %></td>
           </tr>
         <% end %>

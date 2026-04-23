@@ -9,6 +9,7 @@
 #  end_date        :date
 #  lessons_covered :integer          default(1), not null
 #  name            :string
+#  period          :string
 #  reported        :boolean          default(TRUE)
 #  start_date      :date
 #  created_at      :datetime         not null
@@ -428,7 +429,11 @@ class Section < ApplicationRecord
 
   private
     def assign_name
-      self.name = "#{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
+      if period.present?
+        self.name = "#{site.name} - #{period} #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
+      else
+        self.name = "#{site.name} - #{curriculum.title} (#{start_date.strftime('%m/%Y')} - #{end_date.strftime('%m/%Y')})"
+      end
     end
 
     def completed_only_if_all_sittings_completed
