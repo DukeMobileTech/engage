@@ -1,8 +1,8 @@
 <% content_for :title, "#{@questionnaire.title} Events" %>
 
-<div class="main-card">
+<div class="card main-card">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h3 class="text-center"><%= "#{@questionnaire.title} Events" %></h3>
+    <h3 class="text-center"><%= @questionnaire.title %> Events</h3>
     <% if policy(@events).download? %>
       <div class="d-flex flex-row-reverse mb-3">
         <%= link_to download_event_path(@questionnaire), class: "btn btn-primary" do %>

@@ -1,0 +1,20 @@
+<h2 class="mb-1"><%= site.name %></h2>
+
+<!-- Tab Navigation -->
+<ul class="nav nav-tabs border-bottom">
+  <li class="nav-item">
+    <%= link_to site, class: "nav-link #{params[:action] == 'show' || params[:action].nil? ? 'active' : ''}" do %>
+      <i class="fa-solid fa-binoculars me-2"></i> Site Overview
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to site_site_participants_path(site), class: "nav-link #{params[:controller].include?('site_participants') ? 'active' : ''}" do %>
+      <i class="fa-solid fa-users me-2"></i> Site Participants
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to site_sections_path(site), class: "nav-link #{params[:controller].include?('sections') ? 'active' : ''}" do %>
+      <i class="fa-solid fa-clock me-2"></i> Sections
+    <% end %>
+  </li>
+</ul>

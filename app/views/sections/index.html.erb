@@ -1,13 +1,12 @@
 <% content_for :title, "Sections" %>
 <p style="color: green"><%= notice %></p>
-<h2 class="text-center"><%= @site.name %></h2>
 
-<%= render partial: "sites/sidebar", locals: { site: @site } %>
+<%= render partial: "sites/header", locals: { site: @site } %>
 
 <div class="card main-card">
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
-      <h4 class="mb-0">Site Sections</h4>
+      <h4><%= @site.name %> Sections</h4>
       <% if policy(Section.new).new? %>
         <%= link_to new_site_section_path, class: "btn btn-primary btn-sm" do %>
           <i class="fa-solid fa-circle-plus"></i> New section

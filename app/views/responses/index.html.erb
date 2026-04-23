@@ -1,4 +1,6 @@
-<div class="main-card">
+<% content_for :title, "#{@questionnaire.title.titleize} Responses" %>
+
+<div class="card main-card">
 <% if @questionnaire.demographics? %>
   <%= render 'demo_index' %>
 <% elsif @questionnaire.fidelity? %>

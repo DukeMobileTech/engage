@@ -1,12 +1,11 @@
 <% content_for :title, "Site participants" %>
 <p style="color: green"><%= notice %></p>
-<h2 class="text-center"><%= @site.name %></h2>
 
-<%= render partial: "sites/sidebar", locals: { site: @site } %>
+<%= render partial: "sites/header", locals: { site: @site } %>
 
 <div class="card main-card">
   <div class="card-header">
-    <h4>Site Participants</h4>
+    <h4><%= @site.name %> Participants</h4>
   </div>
   <div class="card-body">
     <%= search_form_for @query, url: site_site_participants_path(@site)  do |form| %>

@@ -1,10 +1,8 @@
 <% content_for :title, "New section" %>
-
 <p style="color: green"><%= notice %></p>
-<h2 class="text-center"><%= @site.name %></h2>
 
 <div class="row mb-5">
-  <%= render partial: "sites/sidebar", locals: { site: @site } %>
+  <%= render partial: "sites/header", locals: { site: @site } %>
   <div class="card main-card">
     <div class="card-header">
       <h4>New Section</h4>

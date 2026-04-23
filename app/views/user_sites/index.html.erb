@@ -1,59 +1,55 @@
 <% content_for :title, "Site Facilitators" %>
+<p style="color: green"><%= notice %></p>
 
-<div class="mb-5">
-  <p style="color: green"><%= notice %></p>
-  <h2 class="text-center"><%= @site.name %></h2>
+<%= render partial: "sites/header", locals: { site: @site } %>
 
-  <%= render partial: "sites/sidebar", locals: { site: @site } %>
-
-  <div class="card main-card">
-    <div class="card-header">
-      <div class="d-flex justify-content-between align-items-center">
-        <h4 class="mb-0">Site Facilitators</h4>
-      </div>
+<div class="card main-card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Site Facilitators</h4>
     </div>
+  </div>
 
-    <div class="card-body">
-      <div class="table-responsive shadow-sm rounded mb-2">
-        <table class="table table-hover align-middle mb-0">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Active</th>
-              <th>Roles</th>
-              <th>Sites</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @users.each do |user| %>
-            <tr scope="row">
-              <td class="link-primary fw-semibold"><%= link_to user.name, user %></td>
-              <td><%= user.email_address %></td>
-              <td>
-                <% if user.active? %>
-                <span class="badge bg-success">Yes</span>
-                <% else %>
-                <span class="badge bg-danger">No</span>
+  <div class="card-body">
+    <div class="table-responsive shadow-sm rounded mb-2">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Active</th>
+            <th>Roles</th>
+            <th>Sites</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+          <tr scope="row">
+            <td class="link-primary fw-semibold"><%= link_to user.name, user %></td>
+            <td><%= user.email_address %></td>
+            <td>
+              <% if user.active? %>
+              <span class="badge bg-success">Yes</span>
+              <% else %>
+              <span class="badge bg-danger">No</span>
+              <% end %>
+            </td>
+            <td>
+              <% user.roles.each do |role| %>
+              <span><%= role.name %> </span>
+              <% end %>
+            </td>
+            <td>
+              <% unless user.admin? %>
+                <% user.sites.kept.each do |site| %>
+                  <span><%= link_to site.name, site, class: "btn btn-sm btn-outline-info mb-1" %> </span>
                 <% end %>
-              </td>
-              <td>
-                <% user.roles.each do |role| %>
-                <span><%= role.name %> </span>
-                <% end %>
-              </td>
-              <td>
-                <% unless user.admin? %>
-                  <% user.sites.kept.each do |site| %>
-                    <span><%= link_to site.name, site, class: "btn btn-sm btn-outline-info mb-1" %> </span>
-                  <% end %>
-                <% end %>
-              </td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
