@@ -1,77 +1,70 @@
-<div>
-  <h4 class="text-decoration-underline">Session Details</h4>
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="text-decoration-underline">Session Details</h4>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @sitting.name %>
-  </p>
+    <p>
+      <strong>Done On:</strong>
+      <%= sitting.done_on.strftime("%F %H:%M %p") %>
+    </p>
 
-  <p>
-    <strong>Done On:</strong>
-    <%= @sitting.done_on.strftime("%F %H:%M %p") %>
-  </p>
+    <p>
+      <strong>Lessons Planned:</strong>
+      <% sitting.sitting_lessons.each do |sitting_lesson| %>
+        <span>
+          <%= link_to sitting_lesson.lesson.title, curriculum_path(section.curriculum) %>
+        </span>
+      <% end %>
+    </p>
 
-  <p>
-    <strong>Section:</strong>
-    <%= @sitting.section.name %>
-  </p>
+    <p>
+      <strong>Lessons Covered:</strong>
+      <%= sitting.lessons_covered_list %>
+    </p>
 
-  <p>
-    <strong>Session Lessons:</strong>
-    <% @sitting.sitting_lessons.each do |sitting_lesson| %>
+    <p>
+      <strong>Facilitators:</strong>
+      <%= sitting.users.map(&:name).join(", ") %>
+    </p>
+  </div>
+  <div class="col-md-6">
+    <h4 class="text-decoration-underline">Session Actions</h4>
+
+    <p>
+      <strong>Entry Completed:</strong>
+      <span><%= sitting.completed ? "Yes" : "No" %></span>
+      <% if policy(sitting).edit? %>
+        <span><%= link_to "Update", edit_site_section_sitting_path(site, section, sitting, close_out: true), class: 'btn btn-sm btn-outline-warning' %></span>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Attendance Logs:</strong>
+      <% sitting.sitting_lessons.each do |sitting_lesson| %>
+        <em><%= sitting_lesson.lesson.title %>: </em> <span class="badge text-bg-warning"><%= link_to sitting_lesson.participation, site_section_sitting_sitting_lesson_path(site, section, sitting, sitting_lesson) %></span>
+      <% end %>
+    </p>
+
+    <% fid_form = Questionnaire.fidelity %>
+    <% obs_form = Questionnaire.observation %>
+
+    <p>
+      <strong>Fidelity Logs:</strong>
+      <% sitting.fidelity_log_responses.each do |log| %>
+        <span><%= link_to log.id, questionnaire_response_path(fid_form&.id, log.id), class: "btn btn-sm btn-outline-success" %></span>
+      <% end %>
       <span>
-        <%= link_to sitting_lesson.lesson.title, curriculum_path(@section.curriculum) %>
+        <%= link_to "Fill new fidelity log", questionnaire_responses_path(fid_form&.id, sitting_id: sitting.id), class: "btn btn-sm btn-outline-info" %>
       </span>
-    <% end %>
-  </p>
+    </p>
 
-  <p>
-    <strong>Facilitators:</strong>
-    <%= @sitting.users.map(&:name).join(", ") %>
-  </p>
-
-  <h4 class="text-decoration-underline">Session Status</h4>
-
-  <p>
-    <strong>Entry Completed:</strong>
-    <span><%= @sitting.completed ? "Yes" : "No" %></span>
-    <% if policy(@sitting).edit? %>
-      <span><%= link_to "Update", edit_site_section_sitting_path(@site, @section, @sitting, close_out: true), class: 'btn btn-sm btn-outline-warning' %></span>
-    <% end %>
-  </p>
-
-  <p>
-    <strong>Lessons Covered:</strong>
-    <%= @sitting.lessons_covered_list %>
-  </p>
-
-  <p>
-    <strong>Session Attendance:</strong>
-    <% @sitting.sitting_lessons.each do |sitting_lesson| %>
-      <em><%= "#{sitting_lesson.lesson.title}: " %></em> <span class="badge text-bg-warning"><%= link_to sitting_lesson.participation, site_section_sitting_sitting_lesson_path(@site, @section, @sitting, sitting_lesson) %></span>
-    <% end %>
-  </p>
-
-  <% fid_form = Questionnaire.fidelity %>
-  <% obs_form = Questionnaire.observation %>
-
-  <p>
-    <strong>Fidelity Log ID(s):</strong>
-    <% @sitting.fidelity_log_responses.each do |log| %>
-      <span><%= link_to log.id, questionnaire_response_path(fid_form&.id, log.id), class: "btn btn-sm btn-outline-success" %></span>
-    <% end %>
-    <span>
-      <%= link_to "Fill new fidelity log", questionnaire_responses_path(fid_form&.id, sitting_id: @sitting.id), class: "btn btn-sm btn-outline-info" %>
-    </span>
-  </p>
-
-  <p>
-    <strong>Program Observation ID(s):</strong>
-    <% @sitting.program_observation_responses.each do |log| %>
-      <span><%= link_to log.id, questionnaire_response_path(obs_form&.id, log.id), class: "btn btn-sm btn-outline-success" %></span>
-    <% end %>
-    <span>
-      <%= link_to "Fill new program observation", questionnaire_responses_path(obs_form&.id, sitting_id: @sitting.id), class: "btn btn-sm btn-outline-info" %>
-    </span>
-  </p>
+    <p>
+      <strong>Program Observations:</strong>
+      <% sitting.program_observation_responses.each do |log| %>
+        <span><%= link_to log.id, questionnaire_response_path(obs_form&.id, log.id), class: "btn btn-sm btn-outline-success" %></span>
+      <% end %>
+      <span>
+        <%= link_to "Fill new program observation", questionnaire_responses_path(obs_form&.id, sitting_id: sitting.id), class: "btn btn-sm btn-outline-info" %>
+      </span>
+    </p>
+  </div>
 </div>

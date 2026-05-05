@@ -7,7 +7,7 @@
       <h4>Details For <%= @sitting.name %></h4>
     </div>
     <div class="card-body">
-      <%= render "sitting", locals: { sitting: @sitting } %>
+      <%= render partial: "sitting", locals: { sitting: @sitting, section: @section, site: @site } %>
     </div>
     <div class="card-footer">
       <div class="m-1 d-flex justify-content-between">
